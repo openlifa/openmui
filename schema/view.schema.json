@@ -97,6 +97,7 @@
         "verb_args",
         "visible",
         "width",
+        "window_area",
         "wrap"
       ]
     },
