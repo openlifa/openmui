@@ -253,6 +253,13 @@ typed properties (with defaults and bindability), events, actions (with
 effects), key bindings, commands, parts and motion. The Core contracts are in
 registry/components and use the same format as any third-party contract.
 
+A contract property may share its name with a property every node has
+(layout, look, motion, semantics: `runtime_property_name` in
+schema/view.schema.json). Its value then reaches both the component and the
+runtime: a glass group's `gap` spaces its members and is the layout's gap; a
+checkbox's `label` is what it shows and its accessible name. Neither shadows
+the other.
+
 ## 12. Extensions and profiles
 
 Capabilities beyond the Core profile are extensions (`OMUI_EXT_*`), queried at
