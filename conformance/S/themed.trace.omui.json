@@ -1,0 +1,291 @@
+{
+ "omui": "0.1",
+ "trace": [
+  {
+   "step": 0,
+   "tree": [
+    {
+     "id": "main/greeting",
+     "name": "Hello, Ada",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "args": {
+        "text": "string"
+       },
+       "effect": "reversible",
+       "name": "replace_selection"
+      },
+      {
+       "args": {
+        "anchor": "i64",
+        "focus": "i64"
+       },
+       "effect": "read",
+       "name": "set_selection"
+      },
+      {
+       "args": {
+        "value": "string"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/name",
+     "name": "Name",
+     "origin": "user_content",
+     "role": "text_box",
+     "state": [
+      "focusable",
+      "editable"
+     ],
+     "value": "Ada"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/go",
+     "name": "Go",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    }
+   ]
+  },
+  {
+   "step": 1,
+   "theme": "ok"
+  },
+  {
+   "step": 2,
+   "tree": [
+    {
+     "id": "main/greeting",
+     "name": "Hello, Ada",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "args": {
+        "text": "string"
+       },
+       "effect": "reversible",
+       "name": "replace_selection"
+      },
+      {
+       "args": {
+        "anchor": "i64",
+        "focus": "i64"
+       },
+       "effect": "read",
+       "name": "set_selection"
+      },
+      {
+       "args": {
+        "value": "string"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/name",
+     "name": "Name",
+     "origin": "user_content",
+     "role": "text_box",
+     "state": [
+      "focusable",
+      "editable"
+     ],
+     "value": "Ada"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/go",
+     "name": "Go",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    }
+   ]
+  },
+  {
+   "step": 3,
+   "themes": {
+    "current": "dark",
+    "dark": true,
+    "overlays": [
+     "compact",
+     "reduced_motion"
+    ],
+    "themes": [
+     "dark",
+     "light"
+    ]
+   }
+  },
+  {
+   "step": 4,
+   "theme": "ok"
+  },
+  {
+   "step": 5,
+   "tree": [
+    {
+     "id": "main/greeting",
+     "name": "Hello, Ada",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "args": {
+        "text": "string"
+       },
+       "effect": "reversible",
+       "name": "replace_selection"
+      },
+      {
+       "args": {
+        "anchor": "i64",
+        "focus": "i64"
+       },
+       "effect": "read",
+       "name": "set_selection"
+      },
+      {
+       "args": {
+        "value": "string"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/name",
+     "name": "Name",
+     "origin": "user_content",
+     "role": "text_box",
+     "state": [
+      "focusable",
+      "editable"
+     ],
+     "value": "Ada"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/go",
+     "name": "Go",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    }
+   ]
+  },
+  {
+   "step": 6,
+   "themes": {
+    "current": "light+compact+reduced_motion",
+    "dark": false,
+    "overlays": [
+     "compact",
+     "reduced_motion"
+    ],
+    "themes": [
+     "dark",
+     "light"
+    ]
+   }
+  },
+  {
+   "error": "not-found",
+   "step": 7
+  },
+  {
+   "error": "invalid-argument",
+   "step": 8
+  },
+  {
+   "step": 9,
+   "themes": {
+    "current": "light+compact+reduced_motion",
+    "dark": false,
+    "overlays": [
+     "compact",
+     "reduced_motion"
+    ],
+    "themes": [
+     "dark",
+     "light"
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,1497 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:openmui:view-document:0.1",
+  "title": "openmui view document (*.view.omui.json)",
+  "description": "A view as data (view-data-files §3). Generated from the registered components by `omui schema`; `omui check` applies the same rules and more (names in expressions, ids, types of constants).",
+  "type": "object",
+  "properties": {
+    "omui": {"type": "string", "description": "the format version, \"0.1\""},
+    "imports": {"type": "array", "items": {"type": "string"}},
+    "notes": {"type": "string"},
+    "view": {"$ref": "#/$defs/view"},
+    "component": {"$ref": "#/$defs/component"},
+    "$comment": {"type": "string"}
+  },
+  "required": ["omui"],
+  "oneOf": [{"required": ["view"]}, {"required": ["component"]}],
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]{1,128}$",
+      "description": "An explicit id (spec S-8): never display text"
+    },
+    "expression": {
+      "type": "string",
+      "description": "A CEL expression (registry/expr.toml): signals, models, properties, `event` in handlers"
+    },
+    "runtime_property": {"description": "A property every node has (layout, look, motion, semantics)"},
+    "runtime_property_name": {
+      "enum": [
+        "align",
+        "align_content",
+        "align_items",
+        "align_self",
+        "answer",
+        "aspect_ratio",
+        "auto_columns",
+        "auto_rows",
+        "background",
+        "basis",
+        "border_color",
+        "border_width",
+        "bottom",
+        "clip",
+        "column",
+        "column_gap",
+        "columns",
+        "description",
+        "direction",
+        "disabled",
+        "display",
+        "effect",
+        "focusable",
+        "gap",
+        "glyph_motion",
+        "grid_flow",
+        "grow",
+        "height",
+        "justify",
+        "justify_self",
+        "label",
+        "left",
+        "margin",
+        "max_height",
+        "max_width",
+        "min_height",
+        "min_width",
+        "opacity",
+        "origin",
+        "overflow",
+        "padding",
+        "padding_bottom",
+        "padding_left",
+        "padding_right",
+        "padding_top",
+        "padding_x",
+        "padding_y",
+        "person",
+        "pixel_effect",
+        "pointer_events",
+        "position",
+        "radii",
+        "radius",
+        "right",
+        "role",
+        "rotation",
+        "row",
+        "row_gap",
+        "rows",
+        "scale",
+        "shadow",
+        "shrink",
+        "top",
+        "translate_x",
+        "translate_y",
+        "verb",
+        "verb_args",
+        "visible",
+        "width",
+        "wrap"
+      ]
+    },
+    "runtime_event": {
+      "enum": [
+        "activate",
+        "blur",
+        "close_request",
+        "focus",
+        "key_down",
+        "key_up",
+        "pointer_cancel",
+        "pointer_down",
+        "pointer_enter",
+        "pointer_leave",
+        "pointer_move",
+        "pointer_up",
+        "preedit",
+        "press",
+        "text_input",
+        "wheel"
+      ]
+    },
+    "oneway": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {"expr": {"$ref": "#/$defs/expression"}},
+          "required": ["expr"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "tr": {"type": "string"},
+            "args": {"type": "object", "additionalProperties": {"$ref": "#/$defs/expression"}}
+          },
+          "required": ["tr"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {"value": {}},
+          "required": ["value"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "binding": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {"expr": {"$ref": "#/$defs/expression"}},
+          "required": ["expr"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "tr": {"type": "string"},
+            "args": {"type": "object", "additionalProperties": {"$ref": "#/$defs/expression"}}
+          },
+          "required": ["tr"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {"bind": {"type": "string", "description": "a signal, or a bindable interface property"}},
+          "required": ["bind"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {"value": {}},
+          "required": ["value"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "operation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {"set": {"type": "string"}, "expr": {"$ref": "#/$defs/expression"}, "value": {}},
+          "required": ["set"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "verb": {"type": "string", "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)*$"},
+            "args": {
+              "type": "object",
+              "additionalProperties": {"description": "a string is an expression; anything else a constant"}
+            }
+          },
+          "required": ["verb"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "emit": {"type": "string"},
+            "args": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": {"description": "a string is an expression; anything else a constant"}
+                },
+                {"type": "array", "items": {"$ref": "#/$defs/expression"}}
+              ]
+            }
+          },
+          "required": ["emit"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "operations": {"type": "array", "items": {"$ref": "#/$defs/operation"}},
+    "transition": {
+      "oneOf": [
+        {"type": "string", "description": "a motion token: motion.fast, motion.spring.snappy …"},
+        {
+          "type": "object",
+          "properties": {"ease": {"type": "string"}, "ms": {"type": "number"}, "delay_ms": {"type": "number"}},
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "spring": {
+              "anyOf": [
+                {"type": "string"},
+                {
+                  "type": "object",
+                  "properties": {
+                    "stiffness": {"type": "number"},
+                    "damping": {"type": "number"},
+                    "mass": {"type": "number"}
+                  },
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "delay_ms": {"type": "number"}
+          },
+          "required": ["spring"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "component.box": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "box"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {},
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
+    "component.button": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "button"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "icon": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "An icon token shown before the label. — default \"\""
+            },
+            "text": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "The label, also the accessible name. — default \"\" (bindable)"
+            },
+            "variant": {
+              "anyOf": [{"enum": ["primary", "secondary", "ghost", "danger"]}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"secondary\""
+            },
+            "verb": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The verb activation invokes; its effect classifies `activate`. — default \"\""
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["disabled", "icon", "text", "variant", "verb"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["activated"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "Performs an action when activated."
+    },
+    "component.checkbox": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "checkbox"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "checked": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/binding"}],
+              "description": "default false (bindable)"
+            },
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "indeterminate": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["checked", "disabled", "indeterminate", "label"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A checkable option; can be indeterminate."
+    },
+    "component.column": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "column"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {},
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
+    "component.dialog": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "dialog"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "modal": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default true"
+            },
+            "open": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/binding"}],
+              "description": "default false (bindable)"
+            },
+            "title": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            }
+          },
+          "propertyNames": {
+            "anyOf": [{"enum": ["modal", "open", "title"]}, {"$ref": "#/$defs/runtime_property_name"}]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["closed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A window over the application; modal by default."
+    },
+    "component.grid": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "grid"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {},
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
+    "component.image": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "image"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "alt": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Text alternative; empty marks the image decorative (role none). — default \"\""
+            },
+            "fit": {
+              "anyOf": [
+                {"enum": ["contain", "cover", "fill", "none", "scale_down"]},
+                {"$ref": "#/$defs/oneway"}
+              ],
+              "description": "default \"contain\""
+            },
+            "source": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "A path, a resource name or a data URI. — default \"\""
+            }
+          },
+          "propertyNames": {"anyOf": [{"enum": ["alt", "fit", "source"]}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["failed", "loaded"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A raster or vector image; `alt` is its accessible name."
+    },
+    "component.list": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "list"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "estimate": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Estimated item height before measuring. — default 32"
+            },
+            "model": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The model whose rows are the items. — default \"\""
+            },
+            "selectable": {
+              "anyOf": [{"enum": ["none", "single", "multiple"]}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"none\""
+            },
+            "selected": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/binding"}],
+              "description": "default [] (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["estimate", "model", "selectable", "selected"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["activated", "changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A list of items, virtualised: only the visible items exist as nodes, the rest answer queries (S-7)."
+    },
+    "component.list_item": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "list_item"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
+    "component.markdown": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "markdown"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "base_url": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Where relative image sources and links resolve from (a directory or a URL). — default \"\""
+            },
+            "extensions": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "`gfm`, `commonmark`, or extensions by name: tables, strikethrough, tasklists, autolinks, math, wikilinks, underline … — default []"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The accessible name of the document (otherwise its first heading). — default \"\""
+            },
+            "origin": {
+              "anyOf": [{"enum": ["app", "user_content", "remote"]}, {"$ref": "#/$defs/oneway"}],
+              "description": "Where the text came from; remote text (an LLM's, a web page's) is marked so on every node. — default \"user_content\""
+            },
+            "source": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "The Markdown text. A value that extends the current one is appended (streaming). — default \"\" (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["base_url", "extensions", "label", "origin", "source"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["changed", "heading_visible", "link_activated", "task_toggled"]},
+              {"$ref": "#/$defs/runtime_event"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A Markdown document: rendered, semantic, streamable."
+    },
+    "component.menu": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "menu"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "open": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/binding"}],
+              "description": "default false (bindable)"
+            }
+          },
+          "propertyNames": {"anyOf": [{"enum": ["open"]}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["closed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A popup list of commands."
+    },
+    "component.menu_item": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "menu_item"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "shortcut": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "text": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "verb": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["disabled", "shortcut", "text", "verb"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["activated"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A command of a menu."
+    },
+    "component.paint": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "paint"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {},
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {"type": "object", "additionalProperties": {"$ref": "#/$defs/operations"}},
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
+    "component.progress": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "progress"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "value": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/binding"}],
+              "description": "0..1, or negative for indeterminate. — default -1 (bindable)"
+            }
+          },
+          "propertyNames": {"anyOf": [{"enum": ["label", "value"]}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "The progress of a task; indeterminate when value is negative."
+    },
+    "component.radio": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "radio"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "group": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "The group's current value (bound to a signal). — default \"\" (bindable)"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "value": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The value the group takes when this option is selected. — default \"\""
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["disabled", "group", "label", "value"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["selected"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "One of a set of mutually exclusive options; the group is the radio_group role."
+    },
+    "component.row": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "row"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {},
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
+    "component.scroll_view": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "scroll_view"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "horizontal": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "vertical": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default true"
+            },
+            "x": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/binding"}],
+              "description": "Horizontal content offset. — default 0 (bindable)"
+            },
+            "y": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/binding"}],
+              "description": "Vertical content offset. — default 0 (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["horizontal", "vertical", "x", "y"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["scrolled"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A viewport onto content larger than itself."
+    },
+    "component.select": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "select"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "labels": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "default []"
+            },
+            "options": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "Option values; labels come from `labels` or the values. — default []"
+            },
+            "value": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "default \"\" (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["disabled", "label", "labels", "options", "value"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "Chooses one value from a popup list of options."
+    },
+    "component.select_option": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "select_option"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {"type": "object", "additionalProperties": {"$ref": "#/$defs/operations"}},
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
+    "component.select_popup": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "select_popup"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {"type": "object", "additionalProperties": {"$ref": "#/$defs/operations"}},
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
+    "component.slider": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "slider"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "max": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default 100"
+            },
+            "min": {"anyOf": [{"type": "number"}, {"$ref": "#/$defs/oneway"}], "description": "default 0"},
+            "step": {"anyOf": [{"type": "number"}, {"$ref": "#/$defs/oneway"}], "description": "default 1"},
+            "value": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/binding"}],
+              "description": "default 0 (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["disabled", "label", "max", "min", "step", "value"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed", "committed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "Chooses a number in a range by dragging a thumb or stepping."
+    },
+    "component.spacer": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "spacer"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {},
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
+    "component.stack": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "stack"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {},
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
+    "component.tab": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "tab"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "text": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            }
+          },
+          "propertyNames": {"anyOf": [{"enum": ["disabled", "text"]}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A tab of a tab list."
+    },
+    "component.tabs": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "tabs"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "selected": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "The id of the selected tab. — default \"\" (bindable)"
+            }
+          },
+          "propertyNames": {"anyOf": [{"enum": ["selected"]}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A set of tabs selecting one panel."
+    },
+    "component.text": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "text"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "align": {
+              "anyOf": [{"enum": ["start", "center", "end", "justify"]}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"start\""
+            },
+            "color": {
+              "anyOf": [
+                {"type": "string", "description": "a theme colour token or #rrggbb[aa]"},
+                {"$ref": "#/$defs/oneway"}
+              ],
+              "description": "Overrides the style's colour (theme token or #rrggbb). — default \"\""
+            },
+            "max_lines": {
+              "anyOf": [{"type": "integer"}, {"$ref": "#/$defs/oneway"}],
+              "description": "0 is unlimited; beyond it the text ends with an ellipsis. — default 0"
+            },
+            "origin": {
+              "anyOf": [{"enum": ["app", "user_content", "remote"]}, {"$ref": "#/$defs/oneway"}],
+              "description": "Where the text came from (S-3). — default \"app\""
+            },
+            "selectable": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "style": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "A text style token: display, title, heading, body, label, caption, code. — default \"body\""
+            },
+            "text": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "The text; may be an expression. — default \"\" (bindable)"
+            },
+            "wrap": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default true"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {
+                "enum": ["align", "color", "max_lines", "origin", "selectable", "style", "text", "wrap"]
+              },
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A run of styled text; wraps, aligns and truncates."
+    },
+    "component.text_box": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "text_box"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The accessible name when no visible label is associated. — default \"\""
+            },
+            "max_length": {"anyOf": [{"type": "integer"}, {"$ref": "#/$defs/oneway"}], "description": "default 0"},
+            "multiline": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "origin": {
+              "anyOf": [{"enum": ["app", "user_content", "remote"]}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"user_content\""
+            },
+            "password": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "placeholder": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "readonly": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "text": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "default \"\" (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {
+                "enum": [
+                  "disabled",
+                  "label",
+                  "max_length",
+                  "multiline",
+                  "origin",
+                  "password",
+                  "placeholder",
+                  "readonly",
+                  "text"
+                ]
+              },
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed", "submitted"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A single- or multi-line text field with selection, clipboard and input methods."
+    },
+    "component.toggle": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "toggle"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "checked": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/binding"}],
+              "description": "default false (bindable)"
+            },
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            }
+          },
+          "propertyNames": {
+            "anyOf": [{"enum": ["checked", "disabled", "label"]}, {"$ref": "#/$defs/runtime_property_name"}]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "An on/off switch."
+    },
+    "component.tooltip": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "tooltip"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "delay": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Seconds before showing. — default 0.5"
+            },
+            "text": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            }
+          },
+          "propertyNames": {"anyOf": [{"enum": ["delay", "text"]}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A short description shown while hovering or focusing an element."
+    },
+    "if": {
+      "type": "object",
+      "properties": {
+        "if": {"$ref": "#/$defs/expression"},
+        "then": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "else": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "notes": {"type": "string"}
+      },
+      "required": ["if", "then"],
+      "additionalProperties": false
+    },
+    "for": {
+      "type": "object",
+      "properties": {
+        "for": {"type": "string", "description": "the name of each row"},
+        "in": {"type": "string", "description": "a model of the document"},
+        "where": {"$ref": "#/$defs/expression"},
+        "body": {"type": "array", "items": {"$ref": "#/$defs/node"}, "minItems": 1, "maxItems": 1},
+        "notes": {"type": "string"}
+      },
+      "required": ["for", "in", "body"],
+      "additionalProperties": false
+    },
+    "slot": {
+      "type": "object",
+      "properties": {"slot": {"type": "string"}, "notes": {"type": "string"}},
+      "required": ["slot"],
+      "additionalProperties": false
+    },
+    "node": {
+      "oneOf": [
+        {"$ref": "#/$defs/component.box"},
+        {"$ref": "#/$defs/component.button"},
+        {"$ref": "#/$defs/component.checkbox"},
+        {"$ref": "#/$defs/component.column"},
+        {"$ref": "#/$defs/component.dialog"},
+        {"$ref": "#/$defs/component.grid"},
+        {"$ref": "#/$defs/component.image"},
+        {"$ref": "#/$defs/component.list"},
+        {"$ref": "#/$defs/component.list_item"},
+        {"$ref": "#/$defs/component.markdown"},
+        {"$ref": "#/$defs/component.menu"},
+        {"$ref": "#/$defs/component.menu_item"},
+        {"$ref": "#/$defs/component.paint"},
+        {"$ref": "#/$defs/component.progress"},
+        {"$ref": "#/$defs/component.radio"},
+        {"$ref": "#/$defs/component.row"},
+        {"$ref": "#/$defs/component.scroll_view"},
+        {"$ref": "#/$defs/component.select"},
+        {"$ref": "#/$defs/component.select_option"},
+        {"$ref": "#/$defs/component.select_popup"},
+        {"$ref": "#/$defs/component.slider"},
+        {"$ref": "#/$defs/component.spacer"},
+        {"$ref": "#/$defs/component.stack"},
+        {"$ref": "#/$defs/component.tab"},
+        {"$ref": "#/$defs/component.tabs"},
+        {"$ref": "#/$defs/component.text"},
+        {"$ref": "#/$defs/component.text_box"},
+        {"$ref": "#/$defs/component.toggle"},
+        {"$ref": "#/$defs/component.tooltip"},
+        {"$ref": "#/$defs/if"},
+        {"$ref": "#/$defs/for"},
+        {"$ref": "#/$defs/slot"}
+      ]
+    },
+    "signals": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "type": {"enum": ["any", "bool", "double", "int", "list", "map", "string"]},
+          "value": {},
+          "doc": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "models": {
+      "type": "object",
+      "additionalProperties": {
+        "anyOf": [
+          {"type": "string"},
+          {
+            "type": "object",
+            "properties": {"type": {"type": "string"}},
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "interface": {
+      "type": "object",
+      "properties": {
+        "role": {"type": "string"},
+        "doc": {"type": "string"},
+        "props": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": ["any", "bool", "color", "enum", "f64", "i32", "i64", "list<string>", "string"]
+              },
+              "default": {},
+              "bindable": {"type": "boolean"},
+              "values": {"type": "array", "items": {"type": "string"}},
+              "doc": {"type": "string"}
+            },
+            "required": ["type"],
+            "additionalProperties": false
+          }
+        },
+        "events": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "args": {"type": "object", "additionalProperties": {"type": "string"}},
+              "doc": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "view": {
+      "type": "object",
+      "properties": {
+        "name": {"type": "string"},
+        "notes": {"type": "string"},
+        "signals": {"$ref": "#/$defs/signals"},
+        "models": {"$ref": "#/$defs/models"},
+        "root": {"$ref": "#/$defs/node"}
+      },
+      "required": ["root"],
+      "additionalProperties": false
+    },
+    "component": {
+      "type": "object",
+      "properties": {
+        "name": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "notes": {"type": "string"},
+        "interface": {"$ref": "#/$defs/interface"},
+        "signals": {"$ref": "#/$defs/signals"},
+        "models": {"$ref": "#/$defs/models"},
+        "root": {"$ref": "#/$defs/node"}
+      },
+      "required": ["name", "root"],
+      "additionalProperties": false
+    }
+  }
+}

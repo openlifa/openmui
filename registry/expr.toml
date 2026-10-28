@@ -1,0 +1,201 @@
+# expr — the expression language of bindings (view-data-files §4).
+#
+# One AST, two notations: combinator functions in code, CEL-compatible strings
+# in data files. Expressions have no side effects, always terminate, are typed,
+# and are evaluated synchronously by native code; an error yields the type's
+# default value and a diagnostic, never an exception.
+spec = "0.3"
+
+types = ["null", "bool", "int", "double", "string", "list", "map"]
+
+[[operator]]
+name = "neg"
+text = "-"
+arity = 1
+combinators = { cpp = "neg", ts = "neg", python = "neg", lua = "neg" }
+[[operator]]
+name = "not"
+text = "!"
+arity = 1
+combinators = { cpp = "not_", ts = "not", python = "not_", lua = "Not" }
+[[operator]]
+name = "mul"
+text = "*"
+arity = 2
+combinators = { cpp = "mul", ts = "mul", python = "mul", lua = "mul" }
+[[operator]]
+name = "div"
+text = "/"
+arity = 2
+combinators = { cpp = "div", ts = "div", python = "div", lua = "div" }
+[[operator]]
+name = "mod"
+text = "%"
+arity = 2
+combinators = { cpp = "mod", ts = "mod", python = "mod", lua = "mod" }
+[[operator]]
+name = "add"
+text = "+"
+arity = 2
+combinators = { cpp = "add", ts = "add", python = "add", lua = "add" }
+[[operator]]
+name = "sub"
+text = "-"
+arity = 2
+combinators = { cpp = "sub", ts = "sub", python = "sub", lua = "sub" }
+[[operator]]
+name = "lt"
+text = "<"
+arity = 2
+combinators = { cpp = "lt", ts = "lt", python = "lt", lua = "lt" }
+[[operator]]
+name = "le"
+text = "<="
+arity = 2
+combinators = { cpp = "le", ts = "le", python = "le", lua = "le" }
+[[operator]]
+name = "gt"
+text = ">"
+arity = 2
+combinators = { cpp = "gt", ts = "gt", python = "gt", lua = "gt" }
+[[operator]]
+name = "ge"
+text = ">="
+arity = 2
+combinators = { cpp = "ge", ts = "ge", python = "ge", lua = "ge" }
+[[operator]]
+name = "eq"
+text = "=="
+arity = 2
+combinators = { cpp = "eq", ts = "eq", python = "eq", lua = "eq" }
+[[operator]]
+name = "ne"
+text = "!="
+arity = 2
+combinators = { cpp = "ne", ts = "ne", python = "ne", lua = "ne" }
+[[operator]]
+name = "in"
+text = "in"
+arity = 2
+combinators = { cpp = "in", ts = "isIn", python = "in_", lua = "In" }
+[[operator]]
+name = "and"
+text = "&&"
+arity = 2
+combinators = { cpp = "and_", ts = "and", python = "and_", lua = "And" }
+[[operator]]
+name = "or"
+text = "||"
+arity = 2
+combinators = { cpp = "or_", ts = "or", python = "or_", lua = "Or" }
+[[operator]]
+name = "select"
+text = "?:"
+arity = 3
+combinators = { cpp = "select", ts = "select", python = "select", lua = "select" }
+
+[[function]]
+name = "format"
+signature = "format(string pattern, any...) -> string"
+doc = "Replaces each {} in the pattern with the next argument's text ({{ and }} are literal braces)."
+combinators = { cpp = "fmt", ts = "fmt", python = "fmt", lua = "fmt" }
+[[function]]
+name = "size"
+signature = "size(string | list | map) -> int"
+doc = "Length in grapheme clusters for a string, in elements otherwise."
+[[function]]
+name = "len"
+signature = "len(string | list | map) -> int"
+doc = "Same as size."
+[[function]]
+name = "contains"
+signature = "contains(string, string) -> bool | contains(list, any) -> bool"
+doc = "Whether the first argument contains the second."
+[[function]]
+name = "startsWith"
+signature = "startsWith(string, string) -> bool"
+doc = "CEL's startsWith."
+[[function]]
+name = "endsWith"
+signature = "endsWith(string, string) -> bool"
+doc = "CEL's endsWith."
+[[function]]
+name = "lower"
+signature = "lower(string) -> string"
+doc = "Lower case: Unicode full case mapping, the same in every locale (Σ ending a word becomes ς)."
+[[function]]
+name = "upper"
+signature = "upper(string) -> string"
+doc = "Upper case: Unicode full case mapping, the same in every locale (ß becomes SS)."
+[[function]]
+name = "trim"
+signature = "trim(string) -> string"
+doc = "Removes white space at both ends."
+[[function]]
+name = "min"
+signature = "min(number, number...) -> number"
+doc = "The smallest argument."
+[[function]]
+name = "max"
+signature = "max(number, number...) -> number"
+doc = "The largest argument."
+[[function]]
+name = "clamp"
+signature = "clamp(number x, number lo, number hi) -> number"
+doc = "x limited to [lo, hi]."
+[[function]]
+name = "abs"
+signature = "abs(number) -> number"
+doc = "Absolute value."
+[[function]]
+name = "round"
+signature = "round(double) -> int"
+doc = "Nearest integer, halves away from zero."
+[[function]]
+name = "floor"
+signature = "floor(double) -> int"
+doc = "Largest integer not above."
+[[function]]
+name = "ceil"
+signature = "ceil(double) -> int"
+doc = "Smallest integer not below."
+[[function]]
+name = "int"
+signature = "int(any) -> int"
+doc = "Conversion to int (truncation for doubles, parsing for strings, 0 on failure)."
+[[function]]
+name = "double"
+signature = "double(any) -> double"
+doc = "Conversion to double."
+[[function]]
+name = "string"
+signature = "string(any) -> string"
+doc = "The value's text (shortest round-trip form for doubles)."
+[[function]]
+name = "has"
+signature = "has(map.field) -> bool"
+doc = "Whether a map has a field (CEL's has macro)."
+[[function]]
+name = "lookup"
+signature = "lookup(map | list, key, default?) -> any"
+doc = "An element by key or index, or the default (null) when absent."
+combinators = { cpp = "lookup", ts = "lookup", python = "lookup", lua = "lookup" }
+[[function]]
+name = "tr"
+signature = "tr(string key, map args?) -> string"
+doc = "The message of a key in the person's language (MessageFormat 2), formatted with its arguments by name; a key no catalog has is the message itself."
+combinators = { cpp = "tr", ts = "tr", python = "tr", lua = "tr" }
+[[function]]
+name = "interpolate"
+signature = "interpolate(double x, list input, list output, string ease?) -> double"
+doc = "Maps x through piecewise-linear ranges, eased within each segment, clamped outside (video authoring)."
+combinators = { cpp = "interpolate", ts = "interpolate", python = "interpolate", lua = "interpolate" }
+[[function]]
+name = "ease"
+signature = "ease(string name, double t) -> double"
+doc = "An easing curve of registry/motion.toml at progress t."
+[[function]]
+name = "spring"
+signature = "spring(double t, double from, double to, double stiffness?, double damping?, double mass?) -> double"
+doc = "The closed-form spring of registry/motion.toml at time t (seconds), starting at rest."
+combinators = { cpp = "spring", ts = "spring", python = "spring", lua = "spring" }

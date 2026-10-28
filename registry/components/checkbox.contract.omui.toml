@@ -1,0 +1,28 @@
+[contract.checkbox]
+role = "checkbox"
+spec = "0.1"
+doc  = "A checkable option; can be indeterminate."
+
+[contract.checkbox.props]
+checked       = { type = "bool", default = false, bindable = true }
+indeterminate = { type = "bool", default = false }
+label         = { type = "string", default = "" }
+disabled      = { type = "bool", default = false }
+
+[contract.checkbox.events]
+changed = { args = { checked = "bool" } }
+
+[contract.checkbox.actions]
+toggle   = { effect = "reversible" }
+activate = { effect = "reversible" }
+
+[contract.checkbox.keys]
+"Space" = "toggle"
+
+[contract.checkbox.parts]
+box   = {}
+mark  = {}
+label = {}
+
+[contract.checkbox.motion]
+mark = "motion.fast"

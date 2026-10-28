@@ -1,0 +1,58 @@
+{
+  "omui": "0.1",
+  "scenario": {
+    "doc": "A tally: expressions of every kind (arithmetic, comparison, logic, functions, format, select), handlers that update and clamp a signal, a property bound both ways, a disabled control refusing an action.",
+    "signals": {"count": 0, "goal": 3, "last": 0},
+    "view": {
+      "type": "column", "props": {"gap": 8}, "children": [
+        {"type": "text", "id": "count", "props": {"text": {"call": "string", "args": [{"signal": "count"}]}}},
+        {"type": "text", "id": "status", "props": {"text": {"select": [
+          {"op": ">=", "args": [{"signal": "count"}, {"signal": "goal"}]},
+          {"fmt": "Goal of {} reached", "args": [{"signal": "goal"}]},
+          {"fmt": "{} to go", "args": [{"op": "-", "args": [{"signal": "goal"}, {"signal": "count"}]}]}
+        ]}}},
+        {"type": "progress", "id": "progress", "props": {"label": "Towards the goal", "value": {"call": "clamp", "args": [
+          {"op": "/", "args": [{"call": "double", "args": [{"signal": "count"}]}, {"call": "double", "args": [{"call": "max", "args": [{"signal": "goal"}, 1]}]}]},
+          0.0, 1.0
+        ]}}},
+        {"type": "text", "id": "parity", "props": {"text": {"select": [
+          {"op": "and", "args": [{"op": "==", "args": [{"op": "%", "args": [{"signal": "count"}, 2]}, 0]}, {"op": ">", "args": [{"signal": "count"}, 0]}]},
+          "even", {"call": "upper", "args": ["odd or none"]}
+        ]}}},
+        {"type": "row", "id": "controls", "props": {"gap": 8}, "children": [
+          {"type": "button", "id": "minus", "props": {"text": "−1", "disabled": {"op": "==", "args": [{"signal": "count"}, 0]}},
+           "on": {"activated": [{"add": "count", "by": -1, "min": 0}]}},
+          {"type": "button", "id": "plus", "props": {"text": "+1", "variant": "primary"},
+           "on": {"activated": [{"add": "count", "by": 1, "max": 9}]}},
+          {"type": "button", "id": "reset", "props": {"text": "Reset", "variant": "ghost", "disabled": {"op": "not", "args": [{"op": ">", "args": [{"signal": "count"}, 0]}]}},
+           "on": {"activated": [{"set": "count", "to": 0}]}}
+        ]},
+        {"type": "slider", "id": "goal", "props": {"label": "Goal", "min": 1, "max": 10, "step": 1, "value": {"signal": "goal"}},
+         "on": {"changed": [{"set": "last", "to": {"event": "value"}}]}},
+        {"type": "text", "id": "negative", "props": {"text": {"call": "string", "args": [{"op": "neg", "args": [{"op": "*", "args": [{"signal": "count"}, 2]}]}]}}}
+      ]
+    },
+    "steps": [
+      {"tree": "main"},
+      {"act": "main/controls/plus", "action": "activate", "expect": "ok"},
+      {"act": "main/controls/plus", "action": "activate"},
+      {"tree": "main", "expect": {"main/count": {"name": "2"}, "main/status": {"name": "1 to go"}, "main/parity": {"name": "even"}, "main/negative": {"name": "-4"}}},
+      {"act": "main/controls/minus", "action": "activate"},
+      {"get": "count", "expect": 1},
+      {"act": "main/goal", "action": "set_value", "args": {"value": 1}},
+      {"get": "goal", "expect": 1},
+      {"get": "last", "expect": 1},
+      {"tree": "main", "expect": {"main/status": {"name": "Goal of 1 reached"}, "main/parity": {"name": "ODD OR NONE"}}},
+      {"set": "count", "to": 9},
+      {"act": "main/controls/plus", "action": "activate"},
+      {"get": "count", "expect": 9},
+      {"tree": "main"},
+      {"act": "main/controls/reset", "action": "activate"},
+      {"get": "count", "expect": 0},
+      {"act": "main/controls/minus", "action": "activate"},
+      {"get": "count", "expect": 0},
+      {"act": "main/nothing", "action": "activate"},
+      {"tree": "main"}
+    ]
+  }
+}

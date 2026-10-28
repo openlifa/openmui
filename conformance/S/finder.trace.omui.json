@@ -1,0 +1,358 @@
+{
+ "omui": "0.1",
+ "trace": [
+  {
+   "step": 0,
+   "tree": [
+    {
+     "actions": [
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "args": {
+        "text": "string"
+       },
+       "effect": "reversible",
+       "name": "replace_selection"
+      },
+      {
+       "args": {
+        "anchor": "i64",
+        "focus": "i64"
+       },
+       "effect": "read",
+       "name": "set_selection"
+      },
+      {
+       "args": {
+        "value": "string"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/query",
+     "name": "Find",
+     "origin": "user_content",
+     "role": "text_box",
+     "state": [
+      "focusable",
+      "editable"
+     ],
+     "value": ""
+    },
+    {
+     "id": "main/found",
+     "name": "0 found",
+     "role": "text"
+    }
+   ]
+  },
+  {
+   "act": "ok",
+   "step": 1
+  },
+  {
+   "step": 2,
+   "tree": [
+    {
+     "actions": [
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "args": {
+        "text": "string"
+       },
+       "effect": "reversible",
+       "name": "replace_selection"
+      },
+      {
+       "args": {
+        "anchor": "i64",
+        "focus": "i64"
+       },
+       "effect": "read",
+       "name": "set_selection"
+      },
+      {
+       "args": {
+        "value": "string"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/query",
+     "name": "Find",
+     "origin": "user_content",
+     "role": "text_box",
+     "state": [
+      "focusable",
+      "editable"
+     ],
+     "value": "mcfg"
+    },
+    {
+     "id": "main/found",
+     "name": "3 found",
+     "role": "text"
+    }
+   ]
+  },
+  {
+   "get": [
+    {
+     "index": 2,
+     "positions": [
+      5,
+      6,
+      7,
+      8
+     ],
+     "score": 109,
+     "segments": [
+      {
+       "matched": false,
+       "text": "docs/"
+      },
+      {
+       "matched": true,
+       "text": "mcfg"
+      },
+      {
+       "matched": false,
+       "text": ".md"
+      }
+     ],
+     "text": "docs/mcfg.md"
+    },
+    {
+     "index": 1,
+     "positions": [
+      0,
+      3,
+      6,
+      8
+     ],
+     "score": 81,
+     "segments": [
+      {
+       "matched": true,
+       "text": "m"
+      },
+      {
+       "matched": false,
+       "text": "y_"
+      },
+      {
+       "matched": true,
+       "text": "c"
+      },
+      {
+       "matched": false,
+       "text": "on"
+      },
+      {
+       "matched": true,
+       "text": "f"
+      },
+      {
+       "matched": false,
+       "text": "i"
+      },
+      {
+       "matched": true,
+       "text": "g"
+      },
+      {
+       "matched": false,
+       "text": ".toml"
+      }
+     ],
+     "text": "my_config.toml"
+    },
+    {
+     "index": 4,
+     "positions": [
+      4,
+      5,
+      12,
+      14
+     ],
+     "score": 80,
+     "segments": [
+      {
+       "matched": false,
+       "text": "src/"
+      },
+      {
+       "matched": true,
+       "text": "mc"
+      },
+      {
+       "matched": false,
+       "text": "pp/con"
+      },
+      {
+       "matched": true,
+       "text": "f"
+      },
+      {
+       "matched": false,
+       "text": "i"
+      },
+      {
+       "matched": true,
+       "text": "g"
+      },
+      {
+       "matched": false,
+       "text": ".cppm"
+      }
+     ],
+     "text": "src/mcpp/config.cppm"
+    }
+   ],
+   "step": 3
+  },
+  {
+   "act": "ok",
+   "step": 4
+  },
+  {
+   "get": [
+    {
+     "index": 5,
+     "positions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "score": 166,
+     "segments": [
+      {
+       "matched": true,
+       "text": "README"
+      },
+      {
+       "matched": false,
+       "text": ".md"
+      }
+     ],
+     "text": "README.md"
+    }
+   ],
+   "step": 5
+  },
+  {
+   "native": {
+    "index": 0,
+    "positions": [
+     0,
+     4
+    ],
+    "score": 55,
+    "segments": [
+     {
+      "matched": true,
+      "text": "f"
+     },
+     {
+      "matched": false,
+      "text": "oo_"
+     },
+     {
+      "matched": true,
+      "text": "b"
+     },
+     {
+      "matched": false,
+      "text": "ar"
+     }
+    ],
+    "text": "foo_bar"
+   },
+   "step": 6
+  },
+  {
+   "native": null,
+   "step": 7
+  },
+  {
+   "native": [
+    {
+     "index": 2,
+     "positions": [
+      0,
+      1,
+      2
+     ],
+     "score": 88,
+     "segments": [
+      {
+       "matched": true,
+       "text": "cfg"
+      }
+     ],
+     "text": "cfg"
+    },
+    {
+     "index": 1,
+     "positions": [
+      0,
+      2,
+      4
+     ],
+     "score": 78,
+     "segments": [
+      {
+       "matched": true,
+       "text": "c"
+      },
+      {
+       "matched": false,
+       "text": "."
+      },
+      {
+       "matched": true,
+       "text": "f"
+      },
+      {
+       "matched": false,
+       "text": "."
+      },
+      {
+       "matched": true,
+       "text": "g"
+      }
+     ],
+     "text": "c.f.g"
+    }
+   ],
+   "step": 8
+  },
+  {
+   "error": "invalid-argument",
+   "step": 9
+  },
+  {
+   "error": "not-found",
+   "step": 10
+  }
+ ]
+}

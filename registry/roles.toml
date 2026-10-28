@@ -1,0 +1,454 @@
+# roles — what a semantic node is.
+#
+# The set aligns with ARIA and AccessKit (`aria`, `accesskit` give the mapping a
+# platform accessibility layer uses). `interactive` roles must have a name (S-6)
+# and should have an explicit id. Append-only: the generated enum keeps this order.
+spec = "0.3"
+
+[[role]]
+name        = "none"
+aria        = "none"
+accesskit   = "GenericContainer"
+interactive = false
+doc         = "Not exposed: presentation only."
+
+[[role]]
+name        = "generic"
+aria        = "generic"
+accesskit   = "GenericContainer"
+interactive = false
+doc         = "A container with no meaning of its own."
+
+[[role]]
+name        = "application"
+aria        = "application"
+accesskit   = "Application"
+interactive = false
+doc         = "The root of an application's interface."
+
+[[role]]
+name        = "window"
+aria        = "none"
+accesskit   = "Window"
+interactive = false
+doc         = "A top-level window."
+
+[[role]]
+name        = "dialog"
+aria        = "dialog"
+accesskit   = "Dialog"
+interactive = false
+doc         = "A dialog window."
+
+[[role]]
+name        = "alert_dialog"
+aria        = "alertdialog"
+accesskit   = "AlertDialog"
+interactive = false
+doc         = "A dialog that interrupts to report something urgent."
+
+[[role]]
+name        = "group"
+aria        = "group"
+accesskit   = "Group"
+interactive = false
+doc         = "A set of related elements."
+
+[[role]]
+name        = "region"
+aria        = "region"
+accesskit   = "Region"
+interactive = false
+doc         = "A significant section the user may want to jump to."
+
+[[role]]
+name        = "toolbar"
+aria        = "toolbar"
+accesskit   = "Toolbar"
+interactive = false
+doc         = "A row of controls."
+
+[[role]]
+name        = "separator"
+aria        = "separator"
+accesskit   = "Splitter"
+interactive = false
+doc         = "A divider between groups of content."
+
+[[role]]
+name        = "text"
+aria        = "none"
+accesskit   = "Label"
+interactive = false
+doc         = "A run of static text."
+
+[[role]]
+name        = "heading"
+aria        = "heading"
+accesskit   = "Heading"
+interactive = false
+doc         = "A heading; `value` holds the level."
+
+[[role]]
+name        = "paragraph"
+aria        = "paragraph"
+accesskit   = "Paragraph"
+interactive = false
+doc         = "A paragraph of text."
+
+[[role]]
+name        = "label"
+aria        = "none"
+accesskit   = "Label"
+interactive = false
+doc         = "The label of another element."
+
+[[role]]
+name        = "link"
+aria        = "link"
+accesskit   = "Link"
+interactive = true
+doc         = "A reference to another resource; activating it has the `external` effect unless it stays in the application."
+
+[[role]]
+name        = "image"
+aria        = "img"
+accesskit   = "Image"
+interactive = false
+doc         = "An image; `name` is its text alternative."
+
+[[role]]
+name        = "figure"
+aria        = "figure"
+accesskit   = "Figure"
+interactive = false
+doc         = "A self-contained illustration with a caption."
+
+[[role]]
+name        = "button"
+aria        = "button"
+accesskit   = "Button"
+interactive = true
+doc         = "Performs an action when activated."
+
+[[role]]
+name        = "toggle_button"
+aria        = "button"
+accesskit   = "Button"
+interactive = true
+doc         = "A button with an on/off state."
+
+[[role]]
+name        = "checkbox"
+aria        = "checkbox"
+accesskit   = "CheckBox"
+interactive = true
+doc         = "A checkable option."
+
+[[role]]
+name        = "radio"
+aria        = "radio"
+accesskit   = "RadioButton"
+interactive = true
+doc         = "One option of a radio group."
+
+[[role]]
+name        = "radio_group"
+aria        = "radiogroup"
+accesskit   = "RadioGroup"
+interactive = false
+doc         = "A set of mutually exclusive options."
+
+[[role]]
+name        = "switch"
+aria        = "switch"
+accesskit   = "Switch"
+interactive = true
+doc         = "An on/off switch."
+
+[[role]]
+name        = "slider"
+aria        = "slider"
+accesskit   = "Slider"
+interactive = true
+doc         = "Chooses a value in a range by moving a thumb."
+
+[[role]]
+name        = "spin_button"
+aria        = "spinbutton"
+accesskit   = "SpinButton"
+interactive = true
+doc         = "Chooses a value by stepping it."
+
+[[role]]
+name        = "progress"
+aria        = "progressbar"
+accesskit   = "ProgressIndicator"
+interactive = false
+doc         = "Shows the progress of a task."
+
+[[role]]
+name        = "meter"
+aria        = "meter"
+accesskit   = "Meter"
+interactive = false
+doc         = "Shows a measurement within a known range."
+
+[[role]]
+name        = "text_box"
+aria        = "textbox"
+accesskit   = "TextInput"
+interactive = true
+doc         = "A text field."
+
+[[role]]
+name        = "search_box"
+aria        = "searchbox"
+accesskit   = "SearchInput"
+interactive = true
+doc         = "A text field for a search query."
+
+[[role]]
+name        = "combo_box"
+aria        = "combobox"
+accesskit   = "ComboBox"
+interactive = true
+doc         = "A text field or button with a popup of choices."
+
+[[role]]
+name        = "list_box"
+aria        = "listbox"
+accesskit   = "ListBox"
+interactive = true
+doc         = "A list of selectable options."
+
+[[role]]
+name        = "option"
+aria        = "option"
+accesskit   = "ListBoxOption"
+interactive = true
+doc         = "An option of a list box or combo box."
+
+[[role]]
+name        = "list"
+aria        = "list"
+accesskit   = "List"
+interactive = false
+doc         = "A list of items."
+
+[[role]]
+name        = "list_item"
+aria        = "listitem"
+accesskit   = "ListItem"
+interactive = false
+doc         = "An item of a list."
+
+[[role]]
+name        = "menu"
+aria        = "menu"
+accesskit   = "Menu"
+interactive = false
+doc         = "A list of commands."
+
+[[role]]
+name        = "menu_bar"
+aria        = "menubar"
+accesskit   = "MenuBar"
+interactive = false
+doc         = "A horizontal menu at the top of a window."
+
+[[role]]
+name        = "menu_item"
+aria        = "menuitem"
+accesskit   = "MenuItem"
+interactive = true
+doc         = "A command of a menu."
+
+[[role]]
+name        = "menu_item_checkbox"
+aria        = "menuitemcheckbox"
+accesskit   = "MenuItemCheckBox"
+interactive = true
+doc         = "A checkable command of a menu."
+
+[[role]]
+name        = "menu_item_radio"
+aria        = "menuitemradio"
+accesskit   = "MenuItemRadio"
+interactive = true
+doc         = "One of exclusive commands of a menu."
+
+[[role]]
+name        = "tab_list"
+aria        = "tablist"
+accesskit   = "TabList"
+interactive = false
+doc         = "The tabs of a tabbed view."
+
+[[role]]
+name        = "tab"
+aria        = "tab"
+accesskit   = "Tab"
+interactive = true
+doc         = "A tab; selecting it shows its panel."
+
+[[role]]
+name        = "tab_panel"
+aria        = "tabpanel"
+accesskit   = "TabPanel"
+interactive = false
+doc         = "The content of a tab."
+
+[[role]]
+name        = "tooltip"
+aria        = "tooltip"
+accesskit   = "Tooltip"
+interactive = false
+doc         = "A popup describing an element."
+
+[[role]]
+name        = "tree"
+aria        = "tree"
+accesskit   = "Tree"
+interactive = true
+doc         = "A hierarchical list."
+
+[[role]]
+name        = "tree_item"
+aria        = "treeitem"
+accesskit   = "TreeItem"
+interactive = true
+doc         = "An item of a tree."
+
+[[role]]
+name        = "grid"
+aria        = "grid"
+accesskit   = "Grid"
+interactive = true
+doc         = "A table of interactive cells."
+
+[[role]]
+name        = "table"
+aria        = "table"
+accesskit   = "Table"
+interactive = false
+doc         = "A table of data."
+
+[[role]]
+name        = "row"
+aria        = "row"
+accesskit   = "Row"
+interactive = false
+doc         = "A row of a grid or table."
+
+[[role]]
+name        = "cell"
+aria        = "cell"
+accesskit   = "Cell"
+interactive = false
+doc         = "A cell of a grid or table."
+
+[[role]]
+name        = "column_header"
+aria        = "columnheader"
+accesskit   = "ColumnHeader"
+interactive = false
+doc         = "The header of a column."
+
+[[role]]
+name        = "row_header"
+aria        = "rowheader"
+accesskit   = "RowHeader"
+interactive = false
+doc         = "The header of a row."
+
+[[role]]
+name        = "scroll_view"
+aria        = "none"
+accesskit   = "ScrollView"
+interactive = false
+doc         = "A scrollable viewport onto larger content."
+
+[[role]]
+name        = "scroll_bar"
+aria        = "scrollbar"
+accesskit   = "ScrollBar"
+interactive = true
+doc         = "Controls the position of a scroll view."
+
+[[role]]
+name        = "canvas"
+aria        = "none"
+accesskit   = "Canvas"
+interactive = false
+doc         = "A two-dimensional surface of positioned items (OMUI_EXT_canvas)."
+
+[[role]]
+name        = "document"
+aria        = "document"
+accesskit   = "Document"
+interactive = false
+doc         = "A document: content to read rather than an application to operate."
+
+[[role]]
+name        = "article"
+aria        = "article"
+accesskit   = "Article"
+interactive = false
+doc         = "A self-contained composition within a document."
+
+[[role]]
+name        = "code"
+aria        = "code"
+accesskit   = "Code"
+interactive = false
+doc         = "Source code or other computer text."
+
+[[role]]
+name        = "status"
+aria        = "status"
+accesskit   = "Status"
+interactive = false
+doc         = "A live region reporting status."
+
+[[role]]
+name        = "timer"
+aria        = "timer"
+accesskit   = "Timer"
+interactive = false
+doc         = "A live region showing elapsed or remaining time."
+
+[[role]]
+name        = "video"
+aria        = "none"
+accesskit   = "Video"
+interactive = false
+doc         = "A video player."
+
+[[role]]
+name        = "splitter"
+aria        = "separator"
+accesskit   = "Splitter"
+interactive = true
+doc         = "A movable divider between two panes."
+
+[[role]]
+name        = "disclosure"
+aria        = "button"
+accesskit   = "Button"
+interactive = true
+doc         = "Shows or hides a section of content."
+
+[[role]]
+name        = "timeline"
+aria        = "slider"
+accesskit   = "Slider"
+interactive = true
+doc         = "A time axis with a playhead (openmui-ui-timeline)."
+
+[[role]]
+name        = "blockquote"
+aria        = "blockquote"
+accesskit   = "Blockquote"
+interactive = false
+doc         = "A section quoted from another source."

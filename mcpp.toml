@@ -1,0 +1,29 @@
+# openmui — the specification of a user interface as one semantic tree, of
+# which pixels, accessibility, agents and tests are renderings. SPEC.md is the
+# normative text; registry/ its source of truth; include/openmui.h the C ABI;
+# module `openmui.spec` the value types; conformance/ the suite. The files
+# include/, src/generated/, docs/registry.md, stubs/ and schema/ are generated
+# from registry/. Standard library only.
+[package]
+namespace   = "openlifa"
+name        = "openmui"
+version     = "0.3.0"
+description = "openmui: the semantic tree, view IR, state and verbs, host, render and C ABI contracts — the specification and its C++ module"
+license     = "Apache-2.0"
+authors     = ["OpenLifa", "Sunrisepeak"]
+repo        = "https://github.com/openlifa/openmui"
+
+[package.metadata.openmui]
+kind = "spec"
+spec = "0.3"
+
+[targets.openmui-spec]
+kind = "lib"
+
+[build]
+sources = ["src/*.cppm", "src/*.cpp", "src/generated/*.cppm"]
+# openmui.h, for the C side of the ABI.
+include_dirs = ["include"]
+
+[dev-dependencies]
+boost-ext.ut = "2.3.1"

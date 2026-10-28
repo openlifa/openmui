@@ -1,0 +1,110 @@
+# motion — the normative definitions of animation (spec §10).
+#
+# Every curve and the spring are defined by formula, so two implementations
+# produce the same values; openmui.anim is the reference (A-level: identical
+# bits with its deterministic elementary functions, B-level tolerance 1e-9 for
+# another implementation using its platform's libm).
+spec = "0.3"
+
+[easing]
+# t is clamped to [0, 1]; every curve but steps maps 0 to 0 and 1 to 1 exactly.
+linear       = "t"
+in_quad      = "t^2"
+out_quad     = "1 - (1 - t)^2"
+in_out_quad  = "t < 0.5 ? 2t^2 : 1 - (-2t + 2)^2 / 2"
+in_cubic     = "t^3"
+out_cubic    = "1 - (1 - t)^3"
+in_out_cubic = "t < 0.5 ? 4t^3 : 1 - (-2t + 2)^3 / 2"
+in_quart     = "t^4"
+out_quart    = "1 - (1 - t)^4"
+in_out_quart = "t < 0.5 ? 8t^4 : 1 - (-2t + 2)^4 / 2"
+in_quint     = "t^5"
+out_quint    = "1 - (1 - t)^5"
+in_out_quint = "t < 0.5 ? 16t^5 : 1 - (-2t + 2)^5 / 2"
+in_sine      = "1 - cos(t·π/2)"
+out_sine     = "sin(t·π/2)"
+in_out_sine  = "-(cos(π·t) - 1) / 2"
+in_expo      = "t = 0 ? 0 : 2^(10t - 10)"
+out_expo     = "t = 1 ? 1 : 1 - 2^(-10t)"
+in_out_expo  = "t < 0.5 ? 2^(20t - 10) / 2 : (2 - 2^(-20t + 10)) / 2"
+in_circ      = "1 - √(1 - t^2)"
+out_circ     = "√(1 - (t - 1)^2)"
+in_out_circ  = "t < 0.5 ? (1 - √(1 - (2t)^2)) / 2 : (√(1 - (-2t + 2)^2) + 1) / 2"
+in_back      = "c3·t^3 - c1·t^2, c1 = 1.70158, c3 = c1 + 1"
+out_back     = "1 + c3·(t - 1)^3 + c1·(t - 1)^2"
+in_out_back  = "c2 = c1·1.525; t < 0.5 ? (2t)^2·((c2 + 1)·2t - c2) / 2 : ((2t - 2)^2·((c2 + 1)·(2t - 2) + c2) + 2) / 2"
+in_elastic   = "-2^(10t - 10)·sin((10t - 10.75)·2π/3)"
+out_elastic  = "2^(-10t)·sin((10t - 0.75)·2π/3) + 1"
+in_out_elastic = "t < 0.5 ? -(2^(20t - 10)·sin((20t - 11.125)·2π/4.5)) / 2 : 2^(-20t + 10)·sin((20t - 11.125)·2π/4.5) / 2 + 1"
+in_bounce    = "1 - out_bounce(1 - t)"
+out_bounce   = "n1 = 7.5625, d1 = 2.75; piecewise parabolas at 1/d1, 2/d1, 2.5/d1"
+in_out_bounce = "t < 0.5 ? (1 - out_bounce(1 - 2t)) / 2 : (1 + out_bounce(2t - 1)) / 2"
+cubic_bezier = "CSS cubic-bezier(x1, y1, x2, y2), x1 and x2 in [0, 1]: solve x(s) = t by 8 Newton steps (stop when |error| < 1e-12, abandon when |x'(s)| < 1e-9 or s leaves [0, 1]), else 52 bisection steps; the value is y(s)"
+steps        = "CSS steps(n, jump-start | jump-end | jump-none | jump-both)"
+
+[spring]
+# m·x'' + c·x' + k·(x − target) = 0, solved in closed form from (x0, v0).
+equation   = "m·x'' + c·x' + k·(x - target) = 0"
+frequency  = "ω0 = √(k/m)"
+ratio      = "ζ = c / (2√(k·m))"
+under      = "ζ < 1 - 1e-9: x = target + e^(-ζω0·t)·(A·cos(ωd·t) + B·sin(ωd·t)), ωd = ω0√(1 - ζ²), A = x0 - target, B = (v0 + ζω0·A)/ωd"
+critical   = "|ζ - 1| ≤ 1e-9: x = target + e^(-ω0·t)·(A + (v0 + ω0·A)·t)"
+over       = "ζ > 1 + 1e-9: x = target + C1·e^(r1·t) + C2·e^(r2·t), r1,2 = -ω0(ζ ∓ √(ζ² - 1)), C1 = (v0 - r2·A)/(r1 - r2), C2 = A - C1"
+rest       = "settled from the first time the envelope bounds |x - target| ≤ delta and |v| ≤ speed (delta = speed = 1e-3 by default); from then on x = target and v = 0 exactly"
+interrupt  = "retargeting at time t starts a new segment from x(t) and v(t) of the current one: position and velocity are continuous"
+response   = "response r and bounce b: ω0 = 2π/r, ζ = b ≥ 0 ? 1 - b : 1/(1 + b), m = 1"
+
+[decay]
+equation = "x = x0 + v0·τ·(1 - e^(-t/τ)), τ = -1 / (1000·ln(rate)), rate = velocity kept per millisecond (default 0.998)"
+
+[reduced_motion]
+rule = "when the user asks for reduced motion, every transition shows its target immediately and springs settle at once; opacity cross-fades of at most 150 ms may remain"
+
+# Motion tokens: the names components and themes use. A theme may re-map them.
+[[token]]
+name     = "motion.instant"
+duration = 0
+easing   = "linear"
+
+[[token]]
+name     = "motion.fast"
+duration = 120
+easing   = "cubic-bezier(0.2, 0, 0, 1)"
+
+[[token]]
+name     = "motion.normal"
+duration = 200
+easing   = "cubic-bezier(0.2, 0, 0, 1)"
+
+[[token]]
+name     = "motion.slow"
+duration = 320
+easing   = "cubic-bezier(0.3, 0, 0, 1)"
+
+[[token]]
+name     = "motion.enter"
+duration = 240
+easing   = "cubic-bezier(0, 0, 0, 1)"
+
+[[token]]
+name     = "motion.exit"
+duration = 160
+easing   = "cubic-bezier(0.3, 0, 1, 1)"
+
+[[token]]
+name      = "motion.spring.snappy"
+stiffness = 400
+damping   = 32
+mass      = 1
+
+[[token]]
+name      = "motion.spring.gentle"
+stiffness = 120
+damping   = 14
+mass      = 1
+
+[[token]]
+name      = "motion.spring.bouncy"
+stiffness = 180
+damping   = 12
+mass      = 1

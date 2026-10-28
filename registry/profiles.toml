@@ -1,0 +1,33 @@
+# profiles — what a distribution of openmui provides.
+spec = "0.3"
+
+[[profile]]
+name    = "full"
+scripts = ["ts", "python", "lua"]
+doc     = "The desktop distribution: every Core component, every script language."
+
+[[profile]]
+name    = "mobile"
+scripts = ["ts", "lua"]
+doc     = "Phones and tablets; Python optional."
+
+[[profile]]
+name    = "embedded-linux"
+scripts = []
+min_scripts = 1
+doc     = "Embedded Linux with a display; at least one script language (Lua recommended)."
+
+[[profile]]
+name    = "mcu"
+scripts = []
+doc     = "Microcontrollers: retained mode, no script language required (Wasm when needed)."
+
+[[profile]]
+name    = "engine"
+scripts = []
+doc     = "Inside a game engine, beside the engine's own scripting."
+
+[[profile]]
+name    = "headless"
+scripts = []
+doc     = "Tests, agents and video rendering: no display."
