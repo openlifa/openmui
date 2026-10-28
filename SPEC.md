@@ -125,7 +125,11 @@ and typed arguments.
   refused (`refused`, exit code 1); within a grant its actor holds, it runs
   without the answer S-1 asks for; otherwise S-1 and S-2 apply. Grants are
   given by the person, present, through the host's own input — never through
-  the bus — and an application MAY offer the person no way to give them.
+  the bus — and an application MAY offer the person no way to give them. An
+  action is named, for a grant's scope, by the verb it invokes, or else by its
+  own name. Reading the tree (`snapshot`, `find`, `wait`, `changes`) performs
+  no verb: the cap does not reach it; an application that lets nothing read it
+  leaves the bus interface out (§14).
 
 ### 3.4 Origins
 
