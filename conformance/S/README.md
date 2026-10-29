@@ -59,7 +59,7 @@ Each step runs once the runtime has settled after the previous one.
 | step | records |
 |---|---|
 | `{"tree": "main"}` | `{"tree": [nodes]}` |
-| `{"act": "main/plus", "action": "activate", "args": {…}}` | `{"act": "ok"}` or `{"error": code}` |
+| `{"act": "main/plus", "action": "activate", "args": {…}}` | `{"act": "ok"}` or `{"error": code}`; with `"dry_run": true` only what would happen (S-13), and `app`'s `undo` and `redo` are the window's history (S-12) |
 | `{"invoke": "verb", "args": {…}}` | `{"invoke": answer}` or `{"error": code}` |
 | `{"get": "count"}` | `{"get": value}` |
 | `{"rows": "notes"}` | `{"rows": [rows]}` |

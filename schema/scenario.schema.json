@@ -174,7 +174,7 @@
           "expect": {"type": "object", "additionalProperties": {"type": "object"}}
         }},
         {"type": "object", "required": ["act", "action"], "additionalProperties": false, "properties": {
-          "act": {"type": "string"}, "action": {"$ref": "#/$defs/name"}, "args": {"type": "object"}, "expect": true
+          "act": {"type": "string"}, "action": {"$ref": "#/$defs/name"}, "args": {"type": "object"}, "dry_run": {"type": "boolean"}, "expect": true
         }},
         {"type": "object", "required": ["invoke"], "additionalProperties": false, "properties": {
           "invoke": {"type": "string"}, "args": {"type": "object"}, "expect": true

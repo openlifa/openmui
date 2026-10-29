@@ -4,8 +4,9 @@ Status: draft. This document is normative. Version 0.2 added the view
 document, the expression language, the Script Binding Profile and the
 contract and manifest schemas (§4, §11, §14, schema/); version 0.3 adds the
 extensions of §16 — canvases, effects and backdrops, style packs, frame
-pacing, texture tiers, video — the bus's `invoke` (§9), and openas 0.2's
-grants under an application's cap (S-11, §14). The tables it refers to are in
+pacing, texture tiers, video — the bus's `invoke` (§9), openas 0.2's
+grants under an application's cap (S-11, §14), and undo, transactions and dry
+runs (S-12, S-13). The tables it refers to are in
 [docs/registry.md](docs/registry.md), generated from [registry/](registry/); where
 the two disagree, the registry is right and this text is wrong.
 
@@ -130,6 +131,29 @@ and typed arguments.
   own name. Reading the tree (`snapshot`, `find`, `wait`, `changes`) performs
   no verb: the cap does not reach it; an application that lets nothing read it
   leaves the bus interface out (§14).
+
+- **S-12** A `reversible` action that succeeds MAY give its inverse: actions
+  of the same node, with their arguments, that take it back (`toggle` again,
+  `set_value` with the value it replaced). The implementation keeps a history
+  of these for each scope: the window, or a node with the universal property
+  `undo_scope`. The scope's node offers `undo` and `redo` (effect
+  `reversible`) while there is something to undo or redo. Undoing performs the
+  inverses as the one undoing would perform them (S-4, S-10 and S-11 apply);
+  redoing performs what takes them back. A `read` action, and one that gives
+  no inverse, is not recorded; a new change clears what could be redone. An
+  `irreversible` or `external` action ends what can be undone: `undo` across
+  it MUST be refused (`refused`, exit code 1) and change nothing.
+- **S-13** A transaction performs actions in order as one step of history.
+  The first that fails ends it: the actions already performed are undone by
+  their inverses, last first, and the answer is that action's error, with its
+  exit code. An `irreversible` or `external` action in a transaction MUST be
+  refused before it runs. A call MAY be a dry run: it is checked as it would
+  be performed (S-1, S-2, S-4, S-10, S-11, arguments) and answered, with exit
+  code 0, by a `data` record stating its `outcome` (`run`, `needs-answer`,
+  `refused` or `fails`), its `effect`, the `answer` or the `error`, and where
+  the implementation can tell cheaply whether it could be undone (`undoable`)
+  and the node's `value` before and after. A dry run MUST change nothing: no
+  state, no history, no journal entry, no event.
 
 ### 3.4 Origins
 
@@ -257,9 +281,12 @@ label on the device:
 Path: `host/<h>/system/<s>/app/<app-id>/ui` (openbus §2.4). Operations:
 `snapshot` (call), `changes` (topic), `find` (call: role, name glob, state,
 spatial range), `act` (call, with an actor), `invoke` (call: an application
-verb, with an actor; S-1 as for `act`), `wait` (call: a node appears, a
-state changes, an animation is `settled`; with a timeout), `capture` (optional
-pixels of a node).
+verb, with an actor; S-1 as for `act`), `undo` and `redo` (call: a scope's
+history, with an actor; S-12), `history` (call: what can be undone and
+redone), `transaction` (call: steps of `act`, with an actor; S-13), `wait`
+(call: a node appears, a state changes, an animation is `settled`; with a
+timeout), `capture` (optional pixels of a node). `act`, `invoke`, `undo`,
+`redo` and `transaction` take `dry_run` (S-13).
 
 Calls answer with envelopes: newline-delimited JSON records of kinds `phase`,
 `progress`, `log`, `notice`, `error`, `data` and a final `result` with

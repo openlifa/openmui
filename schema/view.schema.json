@@ -93,6 +93,7 @@
         "top",
         "translate_x",
         "translate_y",
+        "undo_scope",
         "verb",
         "verb_args",
         "visible",
