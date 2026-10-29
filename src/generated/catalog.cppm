@@ -3,7 +3,7 @@
 //
 // The Core component contracts (spec §11; registry/components) as constexpr
 // tables. A component package's own contracts produce the same ContractInfo
-// through openmui.rules, so the official components have no privilege.
+// through openmui.build.contracts, so the official components have no privilege.
 export module openmui.spec:catalog;
 
 import std;
