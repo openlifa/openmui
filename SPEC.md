@@ -180,10 +180,49 @@ and typed arguments.
 
 A host provides a surface (premultiplied BGRA8 pixels with a stride and damage
 rectangles, or a GPU device under `OMUI_EXT_host_render_pass`) and events (keys,
-text commit, pre-edit text, pointer, wheel, focus, close request, frame
-presented, visibility); the model is opensal's. A host MAY drive frames:
+text commit, pre-edit text, pointer, wheel, focus, close request, gamepads,
+frame presented, visibility); the model is opensal's. A host MAY drive frames:
 `frame(time, events) → (semantic delta, display list, damage)` — the form of
 headless operation and game-engine embedding.
+
+### 6.1 Input events
+
+An event's wire form (C-3; a frame's `events_json`, a recorded session) is an
+object whose `type` is one of `pointer`, `wheel`, `key`, `text`, `preedit`,
+`focus`, `resize`, `close` or `gamepad`; [schema/input.schema.json](schema/input.schema.json)
+states every field. Keys are named as in chords (`PageUp`, `A`); coordinates
+are logical pixels in window space.
+
+A **gamepad** is reduced to the standard set, named by position, not by the
+label on the device:
+
+| | |
+|---|---|
+| buttons | `south` `east` `west` `north` (A B X Y on an Xbox pad, Cross Circle Square Triangle on a PlayStation one), `back` `guide` `start`, `leftStick` `rightStick` (pressed in), `leftShoulder` `rightShoulder`, `leftTrigger` `rightTrigger`, `dpadUp` `dpadDown` `dpadLeft` `dpadRight` |
+| axes | `leftX` `leftY` `rightX` `rightY` −1 … 1, y positive down; `leftTrigger` `rightTrigger` 0 … 1 |
+
+```json
+{"type": "gamepad", "kind": "connected", "device": 1, "name": "Xbox Series X Controller"}
+{"type": "gamepad", "kind": "down", "device": 1, "button": "south"}
+{"type": "gamepad", "kind": "axis", "device": 1, "axis": "leftX", "value": -0.5}
+{"type": "gamepad", "kind": "disconnected", "device": 1}
+```
+
+- **G-1** `device` names one connection of one device and is not reused while
+  the program runs; a device plugged in again is a new one. Events of a
+  device come between its `connected` and its `disconnected`.
+- **G-2** The host applies the dead zones: a stick's is a circle (a diagonal is
+  as easy as a straight push), the value stretched so its edge is 0; values
+  are multiples of 1/256, so they survive their wire form exactly. An event is
+  sent only for a change: no repeats.
+- **G-3** A trigger is an axis and a button: the button goes down when the
+  axis reaches 0.5 and up when it falls below 0.4.
+- **G-4** Before `disconnected` the host releases what the device held: an
+  `up` for each button down and an `axis` of 0 for each axis away from rest.
+- **G-5** Gamepad events go where key events go (the focused node, else the
+  root, bubbling); their handler names are `gamepad_connect`,
+  `gamepad_disconnect`, `gamepad_down`, `gamepad_up` and `gamepad_axis`.
+  Which device is which player is the application's to decide.
 
 ## 7. Contract ⑤: the render interface
 
