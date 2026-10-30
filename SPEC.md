@@ -431,6 +431,15 @@ An implementation that reports an extension (§12) MUST meet its clauses.
 - **ST-3** A change of style MAY be shown as a cross-fade: during it, a frame
   shows the frame before the change fading over the new one; actions, focus
   and the semantic tree follow the new style from the change on.
+- **ST-4** A part of a window MAY be in a style of its own: a theme scope. The
+  universal property `theme_scope` names one the application registered (a
+  theme and effect rules); the node and its descendants, and the overlays they
+  open, are drawn in it. The nearest scope applies whole — its theme and its
+  rules replace the window's, nothing merges — and a name not registered
+  leaves the node in its parent's. A rule for the window applies to the node
+  that joins the scope, and a change of a scope's style cross-fades its area
+  only (ST-3). A scope changes pixels only: the semantic tree, actions and
+  focus are those of one window.
 
 ### 16.4 `OMUI_EXT_frame_pacing`
 

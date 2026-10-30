@@ -90,6 +90,7 @@
         "scale",
         "shadow",
         "shrink",
+        "theme_scope",
         "top",
         "translate_x",
         "translate_y",
