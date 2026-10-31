@@ -212,6 +212,10 @@ typedef enum OmuiRole {
     OMUI_ROLE_TIMELINE = 62,
     /* A section quoted from another source. */
     OMUI_ROLE_BLOCKQUOTE = 63,
+    /* A landmark: the links or places that move around the application or document. */
+    OMUI_ROLE_NAVIGATION = 64,
+    /* A landmark: the application's or document's main content (one per view). */
+    OMUI_ROLE_MAIN = 65,
     OMUI_ROLE_MAX_ENUM = 0x7FFFFFFF
 } OmuiRole;
 

@@ -452,3 +452,17 @@ aria        = "blockquote"
 accesskit   = "Blockquote"
 interactive = false
 doc         = "A section quoted from another source."
+
+[[role]]
+name        = "navigation"
+aria        = "navigation"
+accesskit   = "Navigation"
+interactive = false
+doc         = "A landmark: the links or places that move around the application or document."
+
+[[role]]
+name        = "main"
+aria        = "main"
+accesskit   = "Main"
+interactive = false
+doc         = "A landmark: the application's or document's main content (one per view)."

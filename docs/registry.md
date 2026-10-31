@@ -72,6 +72,8 @@ The machine-readable tables of the specification. Enumerators are append-only; t
 | 61 | `disclosure` | yes | button | Button | Shows or hides a section of content. |
 | 62 | `timeline` | yes | slider | Slider | A time axis with a playhead (openmui-ui-timeline). |
 | 63 | `blockquote` |  | blockquote | Blockquote | A section quoted from another source. |
+| 64 | `navigation` |  | navigation | Navigation | A landmark: the links or places that move around the application or document. |
+| 65 | `main` |  | main | Main | A landmark: the application's or document's main content (one per view). |
 
 ## States
 
