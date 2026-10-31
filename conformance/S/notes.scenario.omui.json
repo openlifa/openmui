@@ -1,0 +1,52 @@
+{
+  "omui": "0.1",
+  "scenario": {
+    "doc": "A note list: a model's rows in a loop with a filter, a region shown while a condition holds, handlers with their row, verbs the script implements (called by a handler and by the test), models changed by the script.",
+    "signals": {"archived": 0, "only_open": false},
+    "models": {"notes": [
+      {"key": "n1", "title": "Milk", "done": true},
+      {"key": "n2", "title": "Bread", "done": false},
+      {"key": "n3", "title": "Eggs", "done": false}
+    ]},
+    "verbs": {
+      "note.archive": {"effect": "reversible", "summary": "Archive a note", "do": [{"remove": "notes", "key": {"arg": "key"}}, {"add": "archived", "by": 1}], "result": {"arg": "key"}},
+      "note.finish": {"effect": "reversible", "summary": "Mark a note done", "do": [{"change": "notes", "key": {"arg": "key"}, "set": {"done": true}}], "result": true}
+    },
+    "view": {
+      "type": "column", "props": {"gap": 4}, "children": [
+        {"type": "text", "id": "count", "props": {"text": {"fmt": "{} archived", "args": [{"signal": "archived"}]}}},
+        {"when": {"signal": "only_open"},
+         "then": [{"type": "text", "id": "filter", "props": {"text": "open only"}}],
+         "else": [{"type": "text", "id": "filter", "props": {"text": "all"}}]},
+        {"each": "notes",
+         "where": {"op": "or", "args": [{"op": "not", "args": [{"signal": "only_open"}]}, {"op": "not", "args": [{"row": "done"}]}]},
+         "body": {"type": "row", "props": {"gap": 4}, "children": [
+           {"type": "text", "props": {"text": {"select": [{"row": "done"}, {"fmt": "✓ {}", "args": [{"row": "title"}]}, {"row": "title"}]}}},
+           {"type": "button", "id": "finish", "props": {"text": "Done", "disabled": {"row": "done"}},
+            "on": {"activated": [{"invoke": "note.finish", "args": {"key": {"row": "key"}}}]}},
+           {"type": "button", "id": "archive", "props": {"text": "Archive"},
+            "on": {"activated": [{"invoke": "note.archive", "args": {"key": {"row": "key"}}}]}}
+         ]}}
+      ]
+    },
+    "steps": [
+      {"tree": "main"},
+      {"act": "main/n2/archive", "action": "activate", "expect": "ok"},
+      {"rows": "notes"},
+      {"get": "archived", "expect": 1},
+      {"act": "main/n3/finish", "action": "activate"},
+      {"tree": "main", "expect": {"main/count": {"name": "1 archived"}, "main/filter": {"name": "all"}}},
+      {"set": "only_open", "to": true},
+      {"tree": "main", "expect": {"main/filter": {"name": "open only"}}},
+      {"push": "notes", "row": {"key": "n4", "title": "Tea", "done": false}},
+      {"tree": "main"},
+      {"invoke": "note.archive", "args": {"key": "n4"}, "expect": "n4"},
+      {"invoke": "note.finish", "args": {"key": "n1"}, "expect": true},
+      {"rows": "notes"},
+      {"invoke": "no.such", "args": {}},
+      {"act": "main/n9/archive", "action": "activate"},
+      {"set": "only_open", "to": false},
+      {"tree": "main"}
+    ]
+  }
+}

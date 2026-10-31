@@ -1,0 +1,490 @@
+{
+ "omui": "0.1",
+ "trace": [
+  {
+   "step": 0,
+   "tree": [
+    {
+     "id": "main/count",
+     "name": "0 archived",
+     "role": "text"
+    },
+    {
+     "id": "main/filter",
+     "name": "all",
+     "role": "text"
+    },
+    {
+     "id": "main/n1/text:0",
+     "name": "✓ Milk",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      }
+     ],
+     "id": "main/n1/finish",
+     "name": "Done",
+     "role": "button",
+     "state": [
+      "disabled"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/n1/archive",
+     "name": "Archive",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "id": "main/n2/text:0",
+     "name": "Bread",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/n2/finish",
+     "name": "Done",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/n2/archive",
+     "name": "Archive",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "id": "main/n3/text:0",
+     "name": "Eggs",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/n3/finish",
+     "name": "Done",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/n3/archive",
+     "name": "Archive",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    }
+   ]
+  },
+  {
+   "act": "ok",
+   "step": 1
+  },
+  {
+   "rows": [
+    {
+     "done": true,
+     "key": "n1",
+     "title": "Milk"
+    },
+    {
+     "done": false,
+     "key": "n3",
+     "title": "Eggs"
+    }
+   ],
+   "step": 2
+  },
+  {
+   "get": 1,
+   "step": 3
+  },
+  {
+   "act": "ok",
+   "step": 4
+  },
+  {
+   "step": 5,
+   "tree": [
+    {
+     "id": "main/count",
+     "name": "1 archived",
+     "role": "text"
+    },
+    {
+     "id": "main/filter",
+     "name": "all",
+     "role": "text"
+    },
+    {
+     "id": "main/n1/text:0",
+     "name": "✓ Milk",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      }
+     ],
+     "id": "main/n1/finish",
+     "name": "Done",
+     "role": "button",
+     "state": [
+      "disabled"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/n1/archive",
+     "name": "Archive",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "id": "main/n3/text:0",
+     "name": "✓ Eggs",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      }
+     ],
+     "id": "main/n3/finish",
+     "name": "Done",
+     "role": "button",
+     "state": [
+      "disabled"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/n3/archive",
+     "name": "Archive",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    }
+   ]
+  },
+  {
+   "step": 7,
+   "tree": [
+    {
+     "id": "main/count",
+     "name": "1 archived",
+     "role": "text"
+    },
+    {
+     "id": "main/filter",
+     "name": "open only",
+     "role": "text"
+    }
+   ]
+  },
+  {
+   "step": 9,
+   "tree": [
+    {
+     "id": "main/count",
+     "name": "1 archived",
+     "role": "text"
+    },
+    {
+     "id": "main/filter",
+     "name": "open only",
+     "role": "text"
+    },
+    {
+     "id": "main/n4/text:0",
+     "name": "Tea",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/n4/finish",
+     "name": "Done",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/n4/archive",
+     "name": "Archive",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    }
+   ]
+  },
+  {
+   "invoke": "n4",
+   "step": 10
+  },
+  {
+   "invoke": true,
+   "step": 11
+  },
+  {
+   "rows": [
+    {
+     "done": true,
+     "key": "n1",
+     "title": "Milk"
+    },
+    {
+     "done": true,
+     "key": "n3",
+     "title": "Eggs"
+    }
+   ],
+   "step": 12
+  },
+  {
+   "error": "not-found",
+   "step": 13
+  },
+  {
+   "error": "not-found",
+   "step": 14
+  },
+  {
+   "step": 16,
+   "tree": [
+    {
+     "id": "main/count",
+     "name": "2 archived",
+     "role": "text"
+    },
+    {
+     "id": "main/filter",
+     "name": "all",
+     "role": "text"
+    },
+    {
+     "id": "main/n1/text:0",
+     "name": "✓ Milk",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      }
+     ],
+     "id": "main/n1/finish",
+     "name": "Done",
+     "role": "button",
+     "state": [
+      "disabled"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/n1/archive",
+     "name": "Archive",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "id": "main/n3/text:0",
+     "name": "✓ Eggs",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      }
+     ],
+     "id": "main/n3/finish",
+     "name": "Done",
+     "role": "button",
+     "state": [
+      "disabled"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/n3/archive",
+     "name": "Archive",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    }
+   ]
+  }
+ ]
+}

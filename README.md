@@ -17,7 +17,7 @@ accessibility, agents and tests are renderings.
 | [include/openmui.h](include/openmui.h) | the C ABI |
 | [src/](src/) | its C++ module: `openmui.spec`, the value types |
 | [conformance/](conformance/) | the conformance suite, levels S, A, B, C |
-| [docs/](docs/), [schema/](schema/), [stubs/](stubs/) | the registry as tables; the view-document and scenario schemas; TypeScript, Python and Lua stubs |
+| [docs/](docs/), [schema/](schema/), [stubs/](stubs/) | the registry as tables; the view-document, input-event and scenario schemas; TypeScript, Python and Lua stubs |
 | [tests/](tests/) | the module's and the header's tests |
 
 `include/`, `src/generated/`, `docs/`, `stubs/` and the view schema are

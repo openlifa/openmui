@@ -1,0 +1,40 @@
+[contract.tabs]
+children = "tab"
+role = "tab_list"
+spec = "0.1"
+doc  = "A set of tabs selecting one panel."
+
+[contract.tabs.props]
+selected = { type = "string", default = "", bindable = true, doc = "The id of the selected tab." }
+variant  = { type = "enum", values = ["line", "bar"], default = "line", doc = "line: the selected tab underlined; bar: the tabs on a capsule, the selected one in a lens that slides to it, stretching as it goes (a segmented control, a floating tab bar)." }
+
+[contract.tabs.events]
+changed = { args = { selected = "string" } }
+
+[contract.tabs.keys]
+"Right" = "next"
+"Left"  = "previous"
+
+[contract.tabs.parts]
+strip     = {}
+indicator = {}
+
+[contract.tabs.motion]
+indicator = "motion.spring.snappy"
+
+[contract.tab]
+role = "tab"
+spec = "0.1"
+doc  = "A tab of a tab list."
+
+[contract.tab.props]
+text     = { type = "string", default = "" }
+disabled = { type = "bool", default = false }
+
+[contract.tab.actions]
+select   = { effect = "reversible" }
+activate = { effect = "reversible" }
+
+[contract.tabs.commands]
+next     = { doc = "Select the next tab." }
+previous = { doc = "Select the previous tab." }
