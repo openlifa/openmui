@@ -81,6 +81,7 @@
         "position",
         "radii",
         "radius",
+        "readonly",
         "right",
         "role",
         "rotation",

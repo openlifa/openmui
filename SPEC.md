@@ -100,7 +100,11 @@ and typed arguments.
   (effect tiers, docs/registry.md). A reader that meets an effect it does not
   know MUST treat it as `external` (openas §3.1).
 - **S-4** A node in state `removing` accepts no action; a node in state
-  `disabled` accepts only actions whose effect is `read`.
+  `disabled` accepts only actions whose effect is `read`. So does a node in
+  state `readonly` — its value can be read but is another's to change (a
+  control a simulation drives, a game's ball operates). The universal property
+  `readonly` sets it: `true`, or the reason in words, which the refusal (an
+  `error` record of code `refused`, exit code 1) then gives.
 - **S-10** An action or a verb MAY be the person's own (`person`, openas
   §3.4): the answer to a confirmation an agent asked for, a permission, a
   payment's approval. Only the person at the machine performs it, through the
