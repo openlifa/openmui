@@ -147,6 +147,8 @@ export declare function tab(props?: TabProps): View;
 export interface TabsProps extends NodeProps {
   /** The id of the selected tab. */
   selected?: string | Expr<string> | Signal<string>;
+  /** line: the selected tab underlined; bar: the tabs on a capsule, the selected one in a lens that slides to it, stretching as it goes (a segmented control, a floating tab bar). */
+  variant?: "line" | "bar" | Expr<"line" | "bar">;
   onChanged?: (args: { selected: string; }) => void;
 }
 export declare function tabs(props?: TabsProps): View;

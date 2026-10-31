@@ -6,6 +6,7 @@ doc  = "A set of tabs selecting one panel."
 
 [contract.tabs.props]
 selected = { type = "string", default = "", bindable = true, doc = "The id of the selected tab." }
+variant  = { type = "enum", values = ["line", "bar"], default = "line", doc = "line: the selected tab underlined; bar: the tabs on a capsule, the selected one in a lens that slides to it, stretching as it goes (a segmented control, a floating tab bar)." }
 
 [contract.tabs.events]
 changed = { args = { selected = "string" } }

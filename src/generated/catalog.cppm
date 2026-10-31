@@ -237,8 +237,10 @@ inline constexpr ActionSpec tab_actions[] = {
 };
 inline constexpr ContractInfo tab {"tab", Role::tab, "0.1", tab_props, {}, tab_actions, {}, {}, {}, {}, "A tab of a tab list."};
 
+inline constexpr std::string_view tabs_variant_values[] = {"line", "bar"};
 inline constexpr PropInfo tabs_props[] = {
     {"selected", PropType::string, {}, DefaultValue::of_string(""), true, "The id of the selected tab."},
+    {"variant", PropType::choice, tabs_variant_values, DefaultValue::of_string("line"), false, "line: the selected tab underlined; bar: the tabs on a capsule, the selected one in a lens that slides to it, stretching as it goes (a segmented control, a floating tab bar)."},
 };
 inline constexpr ArgInfo tabs_event_changed_args[] = {{"selected", "string"}};
 inline constexpr EventInfo tabs_events[] = {

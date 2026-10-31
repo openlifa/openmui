@@ -174,6 +174,7 @@ def tabs(
     *,
     id: str | None = None,
     selected: str | Expr[str] | Signal[str] = "",
+    variant: Literal["line", "bar"] | Expr[Literal["line", "bar"]] = "line",
     on_changed: Callable[[dict[str, Any]], None] | None = None,
     **layout: Any,
 ) -> View:

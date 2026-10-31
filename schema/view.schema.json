@@ -1115,9 +1115,13 @@
             "selected": {
               "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
               "description": "The id of the selected tab. — default \"\" (bindable)"
+            },
+            "variant": {
+              "anyOf": [{"enum": ["line", "bar"]}, {"$ref": "#/$defs/oneway"}],
+              "description": "line: the selected tab underlined; bar: the tabs on a capsule, the selected one in a lens that slides to it, stretching as it goes (a segmented control, a floating tab bar). — default \"line\""
             }
           },
-          "propertyNames": {"anyOf": [{"enum": ["selected"]}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "propertyNames": {"anyOf": [{"enum": ["selected", "variant"]}, {"$ref": "#/$defs/runtime_property_name"}]},
           "additionalProperties": {"$ref": "#/$defs/runtime_property"}
         },
         "on": {

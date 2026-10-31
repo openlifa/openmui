@@ -562,6 +562,7 @@ A set of tabs selecting one panel.
 | Property | Type | Default | Bindable | Meaning |
 |---|---|---|---|---|
 | `selected` | string | "" | yes | The id of the selected tab. |
+| `variant` | `line` \| `bar` | `line` |  | line: the selected tab underlined; bar: the tabs on a capsule, the selected one in a lens that slides to it, stretching as it goes (a segmented control, a floating tab bar). |
 
 | Event | Arguments | Coalesced |
 |---|---|---|

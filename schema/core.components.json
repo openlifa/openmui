@@ -130,7 +130,8 @@
     "tabs": {
       "description": "A set of tabs selecting one panel.",
       "properties": {
-        "selected": { "anyOf": [ { "type": "string" }, { "$ref": "#/definitions/Binding" } ], "description": "The id of the selected tab." }
+        "selected": { "anyOf": [ { "type": "string" }, { "$ref": "#/definitions/Binding" } ], "description": "The id of the selected tab." },
+        "variant": { "anyOf": [ { "type": "string", "enum": ["line", "bar"] }, { "$ref": "#/definitions/Binding" } ], "description": "line: the selected tab underlined; bar: the tabs on a capsule, the selected one in a lens that slides to it, stretching as it goes (a segmented control, a floating tab bar)." }
       },
       "events": ["changed"]
     },

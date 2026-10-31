@@ -158,6 +158,7 @@ function omui.Tab(props) end
 ---A set of tabs selecting one panel.
 ---@class omui.TabsProps : omui.NodeProps
 ---@field selected? string|omui.Expr|omui.Signal The id of the selected tab.
+---@field variant? "line"|"bar"|omui.Expr line: the selected tab underlined; bar: the tabs on a capsule, the selected one in a lens that slides to it, stretching as it goes (a segmented control, a floating tab bar).
 ---@field on_changed? fun(args: table)
 
 ---@param props omui.TabsProps
