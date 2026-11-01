@@ -89,6 +89,7 @@
         "row_gap",
         "rows",
         "scale",
+        "selected",
         "shadow",
         "shrink",
         "theme_scope",
@@ -296,6 +297,53 @@
       "required": ["type"],
       "additionalProperties": false,
       "description": "A section whose header is always shown and whose content shows while it is expanded."
+    },
+    "component.actor_log": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "actor_log"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "actors": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Whose actions it lists: actors whose names begin with this (`agent:` every agent, `agent:guide` one). — default \"agent:\""
+            },
+            "limit": {
+              "anyOf": [{"type": "integer"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The records it shows, the newest. — default 50"
+            },
+            "link": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Its first line says the person's agent link: waiting with its code, paired with whom, lost, expired. — default true"
+            },
+            "phrases": {
+              "anyOf": [{}, {"$ref": "#/$defs/oneway"}],
+              "description": "Its words in another language: a map from idle, waiting, paired, lost, expired, stopped, empty, undo, asked, refused to text ({code} and {agent} filled in)."
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["actors", "limit", "link", "phrases"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["undone"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "Who else acts here and what each did: the agent's link and its actions, each taken back from here while it is the last."
     },
     "component.avatar": {
       "type": "object",
@@ -1875,6 +1923,7 @@
     "node": {
       "oneOf": [
         {"$ref": "#/$defs/component.accordion"},
+        {"$ref": "#/$defs/component.actor_log"},
         {"$ref": "#/$defs/component.avatar"},
         {"$ref": "#/$defs/component.badge"},
         {"$ref": "#/$defs/component.box"},
