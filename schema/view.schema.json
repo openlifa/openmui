@@ -771,6 +771,60 @@
       "additionalProperties": false,
       "description": "A compact label: pressed, turned on and off as a filter, or removed as a tag."
     },
+    "component.code_editor": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "code_editor"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "language": {
+              "anyOf": [
+                {"enum": ["cpp", "typescript", "python", "lua", "json", "toml", "plain"]},
+                {"$ref": "#/$defs/oneway"}
+              ],
+              "description": "default \"cpp\""
+            },
+            "lines": {
+              "anyOf": [{"type": "integer"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The lines it is tall enough for (more grow it). — default 8"
+            },
+            "readonly": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "text": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "default \"\" (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["label", "language", "lines", "readonly", "text"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "Code edited: coloured, its lines numbered, Tab indenting, Enter keeping the indent."
+    },
     "component.color_picker": {
       "type": "object",
       "properties": {
@@ -2677,6 +2731,7 @@
         {"$ref": "#/$defs/component.card"},
         {"$ref": "#/$defs/component.checkbox"},
         {"$ref": "#/$defs/component.chip"},
+        {"$ref": "#/$defs/component.code_editor"},
         {"$ref": "#/$defs/component.color_picker"},
         {"$ref": "#/$defs/component.column"},
         {"$ref": "#/$defs/component.combobox"},
