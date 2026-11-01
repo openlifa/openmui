@@ -771,6 +771,53 @@
       "additionalProperties": false,
       "description": "A compact label: pressed, turned on and off as a filter, or removed as a tag."
     },
+    "component.color_picker": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "color_picker"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "swatches": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "Colours offered at once (#rrggbb). — default []"
+            },
+            "value": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "#rrggbb. — default \"#4f46e5\" (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["disabled", "label", "swatches", "value"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A colour chosen from a field and a hue strip, or the application's swatches."
+    },
     "component.column": {
       "type": "object",
       "properties": {
@@ -794,6 +841,65 @@
       },
       "required": ["type"],
       "additionalProperties": false
+    },
+    "component.date_picker": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "date_picker"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "max": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The latest (ISO). — default \"\""
+            },
+            "min": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The earliest date that may be chosen (ISO). — default \"\""
+            },
+            "placeholder": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"Pick a date\""
+            },
+            "value": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "The date, ISO: 2026-11-02; empty: none yet. — default \"\" (bindable)"
+            },
+            "week_start": {
+              "anyOf": [{"enum": ["monday", "sunday"]}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"monday\""
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["disabled", "label", "max", "min", "placeholder", "value", "week_start"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A date chosen from a month's calendar."
     },
     "component.dialog": {
       "type": "object",
@@ -2022,6 +2128,57 @@
       "additionalProperties": false,
       "description": "A single- or multi-line text field with selection, clipboard and input methods."
     },
+    "component.time_picker": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "time_picker"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "hour12": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Shown with AM and PM. — default false"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "step": {
+              "anyOf": [{"type": "integer"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Minutes a step moves, and the minutes kept on. — default 1"
+            },
+            "value": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "HH:MM, 24-hour. — default \"09:00\" (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["disabled", "hour12", "label", "step", "value"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A time of day, its hours and minutes each stepped or typed."
+    },
     "component.toast": {
       "type": "object",
       "properties": {
@@ -2196,7 +2353,9 @@
         {"$ref": "#/$defs/component.card"},
         {"$ref": "#/$defs/component.checkbox"},
         {"$ref": "#/$defs/component.chip"},
+        {"$ref": "#/$defs/component.color_picker"},
         {"$ref": "#/$defs/component.column"},
+        {"$ref": "#/$defs/component.date_picker"},
         {"$ref": "#/$defs/component.dialog"},
         {"$ref": "#/$defs/component.grid"},
         {"$ref": "#/$defs/component.image"},
@@ -2227,6 +2386,7 @@
         {"$ref": "#/$defs/component.tabs"},
         {"$ref": "#/$defs/component.text"},
         {"$ref": "#/$defs/component.text_box"},
+        {"$ref": "#/$defs/component.time_picker"},
         {"$ref": "#/$defs/component.toast"},
         {"$ref": "#/$defs/component.toggle"},
         {"$ref": "#/$defs/component.tooltip"},
