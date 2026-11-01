@@ -90,9 +90,10 @@ enum class Role : std::uint8_t {
     blockquote,
     navigation,
     main,
+    log,
 };
 
-inline constexpr std::array<RoleInfo, 66> roles{{
+inline constexpr std::array<RoleInfo, 67> roles{{
     {"none", "none", "GenericContainer", false, "Not exposed: presentation only."},
     {"generic", "generic", "GenericContainer", false, "A container with no meaning of its own."},
     {"application", "application", "Application", false, "The root of an application's interface."},
@@ -159,6 +160,7 @@ inline constexpr std::array<RoleInfo, 66> roles{{
     {"blockquote", "blockquote", "Blockquote", false, "A section quoted from another source."},
     {"navigation", "navigation", "Navigation", false, "A landmark: the links or places that move around the application or document."},
     {"main", "main", "Main", false, "A landmark: the application's or document's main content (one per view)."},
+    {"log", "log", "Log", false, "A live record of what happened, newest last (the actions another actor took, a chat): its new entries read out politely."},
 }};
 
 [[nodiscard]] constexpr std::string_view name(Role v) noexcept {

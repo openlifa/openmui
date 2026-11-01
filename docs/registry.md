@@ -74,6 +74,7 @@ The machine-readable tables of the specification. Enumerators are append-only; t
 | 63 | `blockquote` |  | blockquote | Blockquote | A section quoted from another source. |
 | 64 | `navigation` |  | navigation | Navigation | A landmark: the links or places that move around the application or document. |
 | 65 | `main` |  | main | Main | A landmark: the application's or document's main content (one per view). |
+| 66 | `log` |  | log | Log | A live record of what happened, newest last (the actions another actor took, a chat): its new entries read out politely. |
 
 ## States
 

@@ -466,3 +466,10 @@ aria        = "main"
 accesskit   = "Main"
 interactive = false
 doc         = "A landmark: the application's or document's main content (one per view)."
+
+[[role]]
+name        = "log"
+aria        = "log"
+accesskit   = "Log"
+interactive = false
+doc         = "A live record of what happened, newest last (the actions another actor took, a chat): its new entries read out politely."

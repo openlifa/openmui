@@ -216,6 +216,8 @@ typedef enum OmuiRole {
     OMUI_ROLE_NAVIGATION = 64,
     /* A landmark: the application's or document's main content (one per view). */
     OMUI_ROLE_MAIN = 65,
+    /* A live record of what happened, newest last (the actions another actor took, a chat): its new entries read out politely. */
+    OMUI_ROLE_LOG = 66,
     OMUI_ROLE_MAX_ENUM = 0x7FFFFFFF
 } OmuiRole;
 
