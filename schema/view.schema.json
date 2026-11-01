@@ -842,6 +842,71 @@
       "required": ["type"],
       "additionalProperties": false
     },
+    "component.data_grid": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "data_grid"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "columns": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "The fields shown, in order. — default []"
+            },
+            "headers": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "Their headers (else the fields' names). — default []"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "model": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The model whose rows it shows. — default \"\""
+            },
+            "multiple": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Several rows chosen at once (Ctrl or Shift, Space). — default false"
+            },
+            "selected": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/binding"}],
+              "description": "The chosen rows' keys. — default [] (bindable)"
+            },
+            "sort": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "The column sorted by: a field, ascending; -field, descending; empty: the model's order. — default \"\" (bindable)"
+            },
+            "widths": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "Each column's width in pixels; empty or * shares what is left. — default []"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {
+                "enum": ["columns", "headers", "label", "model", "multiple", "selected", "sort", "widths"]
+              },
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["activated", "sorted"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A table of a model's rows: sorted by a column, rows chosen, read whole by agents."
+    },
     "component.date_picker": {
       "type": "object",
       "properties": {
@@ -2409,6 +2474,53 @@
       "additionalProperties": false,
       "description": "A short description shown while hovering or focusing an element."
     },
+    "component.tree_view": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "tree_view"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "expanded": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/binding"}],
+              "description": "The keys of the rows open. — default [] (bindable)"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "model": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The model whose rows it shows: each row's `parent` field names its parent's key. — default \"\""
+            },
+            "value": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "The chosen row's key. — default \"\" (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["expanded", "label", "model", "value"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["activated", "changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A hierarchy from a model's rows, each a tree item opened, closed and chosen."
+    },
     "if": {
       "type": "object",
       "properties": {
@@ -2453,6 +2565,7 @@
         {"$ref": "#/$defs/component.chip"},
         {"$ref": "#/$defs/component.color_picker"},
         {"$ref": "#/$defs/component.column"},
+        {"$ref": "#/$defs/component.data_grid"},
         {"$ref": "#/$defs/component.date_picker"},
         {"$ref": "#/$defs/component.dialog"},
         {"$ref": "#/$defs/component.drawer"},
@@ -2490,6 +2603,7 @@
         {"$ref": "#/$defs/component.toast"},
         {"$ref": "#/$defs/component.toggle"},
         {"$ref": "#/$defs/component.tooltip"},
+        {"$ref": "#/$defs/component.tree_view"},
         {"$ref": "#/$defs/if"},
         {"$ref": "#/$defs/for"},
         {"$ref": "#/$defs/slot"}
