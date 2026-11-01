@@ -842,6 +842,65 @@
       "required": ["type"],
       "additionalProperties": false
     },
+    "component.combobox": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "combobox"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "free": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "A value typed that is no option stands. — default false"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "labels": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "default []"
+            },
+            "options": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "Option values; labels from `labels` or the values. — default []"
+            },
+            "placeholder": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"Search…\""
+            },
+            "value": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "default \"\" (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["disabled", "free", "label", "labels", "options", "placeholder", "value"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "One value typed or chosen from the options matching what is typed."
+    },
     "component.data_grid": {
       "type": "object",
       "properties": {
@@ -2147,6 +2206,61 @@
       "additionalProperties": false,
       "description": "A set of tabs selecting one panel."
     },
+    "component.tag_input": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "tag_input"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "free": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "A tag that is no suggestion may be added. — default true"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "placeholder": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"Add…\""
+            },
+            "suggestions": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "Offered as one types (those holding what is typed). — default []"
+            },
+            "tags": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/binding"}],
+              "description": "default [] (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["disabled", "free", "label", "placeholder", "suggestions", "tags"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["added", "removed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "Tags gathered by typing or choosing a suggestion, each removed by its ×."
+    },
     "component.text": {
       "type": "object",
       "properties": {
@@ -2565,6 +2679,7 @@
         {"$ref": "#/$defs/component.chip"},
         {"$ref": "#/$defs/component.color_picker"},
         {"$ref": "#/$defs/component.column"},
+        {"$ref": "#/$defs/component.combobox"},
         {"$ref": "#/$defs/component.data_grid"},
         {"$ref": "#/$defs/component.date_picker"},
         {"$ref": "#/$defs/component.dialog"},
@@ -2597,6 +2712,7 @@
         {"$ref": "#/$defs/component.stepper"},
         {"$ref": "#/$defs/component.tab"},
         {"$ref": "#/$defs/component.tabs"},
+        {"$ref": "#/$defs/component.tag_input"},
         {"$ref": "#/$defs/component.text"},
         {"$ref": "#/$defs/component.text_box"},
         {"$ref": "#/$defs/component.time_picker"},
