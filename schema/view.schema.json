@@ -345,6 +345,61 @@
       "additionalProperties": false,
       "description": "Who else acts here and what each did: the agent's link and its actions, each taken back from here while it is the last."
     },
+    "component.alert": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "alert"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Its one action's label; none: no action. — default \"\""
+            },
+            "dismissible": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "message": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "With the title, its accessible name. — default \"\""
+            },
+            "open": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/binding"}],
+              "description": "default true (bindable)"
+            },
+            "title": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "tone": {
+              "anyOf": [{"enum": ["info", "success", "warning", "danger"]}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"info\""
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["action", "dismissible", "message", "open", "title", "tone"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["acted", "dismissed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A message in the page that needs attention: a tone, a title, the message, one action at most."
+    },
     "component.avatar": {
       "type": "object",
       "properties": {
@@ -662,6 +717,59 @@
       "required": ["type"],
       "additionalProperties": false,
       "description": "A checkable option; can be indeterminate."
+    },
+    "component.chip": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "chip"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "removable": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "A tag: an × that removes it (the application takes it out). — default false"
+            },
+            "selectable": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "A filter: pressing turns it on and off (a toggle button). — default false"
+            },
+            "selected": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/binding"}],
+              "description": "default false (bindable)"
+            },
+            "text": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Also the accessible name. — default \"\""
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["disabled", "removable", "selectable", "selected", "text"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {
+            "anyOf": [{"enum": ["activated", "removed", "toggled"]}, {"$ref": "#/$defs/runtime_event"}]
+          },
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A compact label: pressed, turned on and off as a filter, or removed as a tag."
     },
     "component.column": {
       "type": "object",
@@ -1250,6 +1358,59 @@
       "additionalProperties": false,
       "description": "One of a set of mutually exclusive options; the group is the radio_group role."
     },
+    "component.range_slider": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "range_slider"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "high": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/binding"}],
+              "description": "default 100 (bindable)"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "low": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/binding"}],
+              "description": "default 0 (bindable)"
+            },
+            "max": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default 100"
+            },
+            "min": {"anyOf": [{"type": "number"}, {"$ref": "#/$defs/oneway"}], "description": "default 0"},
+            "step": {"anyOf": [{"type": "number"}, {"$ref": "#/$defs/oneway"}], "description": "default 1"}
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["disabled", "high", "label", "low", "max", "min", "step"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed", "committed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A range chosen with two thumbs on one track, the low never past the high."
+    },
     "component.row": {
       "type": "object",
       "properties": {
@@ -1320,6 +1481,57 @@
       "required": ["type"],
       "additionalProperties": false,
       "description": "A viewport onto content larger than itself."
+    },
+    "component.segmented": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "segmented"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The accessible name of the group. — default \"\""
+            },
+            "labels": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "default []"
+            },
+            "options": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "The choices' values; their labels from `labels` or the values. — default []"
+            },
+            "value": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "default \"\" (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["disabled", "label", "labels", "options", "value"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "One of a few choices side by side, the chosen one raised."
     },
     "component.select": {
       "type": "object",
@@ -1546,6 +1758,57 @@
       },
       "required": ["type"],
       "additionalProperties": false
+    },
+    "component.stepper": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "stepper"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "free": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Any step may be gone to, not only those done. — default false"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The accessible name. — default \"Steps\""
+            },
+            "steps": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "The steps' names, in order. — default []"
+            },
+            "value": {
+              "anyOf": [{"type": "integer"}, {"$ref": "#/$defs/binding"}],
+              "description": "The current step's index. — default 0 (bindable)"
+            },
+            "vertical": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["free", "label", "steps", "value", "vertical"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "Where one is among steps: those done, the current one, those ahead."
     },
     "component.tab": {
       "type": "object",
@@ -1924,6 +2187,7 @@
       "oneOf": [
         {"$ref": "#/$defs/component.accordion"},
         {"$ref": "#/$defs/component.actor_log"},
+        {"$ref": "#/$defs/component.alert"},
         {"$ref": "#/$defs/component.avatar"},
         {"$ref": "#/$defs/component.badge"},
         {"$ref": "#/$defs/component.box"},
@@ -1931,6 +2195,7 @@
         {"$ref": "#/$defs/component.button"},
         {"$ref": "#/$defs/component.card"},
         {"$ref": "#/$defs/component.checkbox"},
+        {"$ref": "#/$defs/component.chip"},
         {"$ref": "#/$defs/component.column"},
         {"$ref": "#/$defs/component.dialog"},
         {"$ref": "#/$defs/component.grid"},
@@ -1946,8 +2211,10 @@
         {"$ref": "#/$defs/component.popover"},
         {"$ref": "#/$defs/component.progress"},
         {"$ref": "#/$defs/component.radio"},
+        {"$ref": "#/$defs/component.range_slider"},
         {"$ref": "#/$defs/component.row"},
         {"$ref": "#/$defs/component.scroll_view"},
+        {"$ref": "#/$defs/component.segmented"},
         {"$ref": "#/$defs/component.select"},
         {"$ref": "#/$defs/component.select_option"},
         {"$ref": "#/$defs/component.select_popup"},
@@ -1955,6 +2222,7 @@
         {"$ref": "#/$defs/component.slider"},
         {"$ref": "#/$defs/component.spacer"},
         {"$ref": "#/$defs/component.stack"},
+        {"$ref": "#/$defs/component.stepper"},
         {"$ref": "#/$defs/component.tab"},
         {"$ref": "#/$defs/component.tabs"},
         {"$ref": "#/$defs/component.text"},
