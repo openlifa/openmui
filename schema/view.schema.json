@@ -964,9 +964,9 @@
         "props": {
           "type": "object",
           "properties": {
-            "columns": {
+            "fields": {
               "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
-              "description": "The fields shown, in order. — default []"
+              "description": "The rows' fields shown as its columns, in order (named `fields`: `columns` is a grid layout's). — default []"
             },
             "headers": {
               "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
@@ -1000,7 +1000,7 @@
           "propertyNames": {
             "anyOf": [
               {
-                "enum": ["columns", "headers", "label", "model", "multiple", "selected", "sort", "widths"]
+                "enum": ["fields", "headers", "label", "model", "multiple", "selected", "sort", "widths"]
               },
               {"$ref": "#/$defs/runtime_property_name"}
             ]
