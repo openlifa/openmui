@@ -941,6 +941,57 @@
       "additionalProperties": false,
       "description": "A window over the application; modal by default."
     },
+    "component.drawer": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "drawer"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "modal": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The page dimmed behind it, and kept from the person while it is open. — default true"
+            },
+            "open": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/binding"}],
+              "description": "default false (bindable)"
+            },
+            "side": {
+              "anyOf": [{"enum": ["start", "end"]}, {"$ref": "#/$defs/oneway"}],
+              "description": "The window's left (start) or right (end) edge. — default \"end\""
+            },
+            "size": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Its width. — default 360"
+            },
+            "title": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Also its accessible name. — default \"\""
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["modal", "open", "side", "size", "title"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["closed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A sheet along the window's edge over the page, closed by Escape, a press outside or its ×."
+    },
     "component.grid": {
       "type": "object",
       "properties": {
@@ -1841,6 +1892,53 @@
       "required": ["type"],
       "additionalProperties": false
     },
+    "component.split_view": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "split_view"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"\""
+            },
+            "min": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The least share either pane keeps. — default 0.15"
+            },
+            "ratio": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/binding"}],
+              "description": "The first pane's share of the room, 0–1. — default 0.5 (bindable)"
+            },
+            "vertical": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "One above the other. — default false"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["label", "min", "ratio", "vertical"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "Two panes sharing their room, the share moved by a handle between them."
+    },
     "component.stack": {
       "type": "object",
       "properties": {
@@ -2357,6 +2455,7 @@
         {"$ref": "#/$defs/component.column"},
         {"$ref": "#/$defs/component.date_picker"},
         {"$ref": "#/$defs/component.dialog"},
+        {"$ref": "#/$defs/component.drawer"},
         {"$ref": "#/$defs/component.grid"},
         {"$ref": "#/$defs/component.image"},
         {"$ref": "#/$defs/component.list"},
@@ -2380,6 +2479,7 @@
         {"$ref": "#/$defs/component.skeleton"},
         {"$ref": "#/$defs/component.slider"},
         {"$ref": "#/$defs/component.spacer"},
+        {"$ref": "#/$defs/component.split_view"},
         {"$ref": "#/$defs/component.stack"},
         {"$ref": "#/$defs/component.stepper"},
         {"$ref": "#/$defs/component.tab"},
