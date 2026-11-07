@@ -289,8 +289,11 @@ verb, with an actor; S-1 as for `act`), `undo` and `redo` (call: a scope's
 history, with an actor; S-12), `history` (call: what can be undone and
 redone), `transaction` (call: steps of `act`, with an actor; S-13), `wait`
 (call: a node appears, a state changes, an animation is `settled`; with a
-timeout), `capture` (optional pixels of a node). `act`, `invoke`, `undo`,
-`redo` and `transaction` take `dry_run` (S-13).
+timeout), `capture` (optional: a node's pixels as PNG, or with `format`
+`svg` its picture as SVG — each node's drawing a group marked `data-node`
+with its path, what SVG cannot express kept as pixels marked `data-island`
+and listed). `act`, `invoke`, `undo`, `redo` and `transaction` take
+`dry_run` (S-13).
 
 Calls answer with envelopes: newline-delimited JSON records of kinds `phase`,
 `progress`, `log`, `notice`, `error`, `data` and a final `result` with
