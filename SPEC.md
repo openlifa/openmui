@@ -331,6 +331,13 @@ fields and error codes of openas §6. An actor is written in openas's text form
 - **M-9** Components draw their state and may name their parts; they do not
   animate. How any change moves — a toggle's thumb, a list's order, a label's
   text, a button's colour — is the slot's recipe, the same for every component.
+- **M-10** How something comes in or goes out is a presence by name
+  (registry/motion.toml `[[presence]]`): a pose at its far end relative to where
+  it rests, a duration, an ease and an opacity window, with named options over
+  its defaults. A slot's `enter` or `exit` may name one; an implementation plays
+  the same presence on whole objects (an entrance, an exit) and on the pieces
+  of a drawing that appear or vanish in a transition, over that transition's
+  own curve.
 
 ## 11. Component contracts
 

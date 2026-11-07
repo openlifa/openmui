@@ -302,3 +302,139 @@ name       = "press.squash"
 primitives = ["match_drawing", "match_glyphs", "fade", "press"]
 timing     = "tween(450)"
 doc        = "Pressed: the control pressed in about the finger and ringing back like rubber; let go, a little spring outwards."
+
+
+# Presences (M-10): how something comes in or goes out, defined once —
+# hanim.core's presences (`hanim::presence`), which hanim's entrance and
+# exit recipes play on objects and a UI transition plays on the pieces of a
+# drawing that appear or vanish. A slot's enter or exit may name one, with
+# `options` over its defaults: distance, offset, scale, radians, height;
+# fade (the window's inner bound: an entrance turns opaque over
+# [fade, 1] of its progress, an exit transparent over [0, fade]);
+# duration, ease. The defaults are in each one's doc. Names are append-only.
+
+[[presence]]
+name    = "fade_in"
+kind    = "enter"
+options = ["fade", "duration", "ease"]
+doc     = "Fades in where it rests. 0.3 s, out_quad."
+
+[[presence]]
+name    = "rise_in"
+kind    = "enter"
+options = ["distance", "fade", "duration", "ease"]
+doc     = "Rises from `distance` below (24), fading in. 0.4 s, out_cubic."
+
+[[presence]]
+name    = "sink_in"
+kind    = "enter"
+options = ["distance", "fade", "duration", "ease"]
+doc     = "Sinks from `distance` above (24), fading in. 0.4 s, out_cubic."
+
+[[presence]]
+name    = "slide_in"
+kind    = "enter"
+options = ["offset", "fade", "duration", "ease"]
+doc     = "Slides in from `offset` (-40, 0), fading in. 0.45 s, out_cubic."
+
+[[presence]]
+name    = "settle_in"
+kind    = "enter"
+options = ["scale", "fade", "duration", "ease"]
+doc     = "Settles from a little smaller (`scale` 0.96), no overshoot, fading in: a UI's quiet entrance. 0.25 s, out_cubic."
+
+[[presence]]
+name    = "pop_in"
+kind    = "enter"
+options = ["scale", "fade", "duration", "ease"]
+doc     = "Pops from small (`scale` 0.3), overshooting, fading in. 0.45 s, out_back."
+
+[[presence]]
+name    = "zoom_in"
+kind    = "enter"
+options = ["scale", "fade", "duration", "ease"]
+doc     = "Zooms down from large (`scale` 1.4), fading in. 0.4 s, out_cubic."
+
+[[presence]]
+name    = "spin_in"
+kind    = "enter"
+options = ["radians", "fade", "duration", "ease"]
+doc     = "Spins in from `radians` (-1.2) and 0.6 of its size, fading in. 0.5 s, out_cubic."
+
+[[presence]]
+name    = "unfold_in"
+kind    = "enter"
+options = ["fade", "duration", "ease"]
+doc     = "Unfolds its height from 0.05. 0.4 s, out_cubic."
+
+[[presence]]
+name    = "write_in"
+kind    = "enter"
+options = ["duration", "ease"]
+doc     = "Its strokes drawn along their length; no fade. 0.6 s, in_out_cubic."
+
+[[presence]]
+name    = "drop_in"
+kind    = "enter"
+options = ["height", "duration"]
+doc     = "Dropped from `height` above (160), falling and bouncing, squashing as it lands; no fade. 1 s."
+
+[[presence]]
+name    = "fade_out"
+kind    = "exit"
+options = ["fade", "duration", "ease"]
+doc     = "Fades out where it rests. 0.25 s, in_quad."
+
+[[presence]]
+name    = "rise_out"
+kind    = "exit"
+options = ["distance", "fade", "duration", "ease"]
+doc     = "Rises `distance` (24), fading out. 0.35 s, in_cubic."
+
+[[presence]]
+name    = "sink_out"
+kind    = "exit"
+options = ["distance", "fade", "duration", "ease"]
+doc     = "Sinks `distance` (24), fading out. 0.35 s, in_cubic."
+
+[[presence]]
+name    = "slide_out"
+kind    = "exit"
+options = ["offset", "fade", "duration", "ease"]
+doc     = "Slides to `offset` (40, 0), fading out. 0.4 s, in_cubic."
+
+[[presence]]
+name    = "settle_out"
+kind    = "exit"
+options = ["scale", "fade", "duration", "ease"]
+doc     = "Settles to a little smaller (`scale` 0.96), fading out. 0.2 s, in_cubic."
+
+[[presence]]
+name    = "pop_out"
+kind    = "exit"
+options = ["scale", "fade", "duration", "ease"]
+doc     = "Shrinks to `scale` (0.3), with a pull back first, fading out. 0.35 s, in_back."
+
+[[presence]]
+name    = "zoom_out"
+kind    = "exit"
+options = ["scale", "fade", "duration", "ease"]
+doc     = "Grows to `scale` (1.4), fading out. 0.35 s, in_cubic."
+
+[[presence]]
+name    = "spin_out"
+kind    = "exit"
+options = ["radians", "fade", "duration", "ease"]
+doc     = "Spins away by `radians` (1.2) to 0.6 of its size, fading out. 0.45 s, in_cubic."
+
+[[presence]]
+name    = "fold_out"
+kind    = "exit"
+options = ["fade", "duration", "ease"]
+doc     = "Folds its height to 0.05, fading out. 0.35 s, in_cubic."
+
+[[presence]]
+name    = "unwrite"
+kind    = "exit"
+options = ["duration", "ease"]
+doc     = "Its strokes undrawn from their start; no fade. 0.5 s, in_out_cubic."

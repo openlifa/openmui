@@ -248,6 +248,34 @@ The machine-readable tables of the specification. Enumerators are append-only; t
 | `motion.spring.gentle` | — | — | 120, 14, 1 |
 | `motion.spring.bouncy` | — | — | 180, 12, 1 |
 
+### Presences
+
+How something comes in or goes out (spec M-10): a slot's enter or exit may name one, with these options over its defaults.
+
+| Presence | Kind | Options | Meaning |
+|---|---|---|---|
+| `fade_in` | enter | `fade`, `duration`, `ease` | Fades in where it rests. 0.3 s, out_quad. |
+| `rise_in` | enter | `distance`, `fade`, `duration`, `ease` | Rises from `distance` below (24), fading in. 0.4 s, out_cubic. |
+| `sink_in` | enter | `distance`, `fade`, `duration`, `ease` | Sinks from `distance` above (24), fading in. 0.4 s, out_cubic. |
+| `slide_in` | enter | `offset`, `fade`, `duration`, `ease` | Slides in from `offset` (-40, 0), fading in. 0.45 s, out_cubic. |
+| `settle_in` | enter | `scale`, `fade`, `duration`, `ease` | Settles from a little smaller (`scale` 0.96), no overshoot, fading in: a UI's quiet entrance. 0.25 s, out_cubic. |
+| `pop_in` | enter | `scale`, `fade`, `duration`, `ease` | Pops from small (`scale` 0.3), overshooting, fading in. 0.45 s, out_back. |
+| `zoom_in` | enter | `scale`, `fade`, `duration`, `ease` | Zooms down from large (`scale` 1.4), fading in. 0.4 s, out_cubic. |
+| `spin_in` | enter | `radians`, `fade`, `duration`, `ease` | Spins in from `radians` (-1.2) and 0.6 of its size, fading in. 0.5 s, out_cubic. |
+| `unfold_in` | enter | `fade`, `duration`, `ease` | Unfolds its height from 0.05. 0.4 s, out_cubic. |
+| `write_in` | enter | `duration`, `ease` | Its strokes drawn along their length; no fade. 0.6 s, in_out_cubic. |
+| `drop_in` | enter | `height`, `duration` | Dropped from `height` above (160), falling and bouncing, squashing as it lands; no fade. 1 s. |
+| `fade_out` | exit | `fade`, `duration`, `ease` | Fades out where it rests. 0.25 s, in_quad. |
+| `rise_out` | exit | `distance`, `fade`, `duration`, `ease` | Rises `distance` (24), fading out. 0.35 s, in_cubic. |
+| `sink_out` | exit | `distance`, `fade`, `duration`, `ease` | Sinks `distance` (24), fading out. 0.35 s, in_cubic. |
+| `slide_out` | exit | `offset`, `fade`, `duration`, `ease` | Slides to `offset` (40, 0), fading out. 0.4 s, in_cubic. |
+| `settle_out` | exit | `scale`, `fade`, `duration`, `ease` | Settles to a little smaller (`scale` 0.96), fading out. 0.2 s, in_cubic. |
+| `pop_out` | exit | `scale`, `fade`, `duration`, `ease` | Shrinks to `scale` (0.3), with a pull back first, fading out. 0.35 s, in_back. |
+| `zoom_out` | exit | `scale`, `fade`, `duration`, `ease` | Grows to `scale` (1.4), fading out. 0.35 s, in_cubic. |
+| `spin_out` | exit | `radians`, `fade`, `duration`, `ease` | Spins away by `radians` (1.2) to 0.6 of its size, fading out. 0.45 s, in_cubic. |
+| `fold_out` | exit | `fade`, `duration`, `ease` | Folds its height to 0.05, fading out. 0.35 s, in_cubic. |
+| `unwrite` | exit | `duration`, `ease` | Its strokes undrawn from their start; no fade. 0.5 s, in_out_cubic. |
+
 ## Expressions
 
 ### Operators
