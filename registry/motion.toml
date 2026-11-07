@@ -147,7 +147,9 @@ doc  = "the node's content was replaced by other content under the same key"
 #               write (strokes that appear are drawn along their length,
 #               those that go undrawn), drop (what appears falls in along
 #               fall(0.45, 2) and flattens about its bottom on landing),
-#               noise (a moving piece wanders on its way, exact at both ends)
+#               noise (a moving piece wanders on its way, exact at both ends),
+#               reshape (a glyph replaced in a matched run morphs its outline
+#               into its replacement's, contour by contour)
 [[recipe]]
 name = "none"
 doc  = "No motion: the new drawing at once."
@@ -285,3 +287,9 @@ name       = "travel.noise"
 primitives = ["match_drawing", "match_glyphs", "fade", "noise"]
 timing     = "motion.spring.gentle"
 doc        = "A moving piece wanders a little on its way, exact where it leaves and arrives."
+
+[[recipe]]
+name       = "text.reshape"
+primitives = ["match_drawing", "match_glyphs", "fade", "reshape"]
+timing     = "motion.spring.gentle"
+doc        = "Replaced text: a letter's outline becomes the new letter's, holes opening and closing, rather than fading through."
