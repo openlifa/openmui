@@ -507,7 +507,7 @@ struct MotionRecipe {
     std::string_view doc;
 };
 
-inline constexpr std::array<MotionRecipe, 19> motion_recipes{{
+inline constexpr std::array<MotionRecipe, 23> motion_recipes{{
     {"none", "", "", "", "No motion: the new drawing at once."},
     {"morph", "match_drawing match_glyphs fade", "spring(170, 26)", "", "The node's two drawings matched (by node, meaning and glyph) and drawn between."},
     {"simple", "match_drawing match_glyphs fade", "tween(160)", "", "A morph on a short tween."},
@@ -527,6 +527,10 @@ inline constexpr std::array<MotionRecipe, 19> motion_recipes{{
     {"default.panel", "match_drawing match_glyphs fade panel_lift grow", "motion.spring.gentle", "", "A panel (dialog, menu, popover) rising into place."},
     {"default.notice", "match_drawing match_glyphs fade lift grow", "motion.spring.snappy", "", "A notice (toast, tooltip, alert) lifting in."},
     {"default.steps", "match_drawing match_glyphs fade stretch", "motion.spring.snappy", "", "Progress through steps."},
+    {"trace.focus", "match_drawing fade write", "tween(320)", "", "Focus: the ring traced round as it appears, untraced as it goes."},
+    {"write.check", "match_drawing match_glyphs write", "tween(260)", "", "A mark drawn along its stroke as it appears."},
+    {"enter.drop", "match_drawing drop", "tween(700)", "", "What appears drops in, lands, flattens a little, bounces and settles."},
+    {"travel.noise", "match_drawing match_glyphs fade noise", "motion.spring.gentle", "", "A moving piece wanders a little on its way, exact where it leaves and arrives."},
 }};
 
 [[nodiscard]] constexpr const MotionRecipe* find_motion_recipe(std::string_view name) noexcept {

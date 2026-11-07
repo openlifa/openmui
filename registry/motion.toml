@@ -41,6 +41,7 @@ out_bounce   = "n1 = 7.5625, d1 = 2.75; piecewise parabolas at 1/d1, 2/d1, 2.5/d
 in_out_bounce = "t < 0.5 ? (1 - out_bounce(1 - 2t)) / 2 : (1 + out_bounce(2t - 1)) / 2"
 cubic_bezier = "CSS cubic-bezier(x1, y1, x2, y2), x1 and x2 in [0, 1]: solve x(s) = t by 8 Newton steps (stop when |error| < 1e-12, abandon when |x'(s)| < 1e-9 or s leaves [0, 1]), else 52 bisection steps; the value is y(s)"
 steps        = "CSS steps(n, jump-start | jump-end | jump-none | jump-both)"
+fall         = "fall(e, n, c): a body dropped from rest onto the ground, in first falls (the drop takes 1): it falls as s², stays c·v on the ground at each landing of speed v (the first's 1), leaves at e·v and flies 2·e·v, n times, then lands for good; L = 1 + Σ_{k<n} (c·e^k + 2·e^(k+1)); the value at t is the height fallen at t·L, exactly 1 on the ground and from t·L ≥ L on; e in [0, 1), n in 0..64, c in [0, 1] (0.1 when omitted, n 3)"
 spring       = "spring(k, c, m): the [spring] from x0 = 0, v0 = 0 to target 1 with stiffness k, damping c, mass m (1 when omitted); T its settle time with delta = 1e-4 and speed = 1e-3; the value at t is x(t·T), and exactly 1 from t·T ≥ T on"
 
 [spring]
@@ -143,6 +144,10 @@ doc  = "the node's content was replaced by other content under the same key"
 # append-only; a style pack may define more under its own prefix.
 #   primitives  match_drawing match_glyphs fade lift panel_lift grow
 #               check_grow stretch stagger distance readable_text
+#               write (strokes that appear are drawn along their length,
+#               those that go undrawn), drop (what appears falls in along
+#               fall(0.45, 2) and flattens about its bottom on landing),
+#               noise (a moving piece wanders on its way, exact at both ends)
 [[recipe]]
 name = "none"
 doc  = "No motion: the new drawing at once."
@@ -256,3 +261,27 @@ name       = "default.steps"
 primitives = ["match_drawing", "match_glyphs", "fade", "stretch"]
 timing     = "motion.spring.snappy"
 doc        = "Progress through steps."
+
+[[recipe]]
+name       = "trace.focus"
+primitives = ["match_drawing", "fade", "write"]
+timing     = "tween(320)"
+doc        = "Focus: the ring traced round as it appears, untraced as it goes."
+
+[[recipe]]
+name       = "write.check"
+primitives = ["match_drawing", "match_glyphs", "write"]
+timing     = "tween(260)"
+doc        = "A mark drawn along its stroke as it appears."
+
+[[recipe]]
+name       = "enter.drop"
+primitives = ["match_drawing", "drop"]
+timing     = "tween(700)"
+doc        = "What appears drops in, lands, flattens a little, bounces and settles."
+
+[[recipe]]
+name       = "travel.noise"
+primitives = ["match_drawing", "match_glyphs", "fade", "noise"]
+timing     = "motion.spring.gentle"
+doc        = "A moving piece wanders a little on its way, exact where it leaves and arrives."

@@ -184,6 +184,7 @@ The machine-readable tables of the specification. Enumerators are append-only; t
 | Curve | Definition |
 |---|---|
 | `cubic_bezier` | CSS cubic-bezier(x1, y1, x2, y2), x1 and x2 in [0, 1]: solve x(s) = t by 8 Newton steps (stop when \|error\| < 1e-12, abandon when \|x'(s)\| < 1e-9 or s leaves [0, 1]), else 52 bisection steps; the value is y(s) |
+| `fall` | fall(e, n, c): a body dropped from rest onto the ground, in first falls (the drop takes 1): it falls as s², stays c·v on the ground at each landing of speed v (the first's 1), leaves at e·v and flies 2·e·v, n times, then lands for good; L = 1 + Σ_{k<n} (c·e^k + 2·e^(k+1)); the value at t is the height fallen at t·L, exactly 1 on the ground and from t·L ≥ L on; e in [0, 1), n in 0..64, c in [0, 1] (0.1 when omitted, n 3) |
 | `in_back` | c3·t^3 - c1·t^2, c1 = 1.70158, c3 = c1 + 1 |
 | `in_bounce` | 1 - out_bounce(1 - t) |
 | `in_circ` | 1 - √(1 - t^2) |
