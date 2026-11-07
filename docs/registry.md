@@ -215,6 +215,7 @@ The machine-readable tables of the specification. Enumerators are append-only; t
 | `out_quart` | 1 - (1 - t)^4 |
 | `out_quint` | 1 - (1 - t)^5 |
 | `out_sine` | sin(t·π/2) |
+| `spring` | spring(k, c, m): the [spring] from x0 = 0, v0 = 0 to target 1 with stiffness k, damping c, mass m (1 when omitted); T its settle time with delta = 1e-4 and speed = 1e-3; the value at t is x(t·T), and exactly 1 from t·T ≥ T on |
 | `steps` | CSS steps(n, jump-start \| jump-end \| jump-none \| jump-both) |
 
 ### Spring

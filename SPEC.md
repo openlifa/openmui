@@ -315,6 +315,19 @@ fields and error codes of openas §6. An actor is written in openas's text form
 - **M-6** The clock is injectable: under a virtual or render clock results are
   determined by the times given (A-level: identical to the reference
   implementation's bits).
+- **M-7** A node has six motion slots — `update`, `enter`, `exit`, `state`,
+  `reorder`, `replace` (registry/motion.toml `[[slot]]`). When a node's drawing
+  changes, the kind of change selects the slot, and the slot's recipe decides
+  how the change moves; a slot without one changes at once.
+- **M-8** A slot holds a recipe by id (registry/motion.toml `[[recipe]]`, or a
+  style pack's own, prefixed) with optional parameters. The node's `motion`
+  property fills slots for that node; a style pack's motion rules fill them
+  for every node, a component type or a role; the node's own wins, then the
+  more specific rule. Of a slot's candidates the first whose effect the host
+  supports is taken; reduced motion (M-5) applies to every recipe.
+- **M-9** Components draw their state and may name their parts; they do not
+  animate. How any change moves — a toggle's thumb, a list's order, a label's
+  text, a button's colour — is the slot's recipe, the same for every component.
 
 ## 11. Component contracts
 

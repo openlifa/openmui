@@ -41,6 +41,7 @@ out_bounce   = "n1 = 7.5625, d1 = 2.75; piecewise parabolas at 1/d1, 2/d1, 2.5/d
 in_out_bounce = "t < 0.5 ? (1 - out_bounce(1 - 2t)) / 2 : (1 + out_bounce(2t - 1)) / 2"
 cubic_bezier = "CSS cubic-bezier(x1, y1, x2, y2), x1 and x2 in [0, 1]: solve x(s) = t by 8 Newton steps (stop when |error| < 1e-12, abandon when |x'(s)| < 1e-9 or s leaves [0, 1]), else 52 bisection steps; the value is y(s)"
 steps        = "CSS steps(n, jump-start | jump-end | jump-none | jump-both)"
+spring       = "spring(k, c, m): the [spring] from x0 = 0, v0 = 0 to target 1 with stiffness k, damping c, mass m (1 when omitted); T its settle time with delta = 1e-4 and speed = 1e-3; the value at t is x(t·T), and exactly 1 from t·T ≥ T on"
 
 [spring]
 # m·x'' + c·x' + k·(x − target) = 0, solved in closed form from (x0, v0).
@@ -108,3 +109,150 @@ name      = "motion.spring.bouncy"
 stiffness = 180
 damping   = 12
 mass      = 1
+
+# Motion slots (spec §10, M-7), in order: when a node's drawing changes, which slot the
+# change is decides the motion. A node's `motion` property and a style pack's
+# motion rules fill slots with recipes; components only draw their state.
+[[slot]]
+name = "update"
+doc  = "the node's drawing changed while it stayed (a value, a label, a colour)"
+
+[[slot]]
+name = "enter"
+doc  = "the node appeared (mounted, shown, revealed)"
+
+[[slot]]
+name = "exit"
+doc  = "the node is going (unmounted, hidden); it is drawn until its motion ends"
+
+[[slot]]
+name = "state"
+doc  = "an interaction state changed (hovered, pressed, focused, checked …)"
+
+[[slot]]
+name = "reorder"
+doc  = "the node kept its drawing but moved among its siblings"
+
+[[slot]]
+name = "replace"
+doc  = "the node's content was replaced by other content under the same key"
+
+# Built-in recipes (M-8): ids a slot can name. A recipe composes primitives
+# over a timing (a motion token's name, "tween(ms)" or "spring(k, c[, m])"), and
+# may carry an effect that rises and falls while the change moves. Ids are
+# append-only; a style pack may define more under its own prefix.
+#   primitives  match_drawing match_glyphs fade lift panel_lift grow
+#               check_grow stretch stagger distance readable_text
+[[recipe]]
+name = "none"
+doc  = "No motion: the new drawing at once."
+
+[[recipe]]
+name       = "morph"
+primitives = ["match_drawing", "match_glyphs", "fade"]
+timing     = "spring(170, 26)"
+doc        = "The node's two drawings matched (by node, meaning and glyph) and drawn between."
+
+[[recipe]]
+name       = "simple"
+primitives = ["match_drawing", "match_glyphs", "fade"]
+timing     = "tween(160)"
+doc        = "A morph on a short tween."
+
+[[recipe]]
+name       = "spring"
+primitives = ["match_drawing", "match_glyphs", "fade"]
+timing     = "motion.spring.gentle"
+doc        = "A morph on the gentle spring."
+
+[[recipe]]
+name       = "liquid"
+primitives = ["match_drawing", "match_glyphs", "fade", "stretch"]
+timing     = "motion.spring.gentle"
+effect     = "metaball"
+doc        = "A drop: pulled out along its way, the shapes it passes merging with it."
+
+[[recipe]]
+name       = "ink"
+primitives = ["match_drawing", "match_glyphs", "fade", "stagger", "distance"]
+timing     = "tween(420)"
+effect     = "wobble"
+doc        = "A brush: unhurried, the line wavering as it goes, the far pieces a little later."
+
+[[recipe]]
+name       = "default.action"
+primitives = ["match_drawing", "readable_text", "fade"]
+timing     = "motion.spring.snappy"
+doc        = "What a pressed or activated control does."
+
+[[recipe]]
+name       = "default.focus"
+primitives = ["match_drawing", "match_glyphs", "fade"]
+timing     = "tween(100)"
+doc        = "Focus and other interaction states."
+
+[[recipe]]
+name       = "default.toggle"
+primitives = ["match_drawing", "match_glyphs", "fade", "stretch"]
+timing     = "motion.spring.snappy"
+doc        = "A switch's thumb travelling, drawn out along its way."
+
+[[recipe]]
+name       = "default.check"
+primitives = ["match_drawing", "match_glyphs", "fade", "check_grow"]
+timing     = "motion.spring.snappy"
+doc        = "A mark appearing or going."
+
+[[recipe]]
+name       = "default.selection"
+primitives = ["match_drawing", "match_glyphs", "stretch"]
+timing     = "motion.spring.snappy"
+doc        = "A selection indicator moving to the new choice."
+
+[[recipe]]
+name       = "default.value"
+primitives = ["match_drawing", "match_glyphs", "fade"]
+timing     = "motion.spring.snappy"
+doc        = "A value changing (a slider, a progress)."
+
+[[recipe]]
+name       = "default.count"
+primitives = ["match_drawing", "match_glyphs", "fade"]
+timing     = "tween(220)"
+doc        = "A number changing, glyph by glyph."
+
+[[recipe]]
+name       = "default.surface"
+primitives = ["match_drawing", "match_glyphs", "fade"]
+timing     = "tween(180)"
+doc        = "A surface's look changing."
+
+[[recipe]]
+name       = "default.structure"
+primitives = ["match_drawing", "match_glyphs", "fade"]
+timing     = "motion.spring.gentle"
+doc        = "Rows, items or panes rearranged."
+
+[[recipe]]
+name       = "default.reveal"
+primitives = ["match_drawing", "match_glyphs", "fade", "grow"]
+timing     = "motion.spring.snappy"
+doc        = "Appearing or going in place."
+
+[[recipe]]
+name       = "default.panel"
+primitives = ["match_drawing", "match_glyphs", "fade", "panel_lift", "grow"]
+timing     = "motion.spring.gentle"
+doc        = "A panel (dialog, menu, popover) rising into place."
+
+[[recipe]]
+name       = "default.notice"
+primitives = ["match_drawing", "match_glyphs", "fade", "lift", "grow"]
+timing     = "motion.spring.snappy"
+doc        = "A notice (toast, tooltip, alert) lifting in."
+
+[[recipe]]
+name       = "default.steps"
+primitives = ["match_drawing", "match_glyphs", "fade", "stretch"]
+timing     = "motion.spring.snappy"
+doc        = "Progress through steps."

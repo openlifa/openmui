@@ -481,6 +481,60 @@ inline constexpr std::array<MotionToken, 9> motion_tokens{{
     return nullptr;
 }
 
+// The motion slots (motion.toml [[slot]], spec M-7), in order: which change of a node's
+// drawing a slot's recipe moves.
+struct MotionSlot {
+    std::string_view name;
+    std::string_view doc;
+};
+
+inline constexpr std::array<MotionSlot, 6> motion_slots{{
+    {"update", "the node's drawing changed while it stayed (a value, a label, a colour)"},
+    {"enter", "the node appeared (mounted, shown, revealed)"},
+    {"exit", "the node is going (unmounted, hidden); it is drawn until its motion ends"},
+    {"state", "an interaction state changed (hovered, pressed, focused, checked …)"},
+    {"reorder", "the node kept its drawing but moved among its siblings"},
+    {"replace", "the node's content was replaced by other content under the same key"},
+}};
+
+// The built-in motion recipes (motion.toml [[recipe]], spec M-8): primitives
+// space-separated; timing a motion token's name, "tween(ms)" or "spring(k, c[, m])".
+struct MotionRecipe {
+    std::string_view name;
+    std::string_view primitives;
+    std::string_view timing;
+    std::string_view effect;
+    std::string_view doc;
+};
+
+inline constexpr std::array<MotionRecipe, 19> motion_recipes{{
+    {"none", "", "", "", "No motion: the new drawing at once."},
+    {"morph", "match_drawing match_glyphs fade", "spring(170, 26)", "", "The node's two drawings matched (by node, meaning and glyph) and drawn between."},
+    {"simple", "match_drawing match_glyphs fade", "tween(160)", "", "A morph on a short tween."},
+    {"spring", "match_drawing match_glyphs fade", "motion.spring.gentle", "", "A morph on the gentle spring."},
+    {"liquid", "match_drawing match_glyphs fade stretch", "motion.spring.gentle", "metaball", "A drop: pulled out along its way, the shapes it passes merging with it."},
+    {"ink", "match_drawing match_glyphs fade stagger distance", "tween(420)", "wobble", "A brush: unhurried, the line wavering as it goes, the far pieces a little later."},
+    {"default.action", "match_drawing readable_text fade", "motion.spring.snappy", "", "What a pressed or activated control does."},
+    {"default.focus", "match_drawing match_glyphs fade", "tween(100)", "", "Focus and other interaction states."},
+    {"default.toggle", "match_drawing match_glyphs fade stretch", "motion.spring.snappy", "", "A switch's thumb travelling, drawn out along its way."},
+    {"default.check", "match_drawing match_glyphs fade check_grow", "motion.spring.snappy", "", "A mark appearing or going."},
+    {"default.selection", "match_drawing match_glyphs stretch", "motion.spring.snappy", "", "A selection indicator moving to the new choice."},
+    {"default.value", "match_drawing match_glyphs fade", "motion.spring.snappy", "", "A value changing (a slider, a progress)."},
+    {"default.count", "match_drawing match_glyphs fade", "tween(220)", "", "A number changing, glyph by glyph."},
+    {"default.surface", "match_drawing match_glyphs fade", "tween(180)", "", "A surface's look changing."},
+    {"default.structure", "match_drawing match_glyphs fade", "motion.spring.gentle", "", "Rows, items or panes rearranged."},
+    {"default.reveal", "match_drawing match_glyphs fade grow", "motion.spring.snappy", "", "Appearing or going in place."},
+    {"default.panel", "match_drawing match_glyphs fade panel_lift grow", "motion.spring.gentle", "", "A panel (dialog, menu, popover) rising into place."},
+    {"default.notice", "match_drawing match_glyphs fade lift grow", "motion.spring.snappy", "", "A notice (toast, tooltip, alert) lifting in."},
+    {"default.steps", "match_drawing match_glyphs fade stretch", "motion.spring.snappy", "", "Progress through steps."},
+}};
+
+[[nodiscard]] constexpr const MotionRecipe* find_motion_recipe(std::string_view name) noexcept {
+    for (const auto& m : motion_recipes)
+        if (m.name == name) return &m;
+    return nullptr;
+}
+
 // The expression language (expr.toml): operators and built-in functions, with
 // the combinator name each language uses.
 struct Combinators {
