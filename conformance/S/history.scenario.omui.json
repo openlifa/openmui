@@ -1,0 +1,38 @@
+{
+  "omui": "0.1",
+  "scenario": {
+    "doc": "Undo and redo (S-12) and a dry run (S-13): a switch, a stepped slider and a text field each say how a change is taken back; the window's history (`app`) undoes them last first and redoes them in order, the bound signals following; with nothing left, undo is refused; a dry run changes nothing.",
+    "signals": {"note": "", "volume": 30, "wifi": false},
+    "view": {
+      "type": "column", "props": {"gap": 8}, "children": [
+        {"type": "toggle", "id": "wifi", "props": {"label": "Wi-Fi", "checked": {"signal": "wifi"}}},
+        {"type": "slider", "id": "volume", "props": {"label": "Volume", "min": 0, "max": 100, "step": 5, "value": {"signal": "volume"}}},
+        {"type": "text_box", "id": "note", "props": {"label": "Note", "text": {"signal": "note"}}}
+      ]
+    },
+    "steps": [
+      {"act": "main/wifi", "action": "toggle", "expect": "ok"},
+      {"act": "main/volume", "action": "set_value", "args": {"value": 42}},
+      {"act": "main/note", "action": "set_value", "args": {"value": "milk"}},
+      {"get": "wifi", "expect": true},
+      {"get": "volume", "expect": 40},
+      {"get": "note", "expect": "milk"},
+      {"act": "app", "action": "undo", "expect": "ok"},
+      {"get": "note", "expect": ""},
+      {"act": "app", "action": "undo"},
+      {"get": "volume", "expect": 30},
+      {"act": "app", "action": "redo"},
+      {"get": "volume", "expect": 40},
+      {"act": "main/volume", "action": "increment", "dry_run": true, "expect": "ok"},
+      {"get": "volume", "expect": 40},
+      {"tree": "main", "expect": {"main/wifi": {"value": true}, "main/note": {"value": ""}}},
+      {"act": "app", "action": "undo"},
+      {"act": "app", "action": "undo"},
+      {"get": "wifi", "expect": false},
+      {"get": "volume", "expect": 30},
+      {"act": "app", "action": "undo", "expect": "refused"},
+      {"act": "app", "action": "redo"},
+      {"get": "wifi", "expect": true}
+    ]
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openlifa.org/openmui/0.3/input.schema.json",
+  "title": "openmui input event (SPEC §6.1)",
+  "description": "One input event as a host delivers it: a frame's events_json is an array of these, and a recorded session carries them.",
+  "oneOf": [
+    {"$ref": "#/$defs/pointer"},
+    {"$ref": "#/$defs/wheel"},
+    {"$ref": "#/$defs/key"},
+    {"$ref": "#/$defs/text"},
+    {"$ref": "#/$defs/preedit"},
+    {"$ref": "#/$defs/focus"},
+    {"$ref": "#/$defs/resize"},
+    {"$ref": "#/$defs/close"},
+    {"$ref": "#/$defs/gamepad"}
+  ],
+  "$defs": {
+    "mods": {"type": "array", "items": {"enum": ["shift", "ctrl", "alt", "meta"]}, "uniqueItems": true},
+    "pointer": {
+      "type": "object",
+      "required": ["type", "kind", "x", "y"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {"const": "pointer"},
+        "kind": {"enum": ["down", "up", "move", "enter", "leave", "cancel"]},
+        "x": {"type": "number"},
+        "y": {"type": "number"},
+        "pointer": {"type": "integer", "minimum": 0, "description": "which pointer (touches differ); 0 when absent"},
+        "pointerType": {"enum": ["mouse", "touch", "pen"], "description": "mouse when absent"},
+        "button": {"enum": ["none", "left", "right", "middle", "back", "forward"], "description": "the button that changed (down, up)"},
+        "buttons": {"type": "integer", "minimum": 0, "description": "bit i: button i + 1 held"},
+        "mods": {"$ref": "#/$defs/mods"},
+        "clicks": {"type": "integer", "minimum": 1, "description": "2 for a double click; 1 when absent"}
+      }
+    },
+    "wheel": {
+      "type": "object",
+      "required": ["type", "x", "y", "dx", "dy"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {"const": "wheel"},
+        "x": {"type": "number"},
+        "y": {"type": "number"},
+        "dx": {"type": "number"},
+        "dy": {"type": "number", "description": "logical pixels; positive scrolls content up"},
+        "precise": {"type": "boolean", "description": "a trackpad or a high-resolution wheel"},
+        "mods": {"$ref": "#/$defs/mods"}
+      }
+    },
+    "key": {
+      "type": "object",
+      "required": ["type", "kind", "key"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {"const": "key"},
+        "kind": {"enum": ["down", "up"]},
+        "key": {"type": "string", "description": "as chords name it: A, PageUp, F5"},
+        "mods": {"$ref": "#/$defs/mods"},
+        "repeat": {"type": "boolean"}
+      }
+    },
+    "text": {
+      "type": "object",
+      "required": ["type", "text"],
+      "additionalProperties": false,
+      "properties": {"type": {"const": "text"}, "text": {"type": "string"}}
+    },
+    "preedit": {
+      "type": "object",
+      "required": ["type", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {"const": "preedit"},
+        "text": {"type": "string", "description": "empty ends the composition"},
+        "cursorBegin": {"type": "integer", "description": "byte offsets into text"},
+        "cursorEnd": {"type": "integer"}
+      }
+    },
+    "focus": {
+      "type": "object",
+      "required": ["type", "gained"],
+      "additionalProperties": false,
+      "properties": {"type": {"const": "focus"}, "gained": {"type": "boolean"}}
+    },
+    "resize": {
+      "type": "object",
+      "required": ["type", "width", "height"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {"const": "resize"},
+        "width": {"type": "number"},
+        "height": {"type": "number"},
+        "scale": {"type": "number", "exclusiveMinimum": 0, "description": "physical pixels per logical pixel"}
+      }
+    },
+    "close": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {"type": {"const": "close"}}
+    },
+    "gamepad_button": {
+      "enum": ["south", "east", "west", "north", "back", "guide", "start", "leftStick", "rightStick", "leftShoulder",
+               "rightShoulder", "leftTrigger", "rightTrigger", "dpadUp", "dpadDown", "dpadLeft", "dpadRight"]
+    },
+    "gamepad_axis": {"enum": ["leftX", "leftY", "rightX", "rightY", "leftTrigger", "rightTrigger"]},
+    "gamepad": {
+      "type": "object",
+      "required": ["type", "kind", "device"],
+      "properties": {
+        "type": {"const": "gamepad"},
+        "kind": {"enum": ["connected", "disconnected", "down", "up", "axis"]},
+        "device": {"type": "integer", "minimum": 0, "description": "one connection of one device (G-1)"}
+      },
+      "oneOf": [
+        {
+          "properties": {"type": true, "kind": {"const": "connected"}, "device": true, "name": {"type": "string"}},
+          "additionalProperties": false
+        },
+        {
+          "properties": {"type": true, "kind": {"const": "disconnected"}, "device": true},
+          "additionalProperties": false
+        },
+        {
+          "required": ["button"],
+          "properties": {"type": true, "kind": {"enum": ["down", "up"]}, "device": true, "button": {"$ref": "#/$defs/gamepad_button"}},
+          "additionalProperties": false
+        },
+        {
+          "required": ["axis", "value"],
+          "properties": {
+            "type": true,
+            "kind": {"const": "axis"},
+            "device": true,
+            "axis": {"$ref": "#/$defs/gamepad_axis"},
+            "value": {"type": "number", "minimum": -1, "maximum": 1, "description": "after the host's dead zone, a multiple of 1/256 (G-2)"}
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

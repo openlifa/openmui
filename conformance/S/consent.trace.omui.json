@@ -1,0 +1,89 @@
+{
+ "omui": "0.1",
+ "trace": [
+  {
+   "step": 0,
+   "tree": [
+    {
+     "id": "main/count",
+     "name": "0 allowed",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate",
+       "person": true,
+       "verb": "consent.allow"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/allow",
+     "name": "Allow",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    }
+   ]
+  },
+  {
+   "act": "ok",
+   "step": 1
+  },
+  {
+   "get": 1,
+   "step": 2
+  },
+  {
+   "invoke": true,
+   "step": 3
+  },
+  {
+   "get": 2,
+   "step": 4
+  },
+  {
+   "step": 5,
+   "tree": [
+    {
+     "id": "main/count",
+     "name": "2 allowed",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate",
+       "person": true,
+       "verb": "consent.allow"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/allow",
+     "name": "Allow",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    }
+   ]
+  }
+ ]
+}

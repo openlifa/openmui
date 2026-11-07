@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openmui.dev/schema/scenario.schema.json",
+  "$comment": "CTS level S: a scenario (*.scenario.omui.json) and the trace pinned beside it (*.trace.omui.json); conformance/S/README.md.",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["omui", "scenario"],
+      "additionalProperties": false,
+      "properties": {
+        "omui": {"const": "0.1"},
+        "scenario": {"$ref": "#/$defs/scenario"}
+      }
+    },
+    {
+      "type": "object",
+      "required": ["omui", "trace"],
+      "additionalProperties": false,
+      "properties": {
+        "omui": {"const": "0.1"},
+        "trace": {"type": "array", "items": {"$ref": "#/$defs/record"}}
+      }
+    }
+  ],
+  "$defs": {
+    "name": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+    "verbName": {"type": "string", "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$"},
+    "nativeName": {"type": "string", "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_]*$"},
+    "scenario": {
+      "type": "object",
+      "required": ["doc", "view", "steps"],
+      "additionalProperties": false,
+      "properties": {
+        "doc": {"type": "string", "minLength": 1},
+        "signals": {"type": "object", "propertyNames": {"$ref": "#/$defs/name"}},
+        "models": {
+          "type": "object",
+          "propertyNames": {"$ref": "#/$defs/name"},
+          "additionalProperties": {"type": "array", "items": {"type": "object", "required": ["key"], "properties": {"key": {"type": "string"}}}}
+        },
+        "verbs": {
+          "type": "object",
+          "propertyNames": {"$ref": "#/$defs/verbName"},
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "effect": {"enum": ["read", "reversible", "irreversible", "external"]},
+              "answer": {"type": "string"},
+              "summary": {"type": "string"},
+              "person": {"type": "boolean"},
+              "do": {"type": "array", "items": {"$ref": "#/$defs/action"}},
+              "result": {"$ref": "#/$defs/value"}
+            }
+          }
+        },
+        "view": {"$ref": "#/$defs/element"},
+        "steps": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/step"}}
+      }
+    },
+    "element": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["type"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {"$ref": "#/$defs/name"},
+            "id": {"type": "string", "pattern": "^[A-Za-z0-9_-]+$"},
+            "props": {"type": "object", "propertyNames": {"$ref": "#/$defs/name"}, "additionalProperties": {"$ref": "#/$defs/operand"}},
+            "on": {"type": "object", "propertyNames": {"$ref": "#/$defs/name"}, "additionalProperties": {"type": "array", "items": {"$ref": "#/$defs/action"}}},
+            "children": {"type": "array", "items": {"$ref": "#/$defs/element"}}
+          }
+        },
+        {
+          "type": "object",
+          "required": ["when"],
+          "additionalProperties": false,
+          "properties": {
+            "when": {"$ref": "#/$defs/operand"},
+            "then": {"type": "array", "items": {"$ref": "#/$defs/element"}},
+            "else": {"type": "array", "items": {"$ref": "#/$defs/element"}}
+          }
+        },
+        {
+          "type": "object",
+          "required": ["each", "body"],
+          "additionalProperties": false,
+          "properties": {
+            "each": {"$ref": "#/$defs/name"},
+            "where": {"$ref": "#/$defs/operand"},
+            "body": {"$ref": "#/$defs/element"}
+          }
+        }
+      ]
+    },
+    "operand": {
+      "oneOf": [
+        {"type": ["string", "number", "boolean", "null"]},
+        {"type": "object", "required": ["const"], "additionalProperties": false, "properties": {"const": true}},
+        {"type": "object", "required": ["signal"], "additionalProperties": false, "properties": {"signal": {"$ref": "#/$defs/name"}}},
+        {"type": "object", "required": ["row"], "additionalProperties": false, "properties": {"row": {"$ref": "#/$defs/name"}}},
+        {
+          "type": "object",
+          "required": ["op", "args"],
+          "additionalProperties": false,
+          "properties": {
+            "op": {"enum": ["+", "-", "*", "/", "%", "==", "!=", "<", "<=", ">", ">=", "and", "or", "not", "neg"]},
+            "args": {"type": "array", "minItems": 1, "maxItems": 2, "items": {"$ref": "#/$defs/operand"}}
+          }
+        },
+        {
+          "type": "object",
+          "required": ["call", "args"],
+          "additionalProperties": false,
+          "properties": {"call": {"$ref": "#/$defs/name"}, "args": {"type": "array", "items": {"$ref": "#/$defs/operand"}}}
+        },
+        {
+          "type": "object",
+          "required": ["fmt"],
+          "additionalProperties": false,
+          "properties": {"fmt": {"type": "string"}, "args": {"type": "array", "items": {"$ref": "#/$defs/operand"}}}
+        },
+        {
+          "type": "object",
+          "required": ["select"],
+          "additionalProperties": false,
+          "properties": {"select": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/operand"}}}
+        }
+      ]
+    },
+    "value": {
+      "oneOf": [
+        {"type": ["string", "number", "boolean", "null"]},
+        {"type": "object", "required": ["const"], "additionalProperties": false, "properties": {"const": true}},
+        {"type": "object", "required": ["event"], "additionalProperties": false, "properties": {"event": {"$ref": "#/$defs/name"}}},
+        {"type": "object", "required": ["row"], "additionalProperties": false, "properties": {"row": {"$ref": "#/$defs/name"}}},
+        {"type": "object", "required": ["arg"], "additionalProperties": false, "properties": {"arg": {"$ref": "#/$defs/name"}}},
+        {"type": "object", "required": ["get"], "additionalProperties": false, "properties": {"get": {"$ref": "#/$defs/name"}}}
+      ]
+    },
+    "values": {"type": "object", "propertyNames": {"$ref": "#/$defs/name"}, "additionalProperties": {"$ref": "#/$defs/value"}},
+    "action": {
+      "oneOf": [
+        {"type": "object", "required": ["set", "to"], "additionalProperties": false, "properties": {"set": {"$ref": "#/$defs/name"}, "to": {"$ref": "#/$defs/value"}}},
+        {
+          "type": "object",
+          "required": ["add", "by"],
+          "additionalProperties": false,
+          "properties": {"add": {"$ref": "#/$defs/name"}, "by": {"type": "number"}, "min": {"type": "number"}, "max": {"type": "number"}}
+        },
+        {"type": "object", "required": ["invoke"], "additionalProperties": false, "properties": {"invoke": {"$ref": "#/$defs/verbName"}, "args": {"$ref": "#/$defs/values"}}},
+        {"type": "object", "required": ["push", "row"], "additionalProperties": false, "properties": {"push": {"$ref": "#/$defs/name"}, "row": {"$ref": "#/$defs/values"}}},
+        {"type": "object", "required": ["remove", "key"], "additionalProperties": false, "properties": {"remove": {"$ref": "#/$defs/name"}, "key": {"$ref": "#/$defs/value"}}},
+        {
+          "type": "object",
+          "required": ["native", "into"],
+          "additionalProperties": false,
+          "properties": {"native": {"$ref": "#/$defs/nativeName"}, "args": {"type": "array", "items": {"$ref": "#/$defs/value"}}, "into": {"$ref": "#/$defs/name"}}
+        },
+        {
+          "type": "object",
+          "required": ["change", "key", "set"],
+          "additionalProperties": false,
+          "properties": {"change": {"$ref": "#/$defs/name"}, "key": {"$ref": "#/$defs/value"}, "set": {"$ref": "#/$defs/values"}}
+        }
+      ]
+    },
+    "step": {
+      "$comment": "anyOf: an invoke step is also an invoke action's shape; as a step it records its answer.",
+      "anyOf": [
+        {"type": "object", "required": ["tree"], "additionalProperties": false, "properties": {
+          "tree": {"type": "string"},
+          "expect": {"type": "object", "additionalProperties": {"type": "object"}}
+        }},
+        {"type": "object", "required": ["act", "action"], "additionalProperties": false, "properties": {
+          "act": {"type": "string"}, "action": {"$ref": "#/$defs/name"}, "args": {"type": "object"}, "dry_run": {"type": "boolean"}, "expect": true
+        }},
+        {"type": "object", "required": ["invoke"], "additionalProperties": false, "properties": {
+          "invoke": {"type": "string"}, "args": {"type": "object"}, "expect": true
+        }},
+        {"type": "object", "required": ["get"], "additionalProperties": false, "properties": {"get": {"$ref": "#/$defs/name"}, "expect": true}},
+        {"type": "object", "required": ["rows"], "additionalProperties": false, "properties": {"rows": {"$ref": "#/$defs/name"}, "expect": true}},
+        {"type": "object", "required": ["native"], "additionalProperties": false, "properties": {
+          "native": {"$ref": "#/$defs/nativeName"}, "args": {"type": "array"}, "expect": true
+        }},
+        {"type": "object", "required": ["theme"], "additionalProperties": false, "properties": {
+          "theme": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/name"}}, "expect": true
+        }},
+        {"type": "object", "required": ["themes"], "additionalProperties": false, "properties": {"themes": {"const": true}, "expect": true}},
+        {"$ref": "#/$defs/action"}
+      ]
+    },
+    "record": {
+      "type": "object",
+      "required": ["step"],
+      "minProperties": 2,
+      "maxProperties": 2,
+      "properties": {
+        "step": {"type": "integer", "minimum": 0},
+        "tree": {"type": "array", "items": {"type": "object", "required": ["id", "role"]}},
+        "act": {"const": "ok"},
+        "invoke": true,
+        "get": true,
+        "rows": {"type": "array"},
+        "native": true,
+        "theme": {"const": "ok"},
+        "themes": {"type": "object"},
+        "error": {"type": "string", "pattern": "^[a-z][a-z-]*$"}
+      },
+      "additionalProperties": false
+    }
+  }
+}
