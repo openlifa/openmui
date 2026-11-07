@@ -149,7 +149,9 @@ doc  = "the node's content was replaced by other content under the same key"
 #               fall(0.45, 2) and flattens about its bottom on landing),
 #               noise (a moving piece wanders on its way, exact at both ends),
 #               reshape (a glyph replaced in a matched run morphs its outline
-#               into its replacement's, contour by contour)
+#               into its replacement's, contour by contour), press (a state
+#               change under the pointer presses the drawing in about the
+#               finger, or springs it out on release, ringing to rest)
 [[recipe]]
 name = "none"
 doc  = "No motion: the new drawing at once."
@@ -293,3 +295,9 @@ name       = "text.reshape"
 primitives = ["match_drawing", "match_glyphs", "fade", "reshape"]
 timing     = "motion.spring.gentle"
 doc        = "Replaced text: a letter's outline becomes the new letter's, holes opening and closing, rather than fading through."
+
+[[recipe]]
+name       = "press.squash"
+primitives = ["match_drawing", "match_glyphs", "fade", "press"]
+timing     = "tween(450)"
+doc        = "Pressed: the control pressed in about the finger and ringing back like rubber; let go, a little spring outwards."
