@@ -345,6 +345,57 @@
       "additionalProperties": false,
       "description": "Who else acts here and what each did: the agent's link and its actions, each taken back from here while it is the last."
     },
+    "component.agent_presence": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "agent_presence"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "actors": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Whose actions it shows: actors whose names begin with this. — default \"agent:\""
+            },
+            "asking": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "What the agent asks the person, in the application's words; empty: the card says only that it asks. — default \"\""
+            },
+            "phrases": {
+              "anyOf": [{}, {"$ref": "#/$defs/oneway"}],
+              "description": "Its words in another language: a map from asks, taken_over, intends and hands_back to text ({agent} and {text} filled in)."
+            },
+            "skin": {
+              "anyOf": [{"enum": ["reticle", "none"]}, {"$ref": "#/$defs/oneway"}],
+              "description": "none: nothing drawn (another skin draws the same model). — default \"reticle\""
+            },
+            "trail": {
+              "anyOf": [{"type": "integer"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The steps before the current one it shows (0: none). — default 3"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["actors", "asking", "phrases", "skin", "trail"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "Where another actor works now, the steps before, and what it waits for the person to answer: shown over the page, answering nothing."
+    },
     "component.alert": {
       "type": "object",
       "properties": {
@@ -2722,6 +2773,7 @@
       "oneOf": [
         {"$ref": "#/$defs/component.accordion"},
         {"$ref": "#/$defs/component.actor_log"},
+        {"$ref": "#/$defs/component.agent_presence"},
         {"$ref": "#/$defs/component.alert"},
         {"$ref": "#/$defs/component.avatar"},
         {"$ref": "#/$defs/component.badge"},
