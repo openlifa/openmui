@@ -166,6 +166,12 @@ and typed arguments.
   code 1 that says when to try again (`retry_after`, seconds). It does not wait
   behind the person's operation. Input an agent gives as a person's devices
   would (its own pointer, its own keys) is the agent's, not the person's.
+  A person MAY take over the whole: until they hand back, every change an
+  agent asks for (an action, a verb, undo or redo, a transaction, a preview) is
+  refused the same way, `conflict`, without `retry_after` — the person decides
+  when — while reading stays open to it. A take-over holds from the next
+  request decided: nothing an agent asked for takes effect after it, and what
+  the agent did before stays in the history, to be undone a step at a time.
 - **S-15** A preview answers what a list of actions would make without leaving
   anything of them: those that S-13 lets a transaction hold are performed out
   of sight and taken back; one that needs an answer (S-1) is listed as not
