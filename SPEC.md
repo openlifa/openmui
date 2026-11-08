@@ -158,6 +158,24 @@ and typed arguments.
   the implementation can tell cheaply whether it could be undone (`undoable`)
   and the node's `value` before and after. A dry run MUST change nothing: no
   state, no history, no journal entry, no event.
+- **S-14** A person's direct operation wins. While a person is operating a
+  node directly — holding it with the pointer (pressed, dragged), or typing
+  into it (text, or an editing key in a text field) within the last second — an
+  action on that node by an agent MUST be
+  refused, changing nothing, with an `error` record of code `conflict` and exit
+  code 1 that says when to try again (`retry_after`, seconds). It does not wait
+  behind the person's operation. Input an agent gives as a person's devices
+  would (its own pointer, its own keys) is the agent's, not the person's.
+- **S-15** A preview answers what a list of actions would make without leaving
+  anything of them: those that S-13 lets a transaction hold are performed out
+  of sight and taken back; one that needs an answer (S-1) is listed as not
+  done, with its effect; one whose way back is unknown refuses the preview,
+  nothing done. The answer states the actions performed, those not done, the
+  changes to the tree (nodes added, removed, and changed in role, name,
+  description, value or state), where the implementation renders the pixels
+  before and after, and whether the tree after it is as it was before
+  (`restored`); `restored` false is an error. A preview MUST leave no state,
+  no history and no journal entry.
 
 ### 3.4 Origins
 

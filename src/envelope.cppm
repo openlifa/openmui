@@ -45,6 +45,7 @@ inline constexpr std::string_view stale            = "stale";
 inline constexpr std::string_view timeout          = "timeout";
 inline constexpr std::string_view internal         = "internal";
 inline constexpr std::string_view failed           = "failed";  // the work ran and did not succeed
+inline constexpr std::string_view conflict         = "conflict";  // a person is operating it now (S-14): try again later
 }  // namespace error_code
 
 struct Record {
