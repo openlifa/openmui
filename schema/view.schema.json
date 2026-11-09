@@ -1022,6 +1022,93 @@
       "additionalProperties": false,
       "description": "One value typed or chosen from the options matching what is typed."
     },
+    "component.command_palette": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "command_palette"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "built_at": {"type": "string", "pattern": "^.+:[0-9]+:[0-9]+$"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Its name. — default \"Commands\""
+            },
+            "open": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/binding"}],
+              "description": "default false (bindable)"
+            },
+            "placeholder": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"Type a command\""
+            },
+            "query": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "The words the commands are found by. — default \"\" (bindable)"
+            },
+            "verbs": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "The verbs it offers; none: every verb that takes no arguments. — default []"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["label", "open", "placeholder", "query", "verbs"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["closed", "ran"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "The application's commands found by name; arrows choose, Enter runs."
+    },
+    "component.context_menu": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "context_menu"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "built_at": {"type": "string", "pattern": "^.+:[0-9]+:[0-9]+$"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Its name. — default \"\""
+            },
+            "open": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/binding"}],
+              "description": "default false (bindable)"
+            }
+          },
+          "propertyNames": {"anyOf": [{"enum": ["label", "open"]}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["closed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "The choices for the element before it, opened where the person asked for them; its items are menu_items."
+    },
     "component.data_grid": {
       "type": "object",
       "properties": {
@@ -1361,6 +1448,54 @@
       },
       "required": ["type"],
       "additionalProperties": false
+    },
+    "component.hover_card": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "hover_card"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "built_at": {"type": "string", "pattern": "^.+:[0-9]+:[0-9]+$"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "delay": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Seconds of pointing before it shows. — default 0.5"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Its name. — default \"\""
+            },
+            "linger": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Seconds it stays after the pointer leaves (to reach the card). — default 0.3"
+            },
+            "open": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/binding"}],
+              "description": "default false (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["delay", "label", "linger", "open"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "More about the element before it, shown while it is pointed at or focused, and while the pointer is over the card."
     },
     "component.image": {
       "type": "object",
@@ -2414,6 +2549,58 @@
       "additionalProperties": false,
       "description": "A line between groups of content, across or down, with a word in its middle when it has one."
     },
+    "component.sidebar": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "sidebar"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "built_at": {"type": "string", "pattern": "^.+:[0-9]+:[0-9]+$"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "collapsed": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/binding"}],
+              "description": "A narrow rail of first letters. — default false (bindable)"
+            },
+            "items": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "The places' values; their labels from `labels` or the values. — default []"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Its name. — default \"\""
+            },
+            "labels": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "default []"
+            },
+            "selected": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "The current place. — default \"\" (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["collapsed", "items", "label", "labels", "selected"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "The places of an application down its side; each a link of its own, the current one marked."
+    },
     "component.skeleton": {
       "type": "object",
       "properties": {
@@ -3166,6 +3353,41 @@
       "additionalProperties": false,
       "description": "A few options side by side, each on or off on its own; each a toggle button of its own."
     },
+    "component.toolbar": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "toolbar"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "built_at": {"type": "string", "pattern": "^.+:[0-9]+:[0-9]+$"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Its name. — default \"\""
+            },
+            "vertical": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "A column; the up and down arrows move. — default false"
+            }
+          },
+          "propertyNames": {"anyOf": [{"enum": ["label", "vertical"]}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A row of controls; the arrows move the focus between them."
+    },
     "component.tooltip": {
       "type": "object",
       "properties": {
@@ -3296,6 +3518,8 @@
         {"$ref": "#/$defs/component.color_picker"},
         {"$ref": "#/$defs/component.column"},
         {"$ref": "#/$defs/component.combobox"},
+        {"$ref": "#/$defs/component.command_palette"},
+        {"$ref": "#/$defs/component.context_menu"},
         {"$ref": "#/$defs/component.data_grid"},
         {"$ref": "#/$defs/component.date_picker"},
         {"$ref": "#/$defs/component.description_list"},
@@ -3303,6 +3527,7 @@
         {"$ref": "#/$defs/component.drawer"},
         {"$ref": "#/$defs/component.form_field"},
         {"$ref": "#/$defs/component.grid"},
+        {"$ref": "#/$defs/component.hover_card"},
         {"$ref": "#/$defs/component.image"},
         {"$ref": "#/$defs/component.kbd"},
         {"$ref": "#/$defs/component.link"},
@@ -3328,6 +3553,7 @@
         {"$ref": "#/$defs/component.select_option"},
         {"$ref": "#/$defs/component.select_popup"},
         {"$ref": "#/$defs/component.separator"},
+        {"$ref": "#/$defs/component.sidebar"},
         {"$ref": "#/$defs/component.skeleton"},
         {"$ref": "#/$defs/component.slider"},
         {"$ref": "#/$defs/component.spacer"},
@@ -3344,6 +3570,7 @@
         {"$ref": "#/$defs/component.toast"},
         {"$ref": "#/$defs/component.toggle"},
         {"$ref": "#/$defs/component.toggle_group"},
+        {"$ref": "#/$defs/component.toolbar"},
         {"$ref": "#/$defs/component.tooltip"},
         {"$ref": "#/$defs/component.tree_view"},
         {"$ref": "#/$defs/if"},
