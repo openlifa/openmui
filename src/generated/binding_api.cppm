@@ -29,7 +29,7 @@ export type Json = null | boolean | number | string | Json[] | { [key: string]: 
  *  Text may also be a message (`tr("inbox.count", { count })`). */
 export type Operand<T = unknown> = T | Expr<T> | Signal<T> | (unknown extends T ? Tr : [T] extends [string] ? Tr : never);
 
-/** An expression the runtime evaluates (CEL-compatible text, registry/expr.toml), with the signals it reads.
+/** An expression the runtime evaluates (CEL-compatible text, registry/expr.json), with the signals it reads.
  *  `T` documents what it gives; the language is typed when the runtime reads it, so any expression fits any property. */
 export declare class Expr<T = unknown> {
     readonly text: string;
@@ -101,7 +101,7 @@ export declare function ge(a: Operand, b: Operand): Expr<boolean>;
 export declare function and(a: Operand<boolean>, b: Operand<boolean>): Expr<boolean>;
 export declare function or(a: Operand<boolean>, b: Operand<boolean>): Expr<boolean>;
 export declare function not(a: Operand<boolean>): Expr<boolean>;
-/** A built-in function of the expression language (registry/expr.toml): `call("max", a, b)`. */
+/** A built-in function of the expression language (registry/expr.json): `call("max", a, b)`. */
 export declare function call(name: string, ...args: Operand[]): Expr;
 /** `fmt("{} to go", remaining)`: text with the arguments in its braces. */
 export declare function fmt(pattern: string, ...args: Operand[]): Expr<string>;
@@ -244,7 +244,7 @@ export declare function slot(name: string): View;
 
 /** What a slot shows: `mount("main", column({ … }, [ … ]))`. */
 export declare function mount(slot: string, view: View): void;
-/** How much a verb changes (openas §2.4, registry/effects.toml): reading, a change that can be undone, one that cannot, or one outside the application. */
+/** How much a verb changes (openas §2.4, registry/effects.json): reading, a change that can be undone, one that cannot, or one outside the application. */
 export type Effect = "read" | "reversible" | "irreversible" | "external";
 export interface VerbOptions {
     effect?: Effect;

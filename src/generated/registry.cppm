@@ -22,7 +22,7 @@ struct RoleInfo {
     std::string_view doc;
 };
 
-// What a semantic node is (roles.toml).
+// What a semantic node is (roles.json).
 enum class Role : std::uint8_t {
     none,
     generic,
@@ -185,7 +185,7 @@ struct StateInfo {
     std::string_view doc;
 };
 
-// A state bit of a semantic node (states.toml); the enumerator is the bit index.
+// A state bit of a semantic node (states.json); the enumerator is the bit index.
 enum class State : std::uint8_t {
     disabled,
     focusable,
@@ -258,7 +258,7 @@ struct EffectInfo {
     std::string_view doc;
 };
 
-// What performing an action does (effects.toml; openas §3.1).
+// What performing an action does (effects.json; openas §3.1).
 enum class Effect : std::uint8_t {
     read,
     reversible,
@@ -301,7 +301,7 @@ struct OriginInfo {
     std::string_view doc;
 };
 
-// Where a node's text came from (origins.toml; S-3).
+// Where a node's text came from (origins.json; S-3).
 enum class Origin : std::uint8_t {
     app,
     user_content,
@@ -341,7 +341,7 @@ struct ActionInfo {
     std::string_view         doc;
 };
 
-// The common actions (actions.toml); a component may declare a stronger effect.
+// The common actions (actions.json); a component may declare a stronger effect.
 enum class Action : std::uint8_t {
     activate,
     focus,
@@ -482,7 +482,7 @@ inline constexpr std::array<MotionToken, 9> motion_tokens{{
     return nullptr;
 }
 
-// The motion slots (motion.toml [[slot]], spec M-7), in order: which change of a node's
+// The motion slots (motion.json `slot`, spec M-7), in order: which change of a node's
 // drawing a slot's recipe moves.
 struct MotionSlot {
     std::string_view name;
@@ -498,7 +498,7 @@ inline constexpr std::array<MotionSlot, 6> motion_slots{{
     {"replace", "the node's content was replaced by other content under the same key"},
 }};
 
-// The built-in motion recipes (motion.toml [[recipe]], spec M-8): primitives
+// The built-in motion recipes (motion.json `recipe`, spec M-8): primitives
 // space-separated; timing a motion token's name, "tween(ms)" or "spring(k, c[, m])".
 struct MotionRecipe {
     std::string_view name;
@@ -542,7 +542,7 @@ inline constexpr std::array<MotionRecipe, 25> motion_recipes{{
     return nullptr;
 }
 
-// How something comes in or goes out (motion.toml [[presence]], spec M-10): hanim.core's
+// How something comes in or goes out (motion.json `presence`, spec M-10): hanim.core's
 // presences, by name; options space-separated.
 struct MotionPresence {
     std::string_view name;
@@ -581,7 +581,7 @@ inline constexpr std::array<MotionPresence, 21> motion_presences{{
     return nullptr;
 }
 
-// The expression language (expr.toml): operators and built-in functions, with
+// The expression language (expr.json): operators and built-in functions, with
 // the combinator name each language uses.
 struct Combinators {
     std::string_view cpp, ts;

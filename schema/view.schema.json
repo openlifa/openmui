@@ -23,7 +23,7 @@
     },
     "expression": {
       "type": "string",
-      "description": "A CEL expression (registry/expr.toml): signals, models, properties, `event` in handlers"
+      "description": "A CEL expression (registry/expr.json): signals, models, properties, `event` in handlers"
     },
     "runtime_property": {"description": "A property every node has (layout, look, motion, semantics)"},
     "runtime_property_name": {

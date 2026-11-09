@@ -48,7 +48,7 @@ export interface ActionContract {
 }
 
 export interface Contract {
-    /** Its role (spec registry/roles.toml): what assistive technology and agents take it for. */
+    /** Its role (spec registry/roles.json): what assistive technology and agents take it for. */
     role: string;
     doc: string;
     /** The spec version it is written against. */
@@ -65,7 +65,7 @@ export interface Contract {
     keys?: { [chord: string]: string };
     /** Its parts by name: what a style and a motion rule address. */
     parts?: { [name: string]: {} };
-    /** A part's motion token (spec registry/motion.toml): `{ thumb: "standard" }`. */
+    /** A part's motion token (spec registry/motion.json): `{ thumb: "standard" }`. */
     motion?: { [part: string]: string };
 }
 
