@@ -15,6 +15,8 @@
 //   :value     the value model of every boundary
 //   :node      the semantic node, clause checks, wire form, deltas
 //   :envelope  records, exit and error codes, actors
+//   :binding_api, :define_api  the scripts' declarations (stubs/openmui.d.ts,
+//              stubs/define.d.ts) as text                      (generated)
 export module openmui.spec;
 
 export import :types;
@@ -26,3 +28,5 @@ export import :id;
 export import :value;
 export import :node;
 export import :envelope;
+export import :binding_api;
+export import :define_api;

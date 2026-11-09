@@ -2,8 +2,10 @@
 # which pixels, accessibility, agents and tests are renderings. SPEC.md is the
 # normative text; registry/ its source of truth; include/openmui.h the C ABI;
 # module `openmui.spec` the value types; conformance/ the suite. The files
-# include/, src/generated/, docs/registry.md, stubs/ and schema/ are generated
-# from registry/. Standard library only.
+# include/, src/generated/, docs/registry.md, stubs/core.d.ts and schema/ are
+# generated from registry/; stubs/openmui.d.ts (the scripts' binding API) and
+# stubs/define.d.ts (the data formats' define functions) are written by hand
+# and normative. Standard library only.
 [package]
 namespace   = "openlifa"
 name        = "openmui"

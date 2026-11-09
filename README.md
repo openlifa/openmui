@@ -17,11 +17,11 @@ accessibility, agents and tests are renderings.
 | [include/openmui.h](include/openmui.h) | the C ABI |
 | [src/](src/) | its C++ module: `openmui.spec`, the value types |
 | [conformance/](conformance/) | the conformance suite, levels S, A, B, C |
-| [docs/](docs/), [schema/](schema/), [stubs/](stubs/) | the registry as tables; the view-document, input-event and scenario schemas; TypeScript stubs |
+| [docs/](docs/), [schema/](schema/), [stubs/](stubs/) | the registry as tables; the view-document, input-event and scenario schemas; the TypeScript declarations: the binding API (`openmui.d.ts`) and the define functions (`define.d.ts`), written by hand and normative, and the Core builders (`core.d.ts`) |
 | [tests/](tests/) | the module's and the header's tests |
 
-`include/`, `src/generated/`, `docs/`, `stubs/` and the view schema are
-generated from `registry/`; edit the registry, not them.
+`include/`, `src/generated/`, `docs/`, `stubs/core.d.ts` and the view schema
+are generated from `registry/`; edit the registry, not them.
 
 ```toml
 [dependencies]
