@@ -58,15 +58,15 @@ int main() {
         expect(spec::find_motion_token("motion.fast")->duration_ms == 120);
     };
 
-    "the full profile requires the three script languages"_test = [] {
+    "the full profile requires the script language, TypeScript"_test = [] {
         const auto& full = spec::profiles[0];
         expect((full.name) == (std::string_view("full")));
-        expect(full.scripts.size() == 3);
+        expect(full.scripts.size() == 1 && full.scripts[0] == std::string_view("ts"));
     };
 
     "expression functions have combinators where code builds them"_test = [] {
         expect((spec::find_function("format")->combinators.cpp) == (std::string_view("fmt")));
-        expect((spec::find_function("format")->combinators.python) == (std::string_view("fmt")));
+        expect((spec::find_function("format")->combinators.ts) == (std::string_view("fmt")));
         expect(spec::find_function("nope") == nullptr);
     };
 

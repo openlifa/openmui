@@ -12,93 +12,93 @@ types = ["null", "bool", "int", "double", "string", "list", "map"]
 name = "neg"
 text = "-"
 arity = 1
-combinators = { cpp = "neg", ts = "neg", python = "neg", lua = "neg" }
+combinators = { cpp = "neg", ts = "neg" }
 [[operator]]
 name = "not"
 text = "!"
 arity = 1
-combinators = { cpp = "not_", ts = "not", python = "not_", lua = "Not" }
+combinators = { cpp = "not_", ts = "not" }
 [[operator]]
 name = "mul"
 text = "*"
 arity = 2
-combinators = { cpp = "mul", ts = "mul", python = "mul", lua = "mul" }
+combinators = { cpp = "mul", ts = "mul" }
 [[operator]]
 name = "div"
 text = "/"
 arity = 2
-combinators = { cpp = "div", ts = "div", python = "div", lua = "div" }
+combinators = { cpp = "div", ts = "div" }
 [[operator]]
 name = "mod"
 text = "%"
 arity = 2
-combinators = { cpp = "mod", ts = "mod", python = "mod", lua = "mod" }
+combinators = { cpp = "mod", ts = "mod" }
 [[operator]]
 name = "add"
 text = "+"
 arity = 2
-combinators = { cpp = "add", ts = "add", python = "add", lua = "add" }
+combinators = { cpp = "add", ts = "add" }
 [[operator]]
 name = "sub"
 text = "-"
 arity = 2
-combinators = { cpp = "sub", ts = "sub", python = "sub", lua = "sub" }
+combinators = { cpp = "sub", ts = "sub" }
 [[operator]]
 name = "lt"
 text = "<"
 arity = 2
-combinators = { cpp = "lt", ts = "lt", python = "lt", lua = "lt" }
+combinators = { cpp = "lt", ts = "lt" }
 [[operator]]
 name = "le"
 text = "<="
 arity = 2
-combinators = { cpp = "le", ts = "le", python = "le", lua = "le" }
+combinators = { cpp = "le", ts = "le" }
 [[operator]]
 name = "gt"
 text = ">"
 arity = 2
-combinators = { cpp = "gt", ts = "gt", python = "gt", lua = "gt" }
+combinators = { cpp = "gt", ts = "gt" }
 [[operator]]
 name = "ge"
 text = ">="
 arity = 2
-combinators = { cpp = "ge", ts = "ge", python = "ge", lua = "ge" }
+combinators = { cpp = "ge", ts = "ge" }
 [[operator]]
 name = "eq"
 text = "=="
 arity = 2
-combinators = { cpp = "eq", ts = "eq", python = "eq", lua = "eq" }
+combinators = { cpp = "eq", ts = "eq" }
 [[operator]]
 name = "ne"
 text = "!="
 arity = 2
-combinators = { cpp = "ne", ts = "ne", python = "ne", lua = "ne" }
+combinators = { cpp = "ne", ts = "ne" }
 [[operator]]
 name = "in"
 text = "in"
 arity = 2
-combinators = { cpp = "in", ts = "isIn", python = "in_", lua = "In" }
+combinators = { cpp = "in", ts = "isIn" }
 [[operator]]
 name = "and"
 text = "&&"
 arity = 2
-combinators = { cpp = "and_", ts = "and", python = "and_", lua = "And" }
+combinators = { cpp = "and_", ts = "and" }
 [[operator]]
 name = "or"
 text = "||"
 arity = 2
-combinators = { cpp = "or_", ts = "or", python = "or_", lua = "Or" }
+combinators = { cpp = "or_", ts = "or" }
 [[operator]]
 name = "select"
 text = "?:"
 arity = 3
-combinators = { cpp = "select", ts = "select", python = "select", lua = "select" }
+combinators = { cpp = "select", ts = "select" }
 
 [[function]]
 name = "format"
 signature = "format(string pattern, any...) -> string"
 doc = "Replaces each {} in the pattern with the next argument's text ({{ and }} are literal braces)."
-combinators = { cpp = "fmt", ts = "fmt", python = "fmt", lua = "fmt" }
+combinators = { cpp = "fmt", ts = "fmt" }
 [[function]]
 name = "size"
 signature = "size(string | list | map) -> int"
@@ -179,17 +179,17 @@ doc = "Whether a map has a field (CEL's has macro)."
 name = "lookup"
 signature = "lookup(map | list, key, default?) -> any"
 doc = "An element by key or index, or the default (null) when absent."
-combinators = { cpp = "lookup", ts = "lookup", python = "lookup", lua = "lookup" }
+combinators = { cpp = "lookup", ts = "lookup" }
 [[function]]
 name = "tr"
 signature = "tr(string key, map args?) -> string"
 doc = "The message of a key in the person's language (MessageFormat 2), formatted with its arguments by name; a key no catalog has is the message itself."
-combinators = { cpp = "tr", ts = "tr", python = "tr", lua = "tr" }
+combinators = { cpp = "tr", ts = "tr" }
 [[function]]
 name = "interpolate"
 signature = "interpolate(double x, list input, list output, string ease?) -> double"
 doc = "Maps x through piecewise-linear ranges, eased within each segment, clamped outside (video authoring)."
-combinators = { cpp = "interpolate", ts = "interpolate", python = "interpolate", lua = "interpolate" }
+combinators = { cpp = "interpolate", ts = "interpolate" }
 [[function]]
 name = "ease"
 signature = "ease(string name, double t) -> double"
@@ -198,4 +198,4 @@ doc = "An easing curve of registry/motion.toml at progress t."
 name = "spring"
 signature = "spring(double t, double from, double to, double stiffness?, double damping?, double mass?) -> double"
 doc = "The closed-form spring of registry/motion.toml at time t (seconds), starting at rest."
-combinators = { cpp = "spring", ts = "spring", python = "spring", lua = "spring" }
+combinators = { cpp = "spring", ts = "spring" }

@@ -381,13 +381,13 @@ the other.
 
 Capabilities beyond the Core profile are extensions (`OMUI_EXT_*`), queried at
 run time. A profile states what a distribution provides; `full` requires the
-TS/JS, Python and Lua script languages.
+script language, TypeScript (JavaScript when its types are blanked).
 
 ## 13. Conformance
 
 | Level | Content | Status |
 |---|---|---|
-| S | Semantics and behaviour: contracts, keys, effects; every way of writing a view yields the same tree; every script language yields the same results | normative |
+| S | Semantics and behaviour: contracts, keys, effects; every way of writing a view yields the same tree; a script yields the same results | normative |
 | A | Layout snapshots, animation values at given instants, text layout | normative |
 | B | Rendering: CPU byte-identical, GPU within tolerance | advisory |
 | C | Platform adaptation tables | informative |

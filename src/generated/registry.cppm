@@ -441,13 +441,14 @@ struct ProfileInfo {
     std::string_view                  doc;
 };
 
-inline constexpr std::string_view profile_scripts_FULL[] = {"ts", "python", "lua"};
-inline constexpr std::string_view profile_scripts_MOBILE[] = {"ts", "lua"};
+inline constexpr std::string_view profile_scripts_FULL[] = {"ts"};
+inline constexpr std::string_view profile_scripts_MOBILE[] = {"ts"};
+inline constexpr std::string_view profile_scripts_EMBEDDED_LINUX[] = {"ts"};
 
 inline constexpr std::array<ProfileInfo, 6> profiles{{
-    {"full", profile_scripts_FULL, 3, "The desktop distribution: every Core component, every script language."},
-    {"mobile", profile_scripts_MOBILE, 2, "Phones and tablets; Python optional."},
-    {"embedded-linux", {}, 1, "Embedded Linux with a display; at least one script language (Lua recommended)."},
+    {"full", profile_scripts_FULL, 1, "The desktop distribution: every Core component, and the script language."},
+    {"mobile", profile_scripts_MOBILE, 1, "Phones and tablets."},
+    {"embedded-linux", profile_scripts_EMBEDDED_LINUX, 1, "Embedded Linux with a display, with the script language."},
     {"mcu", {}, 0, "Microcontrollers: retained mode, no script language required (Wasm when needed)."},
     {"engine", {}, 0, "Inside a game engine, beside the engine's own scripting."},
     {"headless", {}, 0, "Tests, agents and video rendering: no display."},
@@ -583,7 +584,7 @@ inline constexpr std::array<MotionPresence, 21> motion_presences{{
 // The expression language (expr.toml): operators and built-in functions, with
 // the combinator name each language uses.
 struct Combinators {
-    std::string_view cpp, ts, python, lua;
+    std::string_view cpp, ts;
 };
 
 struct OperatorInfo {
@@ -601,51 +602,51 @@ struct FunctionInfo {
 };
 
 inline constexpr std::array<OperatorInfo, 17> operators{{
-    {"neg", "-", 1, {"neg", "neg", "neg", "neg"}},
-    {"not", "!", 1, {"not_", "not", "not_", "Not"}},
-    {"mul", "*", 2, {"mul", "mul", "mul", "mul"}},
-    {"div", "/", 2, {"div", "div", "div", "div"}},
-    {"mod", "%", 2, {"mod", "mod", "mod", "mod"}},
-    {"add", "+", 2, {"add", "add", "add", "add"}},
-    {"sub", "-", 2, {"sub", "sub", "sub", "sub"}},
-    {"lt", "<", 2, {"lt", "lt", "lt", "lt"}},
-    {"le", "<=", 2, {"le", "le", "le", "le"}},
-    {"gt", ">", 2, {"gt", "gt", "gt", "gt"}},
-    {"ge", ">=", 2, {"ge", "ge", "ge", "ge"}},
-    {"eq", "==", 2, {"eq", "eq", "eq", "eq"}},
-    {"ne", "!=", 2, {"ne", "ne", "ne", "ne"}},
-    {"in", "in", 2, {"in", "isIn", "in_", "In"}},
-    {"and", "&&", 2, {"and_", "and", "and_", "And"}},
-    {"or", "||", 2, {"or_", "or", "or_", "Or"}},
-    {"select", "?:", 3, {"select", "select", "select", "select"}},
+    {"neg", "-", 1, {"neg", "neg"}},
+    {"not", "!", 1, {"not_", "not"}},
+    {"mul", "*", 2, {"mul", "mul"}},
+    {"div", "/", 2, {"div", "div"}},
+    {"mod", "%", 2, {"mod", "mod"}},
+    {"add", "+", 2, {"add", "add"}},
+    {"sub", "-", 2, {"sub", "sub"}},
+    {"lt", "<", 2, {"lt", "lt"}},
+    {"le", "<=", 2, {"le", "le"}},
+    {"gt", ">", 2, {"gt", "gt"}},
+    {"ge", ">=", 2, {"ge", "ge"}},
+    {"eq", "==", 2, {"eq", "eq"}},
+    {"ne", "!=", 2, {"ne", "ne"}},
+    {"in", "in", 2, {"in", "isIn"}},
+    {"and", "&&", 2, {"and_", "and"}},
+    {"or", "||", 2, {"or_", "or"}},
+    {"select", "?:", 3, {"select", "select"}},
 }};
 
 inline constexpr std::array<FunctionInfo, 25> functions{{
-    {"format", "format(string pattern, any...) -> string", {"fmt", "fmt", "fmt", "fmt"}, "Replaces each {} in the pattern with the next argument's text ({{ and }} are literal braces)."},
-    {"size", "size(string | list | map) -> int", {"", "", "", ""}, "Length in grapheme clusters for a string, in elements otherwise."},
-    {"len", "len(string | list | map) -> int", {"", "", "", ""}, "Same as size."},
-    {"contains", "contains(string, string) -> bool | contains(list, any) -> bool", {"", "", "", ""}, "Whether the first argument contains the second."},
-    {"startsWith", "startsWith(string, string) -> bool", {"", "", "", ""}, "CEL's startsWith."},
-    {"endsWith", "endsWith(string, string) -> bool", {"", "", "", ""}, "CEL's endsWith."},
-    {"lower", "lower(string) -> string", {"", "", "", ""}, "Lower case: Unicode full case mapping, the same in every locale (Σ ending a word becomes ς)."},
-    {"upper", "upper(string) -> string", {"", "", "", ""}, "Upper case: Unicode full case mapping, the same in every locale (ß becomes SS)."},
-    {"trim", "trim(string) -> string", {"", "", "", ""}, "Removes white space at both ends."},
-    {"min", "min(number, number...) -> number", {"", "", "", ""}, "The smallest argument."},
-    {"max", "max(number, number...) -> number", {"", "", "", ""}, "The largest argument."},
-    {"clamp", "clamp(number x, number lo, number hi) -> number", {"", "", "", ""}, "x limited to [lo, hi]."},
-    {"abs", "abs(number) -> number", {"", "", "", ""}, "Absolute value."},
-    {"round", "round(double) -> int", {"", "", "", ""}, "Nearest integer, halves away from zero."},
-    {"floor", "floor(double) -> int", {"", "", "", ""}, "Largest integer not above."},
-    {"ceil", "ceil(double) -> int", {"", "", "", ""}, "Smallest integer not below."},
-    {"int", "int(any) -> int", {"", "", "", ""}, "Conversion to int (truncation for doubles, parsing for strings, 0 on failure)."},
-    {"double", "double(any) -> double", {"", "", "", ""}, "Conversion to double."},
-    {"string", "string(any) -> string", {"", "", "", ""}, "The value's text (shortest round-trip form for doubles)."},
-    {"has", "has(map.field) -> bool", {"", "", "", ""}, "Whether a map has a field (CEL's has macro)."},
-    {"lookup", "lookup(map | list, key, default?) -> any", {"lookup", "lookup", "lookup", "lookup"}, "An element by key or index, or the default (null) when absent."},
-    {"tr", "tr(string key, map args?) -> string", {"tr", "tr", "tr", "tr"}, "The message of a key in the person's language (MessageFormat 2), formatted with its arguments by name; a key no catalog has is the message itself."},
-    {"interpolate", "interpolate(double x, list input, list output, string ease?) -> double", {"interpolate", "interpolate", "interpolate", "interpolate"}, "Maps x through piecewise-linear ranges, eased within each segment, clamped outside (video authoring)."},
-    {"ease", "ease(string name, double t) -> double", {"", "", "", ""}, "An easing curve of registry/motion.toml at progress t."},
-    {"spring", "spring(double t, double from, double to, double stiffness?, double damping?, double mass?) -> double", {"spring", "spring", "spring", "spring"}, "The closed-form spring of registry/motion.toml at time t (seconds), starting at rest."},
+    {"format", "format(string pattern, any...) -> string", {"fmt", "fmt"}, "Replaces each {} in the pattern with the next argument's text ({{ and }} are literal braces)."},
+    {"size", "size(string | list | map) -> int", {"", ""}, "Length in grapheme clusters for a string, in elements otherwise."},
+    {"len", "len(string | list | map) -> int", {"", ""}, "Same as size."},
+    {"contains", "contains(string, string) -> bool | contains(list, any) -> bool", {"", ""}, "Whether the first argument contains the second."},
+    {"startsWith", "startsWith(string, string) -> bool", {"", ""}, "CEL's startsWith."},
+    {"endsWith", "endsWith(string, string) -> bool", {"", ""}, "CEL's endsWith."},
+    {"lower", "lower(string) -> string", {"", ""}, "Lower case: Unicode full case mapping, the same in every locale (Σ ending a word becomes ς)."},
+    {"upper", "upper(string) -> string", {"", ""}, "Upper case: Unicode full case mapping, the same in every locale (ß becomes SS)."},
+    {"trim", "trim(string) -> string", {"", ""}, "Removes white space at both ends."},
+    {"min", "min(number, number...) -> number", {"", ""}, "The smallest argument."},
+    {"max", "max(number, number...) -> number", {"", ""}, "The largest argument."},
+    {"clamp", "clamp(number x, number lo, number hi) -> number", {"", ""}, "x limited to [lo, hi]."},
+    {"abs", "abs(number) -> number", {"", ""}, "Absolute value."},
+    {"round", "round(double) -> int", {"", ""}, "Nearest integer, halves away from zero."},
+    {"floor", "floor(double) -> int", {"", ""}, "Largest integer not above."},
+    {"ceil", "ceil(double) -> int", {"", ""}, "Smallest integer not below."},
+    {"int", "int(any) -> int", {"", ""}, "Conversion to int (truncation for doubles, parsing for strings, 0 on failure)."},
+    {"double", "double(any) -> double", {"", ""}, "Conversion to double."},
+    {"string", "string(any) -> string", {"", ""}, "The value's text (shortest round-trip form for doubles)."},
+    {"has", "has(map.field) -> bool", {"", ""}, "Whether a map has a field (CEL's has macro)."},
+    {"lookup", "lookup(map | list, key, default?) -> any", {"lookup", "lookup"}, "An element by key or index, or the default (null) when absent."},
+    {"tr", "tr(string key, map args?) -> string", {"tr", "tr"}, "The message of a key in the person's language (MessageFormat 2), formatted with its arguments by name; a key no catalog has is the message itself."},
+    {"interpolate", "interpolate(double x, list input, list output, string ease?) -> double", {"interpolate", "interpolate"}, "Maps x through piecewise-linear ranges, eased within each segment, clamped outside (video authoring)."},
+    {"ease", "ease(string name, double t) -> double", {"", ""}, "An easing curve of registry/motion.toml at progress t."},
+    {"spring", "spring(double t, double from, double to, double stiffness?, double damping?, double mass?) -> double", {"spring", "spring"}, "The closed-form spring of registry/motion.toml at time t (seconds), starting at rest."},
 }};
 
 [[nodiscard]] constexpr const FunctionInfo* find_function(std::string_view name) noexcept {

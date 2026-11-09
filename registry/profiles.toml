@@ -3,19 +3,18 @@ spec = "0.3"
 
 [[profile]]
 name    = "full"
-scripts = ["ts", "python", "lua"]
-doc     = "The desktop distribution: every Core component, every script language."
+scripts = ["ts"]
+doc     = "The desktop distribution: every Core component, and the script language."
 
 [[profile]]
 name    = "mobile"
-scripts = ["ts", "lua"]
-doc     = "Phones and tablets; Python optional."
+scripts = ["ts"]
+doc     = "Phones and tablets."
 
 [[profile]]
 name    = "embedded-linux"
-scripts = []
-min_scripts = 1
-doc     = "Embedded Linux with a display; at least one script language (Lua recommended)."
+scripts = ["ts"]
+doc     = "Embedded Linux with a display, with the script language."
 
 [[profile]]
 name    = "mcu"

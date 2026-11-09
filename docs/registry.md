@@ -170,9 +170,9 @@ The machine-readable tables of the specification. Enumerators are append-only; t
 
 | Profile | Script languages | Meaning |
 |---|---|---|
-| `full` | ts, python, lua | The desktop distribution: every Core component, every script language. |
-| `mobile` | ts, lua | Phones and tablets; Python optional. |
-| `embedded-linux` | at least 1 | Embedded Linux with a display; at least one script language (Lua recommended). |
+| `full` | ts | The desktop distribution: every Core component, and the script language. |
+| `mobile` | ts | Phones and tablets. |
+| `embedded-linux` | ts | Embedded Linux with a display, with the script language. |
 | `mcu` | none required | Microcontrollers: retained mode, no script language required (Wasm when needed). |
 | `engine` | none required | Inside a game engine, beside the engine's own scripting. |
 | `headless` | none required | Tests, agents and video rendering: no display. |
@@ -280,25 +280,25 @@ How something comes in or goes out (spec M-10): a slot's enter or exit may name 
 
 ### Operators
 
-| Operator | Text | C++ | TS | Python | Lua |
-|---|---|---|---|---|---|
-| `neg` | `-` | `neg` | `neg` | `neg` | `neg` |
-| `not` | `!` | `not_` | `not` | `not_` | `Not` |
-| `mul` | `*` | `mul` | `mul` | `mul` | `mul` |
-| `div` | `/` | `div` | `div` | `div` | `div` |
-| `mod` | `%` | `mod` | `mod` | `mod` | `mod` |
-| `add` | `+` | `add` | `add` | `add` | `add` |
-| `sub` | `-` | `sub` | `sub` | `sub` | `sub` |
-| `lt` | `<` | `lt` | `lt` | `lt` | `lt` |
-| `le` | `<=` | `le` | `le` | `le` | `le` |
-| `gt` | `>` | `gt` | `gt` | `gt` | `gt` |
-| `ge` | `>=` | `ge` | `ge` | `ge` | `ge` |
-| `eq` | `==` | `eq` | `eq` | `eq` | `eq` |
-| `ne` | `!=` | `ne` | `ne` | `ne` | `ne` |
-| `in` | `in` | `in` | `isIn` | `in_` | `In` |
-| `and` | `&&` | `and_` | `and` | `and_` | `And` |
-| `or` | `\|\|` | `or_` | `or` | `or_` | `Or` |
-| `select` | `?:` | `select` | `select` | `select` | `select` |
+| Operator | Text | C++ | TS |
+|---|---|---|---|
+| `neg` | `-` | `neg` | `neg` |
+| `not` | `!` | `not_` | `not` |
+| `mul` | `*` | `mul` | `mul` |
+| `div` | `/` | `div` | `div` |
+| `mod` | `%` | `mod` | `mod` |
+| `add` | `+` | `add` | `add` |
+| `sub` | `-` | `sub` | `sub` |
+| `lt` | `<` | `lt` | `lt` |
+| `le` | `<=` | `le` | `le` |
+| `gt` | `>` | `gt` | `gt` |
+| `ge` | `>=` | `ge` | `ge` |
+| `eq` | `==` | `eq` | `eq` |
+| `ne` | `!=` | `ne` | `ne` |
+| `in` | `in` | `in` | `isIn` |
+| `and` | `&&` | `and_` | `and` |
+| `or` | `\|\|` | `or_` | `or` |
+| `select` | `?:` | `select` | `select` |
 
 ### Functions
 

@@ -4,9 +4,7 @@ A scenario (`<name>.scenario.omui.json`) is a view, its state and a sequence of 
 
 | language | runner | run by |
 |---|---|---|
-| Lua | `lang/lua/tests/cts.lua` | `lang/lua/tests/lua_test.cpp`, through `openmui.cts` |
 | JavaScript | `lang/js/tests/cts.js` | `lang/js/tests/js_test.cpp`, through `openmui.cts` |
-| Python | `lang/python/tests/cts.py` | `lang/python/tests/test_conformance.py` |
 
 The trace is semantic. Its trees are the agent protocol's nodes (id, role, name, value, states, actions) without `bounds`, and an empty list and an empty map are the same value. A layout change therefore leaves the traces alone. A change of meaning shows as a difference, with the step it happened at. `OMUI_CTS_WRITE=1` writes the traces instead of comparing them, for a change that is meant; review the diff.
 
@@ -30,7 +28,7 @@ Runners create the signals in the order of their names. The models get their row
 
 ### Elements
 
-- `{"type": "button", "id": "plus", "props": {…}, "on": {"activated": [actions]}, "children": [elements]}`. Builders are found by name: `omui.button` (Python), `omui.Button` (Lua), `button` (JavaScript, with camel-case properties and `onActivated`).
+- `{"type": "button", "id": "plus", "props": {…}, "on": {"activated": [actions]}, "children": [elements]}`. Builders are found by name: `button` (JavaScript, with camel-case properties and `onActivated`).
 - `{"when": operand, "then": [elements], "else": [elements]}`.
 - `{"each": "notes", "where": operand, "body": element}`, where the body is built once and `{"row": "title"}` is the row's field.
 
@@ -39,7 +37,7 @@ Runners create the signals in the order of their names. The models get their row
 - A constant. A list or a map is written `{"const": …}`.
 - `{"signal": "count"}` is the signal object. It binds both ways where the property is bindable.
 - `{"row": "title"}` is a field of the loop's row.
-- `{"op": "+", "args": [a, b]}`, with `+ - * / % == != < <= > >= and or`, and `not` and `neg` with one argument. Each runner uses its language's own spelling: Python's operators, Lua's metamethods and `omui.eq` …, JavaScript's methods.
+- `{"op": "+", "args": [a, b]}`, with `+ - * / % == != < <= > >= and or`, and `not` and `neg` with one argument. Each runner uses its language's own spelling: JavaScript's methods.
 - `{"call": "max", "args": [...]}`, `{"fmt": "{} to go", "args": [...]}`, `{"select": [cond, then, otherwise]}`.
 
 ### Actions (handlers and verbs, run in the language)
