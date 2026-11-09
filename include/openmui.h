@@ -400,7 +400,7 @@ typedef struct OmuiRuntimeCreateInfo {
     const void* next;
     uint32_t spec_version;                   /* OMUI_SPEC_VERSION the caller was built against. */
     OmuiString app_id;                       /* Reverse-domain application id. */
-    OmuiString profile;                      /* A profile of profiles.toml; empty is `full`. */
+    OmuiString profile;                      /* A profile of profiles.json; empty is `full`. */
     uint32_t extension_count;
     const OmuiString* extensions;
     uint32_t headless;                       /* Non-zero: no display; frames are driven by omuiFrame. */

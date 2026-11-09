@@ -8,7 +8,11 @@ pacing, texture tiers, video — the bus's `invoke` (§9), openas 0.2's
 grants under an application's cap (S-11, §14), and undo, transactions and dry
 runs (S-12, S-13). The tables it refers to are in
 [docs/registry.md](docs/registry.md), generated from [registry/](registry/); where
-the two disagree, the registry is right and this text is wrong.
+the two disagree, the registry is right and this text is wrong. The registry and
+the data formats this text defines are JSON: a JSON snapshot is a file's
+normative form, its `doc`, `note` and `<key>_doc` keys words about the data, not
+data. An implementation may write them in another language that evaluates to the
+same JSON (omui writes TypeScript data modules).
 
 Actors, effect classes, the person's own verbs, grants and the envelope are
 those of [openas 0.2](https://github.com/openlifa/openas) (openas §2, §3, §5,
@@ -287,13 +291,13 @@ label on the device:
 - **R-2** The CPU reference renderer is byte-for-byte deterministic: the same
   display list gives the same pixels on every platform (B-level baseline).
 - **R-3** Effect shaders (`OMUI_EXT_shader_effect`) have the interface of
-  registry/effect.toml: source language Slang, interchange format SPIR-V. A
+  registry/effect.json: source language Slang, interchange format SPIR-V. A
   backend that cannot run an effect draws the node without it and reports a
   diagnostic.
 
 ## 8. Contract ⑥: the C ABI
 
-`include/openmui.h` is generated from registry/abi.toml.
+`include/openmui.h` is generated from registry/abi.json.
 
 - **C-1** Only handles and values cross it; no C++ type and no exception.
 - **C-2** Every function returns `OmuiResult`. Text and structured results are
@@ -328,7 +332,7 @@ fields and error codes of openas §6. An actor is written in openas's text form
 ## 10. Animation
 
 - **M-1** Easing curves and the spring are defined by the formulas of
-  registry/motion.toml. A value is a function of time and parameters only: an
+  registry/motion.json. A value is a function of time and parameters only: an
   implementation MUST be able to evaluate any instant directly.
 - **M-2** Retargeting a spring keeps position and velocity continuous.
 - **M-3** A spring is settled from the first instant its envelope bounds the
@@ -343,10 +347,10 @@ fields and error codes of openas §6. An actor is written in openas's text form
   determined by the times given (A-level: identical to the reference
   implementation's bits).
 - **M-7** A node has six motion slots — `update`, `enter`, `exit`, `state`,
-  `reorder`, `replace` (registry/motion.toml `[[slot]]`). When a node's drawing
+  `reorder`, `replace` (registry/motion.json `slot`). When a node's drawing
   changes, the kind of change selects the slot, and the slot's recipe decides
   how the change moves; a slot without one changes at once.
-- **M-8** A slot holds a recipe by id (registry/motion.toml `[[recipe]]`, or a
+- **M-8** A slot holds a recipe by id (registry/motion.json `recipe`, or a
   style pack's own, prefixed) with optional parameters. The node's `motion`
   property fills slots for that node; a style pack's motion rules fill them
   for every node, a component type or a role; the node's own wins, then the
@@ -356,7 +360,7 @@ fields and error codes of openas §6. An actor is written in openas's text form
   animate. How any change moves — a toggle's thumb, a list's order, a label's
   text, a button's colour — is the slot's recipe, the same for every component.
 - **M-10** How something comes in or goes out is a presence by name
-  (registry/motion.toml `[[presence]]`): a pose at its far end relative to where
+  (registry/motion.json `presence`): a pose at its far end relative to where
   it rests, a duration, an ease and an opacity window, with named options over
   its defaults. A slot's `enter` or `exit` may name one; an implementation plays
   the same presence on whole objects (an entrance, an exit) and on the pieces
@@ -365,7 +369,7 @@ fields and error codes of openas §6. An actor is written in openas's text form
 
 ## 11. Component contracts
 
-A component contract (`*.contract.omui.toml`) declares a component's role,
+A component contract (`*.contract.omui.json`: its JSON snapshot is the normative form, which an implementation may write as a TypeScript data module, `*.contract.omui.ts`) declares a component's role,
 typed properties (with defaults and bindability), events, actions (with
 effects), key bindings, commands, parts and motion. The Core contracts are in
 registry/components and use the same format as any third-party contract.
@@ -439,7 +443,7 @@ An implementation that reports an extension (§12) MUST meet its clauses.
   a press no behaviour claims moves the camera. What a behaviour makes
   possible is stated as actions on the items (`select`, `move_to`, `resize`,
   `connect`, …; `delete` is `irreversible` and states its answer, S-1).
-- **K-6** A declarative behaviour (`*.behavior.omui.toml`) is a statechart:
+- **K-6** A declarative behaviour (`*.behavior.omui.json`) is a statechart:
   states, transitions on `pointer_down`, `pointer_move`, `pointer_up`,
   `pointer_cancel`, `tap` and `key` with an optional `when` expression (§4,
   V-3), operations the canvas defines, and actions it adds to items. It MUST be
@@ -449,7 +453,7 @@ An implementation that reports an extension (§12) MUST meet its clauses.
 ### 16.2 `OMUI_EXT_shader_effect` and `OMUI_EXT_backdrop_effect`
 
 - **E-1** An effect is a fragment program run once per pixel of a layer's
-  surface, written against the effect template (registry/effect.toml): it reads
+  surface, written against the effect template (registry/effect.json): it reads
   the layer's pixels, an auxiliary texture, and the frame's values — the
   surface's size and scale, the layer's rectangle, its parameters, values
   derived from them, its shapes — and nothing else. A program that binds
@@ -472,7 +476,7 @@ An implementation that reports an extension (§12) MUST meet its clauses.
 
 ### 16.3 `OMUI_EXT_style_pack`
 
-- **ST-1** A style pack (`*.style.omui.toml`) is a theme to start from, the
+- **ST-1** A style pack (`*.style.omui.json`) is a theme to start from, the
   tokens it changes, and the effects it puts on the window, on component types
   and on roles (`role:<role>`). It changes pixels only: the semantic tree of
   any interface is identical under every style (S-level).

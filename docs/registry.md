@@ -327,8 +327,8 @@ How something comes in or goes out (spec M-10): a slot's enter or exit may name 
 | `lookup` | `lookup(map \| list, key, default?) -> any` | An element by key or index, or the default (null) when absent. |
 | `tr` | `tr(string key, map args?) -> string` | The message of a key in the person's language (MessageFormat 2), formatted with its arguments by name; a key no catalog has is the message itself. |
 | `interpolate` | `interpolate(double x, list input, list output, string ease?) -> double` | Maps x through piecewise-linear ranges, eased within each segment, clamped outside (video authoring). |
-| `ease` | `ease(string name, double t) -> double` | An easing curve of registry/motion.toml at progress t. |
-| `spring` | `spring(double t, double from, double to, double stiffness?, double damping?, double mass?) -> double` | The closed-form spring of registry/motion.toml at time t (seconds), starting at rest. |
+| `ease` | `ease(string name, double t) -> double` | An easing curve of registry/motion.json at progress t. |
+| `spring` | `spring(double t, double from, double to, double stiffness?, double damping?, double mass?) -> double` | The closed-form spring of registry/motion.json at time t (seconds), starting at rest. |
 
 ## Core component contracts
 

@@ -645,8 +645,8 @@ inline constexpr std::array<FunctionInfo, 25> functions{{
     {"lookup", "lookup(map | list, key, default?) -> any", {"lookup", "lookup"}, "An element by key or index, or the default (null) when absent."},
     {"tr", "tr(string key, map args?) -> string", {"tr", "tr"}, "The message of a key in the person's language (MessageFormat 2), formatted with its arguments by name; a key no catalog has is the message itself."},
     {"interpolate", "interpolate(double x, list input, list output, string ease?) -> double", {"interpolate", "interpolate"}, "Maps x through piecewise-linear ranges, eased within each segment, clamped outside (video authoring)."},
-    {"ease", "ease(string name, double t) -> double", {"", ""}, "An easing curve of registry/motion.toml at progress t."},
-    {"spring", "spring(double t, double from, double to, double stiffness?, double damping?, double mass?) -> double", {"spring", "spring"}, "The closed-form spring of registry/motion.toml at time t (seconds), starting at rest."},
+    {"ease", "ease(string name, double t) -> double", {"", ""}, "An easing curve of registry/motion.json at progress t."},
+    {"spring", "spring(double t, double from, double to, double stiffness?, double damping?, double mass?) -> double", {"spring", "spring"}, "The closed-form spring of registry/motion.json at time t (seconds), starting at rest."},
 }};
 
 [[nodiscard]] constexpr const FunctionInfo* find_function(std::string_view name) noexcept {

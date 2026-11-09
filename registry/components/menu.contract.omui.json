@@ -1,0 +1,72 @@
+{
+  "contract": {
+    "menu": {
+      "children": "menu_item",
+      "role": "menu",
+      "spec": "0.1",
+      "doc": "A popup list of commands.",
+      "props": {
+        "open": {
+          "type": "bool",
+          "default": false,
+          "bindable": true
+        }
+      },
+      "events": {
+        "closed": {
+          "args": {}
+        }
+      },
+      "actions": {
+        "dismiss": {
+          "effect": "reversible"
+        }
+      },
+      "keys": {
+        "Escape": "dismiss"
+      },
+      "parts": {
+        "surface": {}
+      },
+      "motion": {
+        "surface": "motion.enter"
+      }
+    },
+    "menu_item": {
+      "role": "menu_item",
+      "spec": "0.1",
+      "doc": "A command of a menu.",
+      "props": {
+        "text": {
+          "type": "string",
+          "default": ""
+        },
+        "shortcut": {
+          "type": "string",
+          "default": ""
+        },
+        "disabled": {
+          "type": "bool",
+          "default": false
+        },
+        "verb": {
+          "type": "string",
+          "default": ""
+        }
+      },
+      "events": {
+        "activated": {
+          "args": {}
+        }
+      },
+      "actions": {
+        "activate": {
+          "effect": "reversible"
+        }
+      },
+      "keys": {
+        "Enter|Space": "activate"
+      }
+    }
+  }
+}

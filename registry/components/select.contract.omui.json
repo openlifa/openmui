@@ -1,0 +1,67 @@
+{
+  "contract": {
+    "select": {
+      "role": "combo_box",
+      "spec": "0.1",
+      "doc": "Chooses one value from a popup list of options.",
+      "props": {
+        "value": {
+          "type": "string",
+          "default": "",
+          "bindable": true
+        },
+        "options": {
+          "type": "list<string>",
+          "default": [],
+          "doc": "Option values; labels come from `labels` or the values."
+        },
+        "labels": {
+          "type": "list<string>",
+          "default": []
+        },
+        "label": {
+          "type": "string",
+          "default": ""
+        },
+        "disabled": {
+          "type": "bool",
+          "default": false
+        }
+      },
+      "events": {
+        "changed": {
+          "args": {
+            "value": "string"
+          }
+        }
+      },
+      "actions": {
+        "expand": {
+          "effect": "reversible"
+        },
+        "collapse": {
+          "effect": "reversible"
+        },
+        "set_value": {
+          "effect": "reversible",
+          "args": {
+            "value": "string"
+          }
+        }
+      },
+      "keys": {
+        "Space|Enter|Alt+Down": "expand",
+        "Escape": "collapse"
+      },
+      "parts": {
+        "button": {},
+        "popup": {},
+        "option": {},
+        "chevron": {}
+      },
+      "motion": {
+        "popup": "motion.enter"
+      }
+    }
+  }
+}

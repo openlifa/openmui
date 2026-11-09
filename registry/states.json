@@ -1,0 +1,102 @@
+{
+  "doc": "states — the state bits of a semantic node. Each has a fixed bit; append-only.",
+  "spec": "0.3",
+  "state": [
+    {
+      "name": "disabled",
+      "doc": "Present but not operable; actions other than `read` are refused."
+    },
+    {
+      "name": "focusable",
+      "doc": "Can receive keyboard focus."
+    },
+    {
+      "name": "focused",
+      "doc": "Has keyboard focus."
+    },
+    {
+      "name": "hovered",
+      "doc": "A pointer is over it."
+    },
+    {
+      "name": "pressed",
+      "doc": "Being pressed (pointer or key held)."
+    },
+    {
+      "name": "checked",
+      "doc": "On: a checkbox, switch, toggle button or checkable menu item."
+    },
+    {
+      "name": "mixed",
+      "doc": "Neither checked nor unchecked (a tri-state checkbox)."
+    },
+    {
+      "name": "selected",
+      "doc": "Selected within its container (an option, a tab, a list item)."
+    },
+    {
+      "name": "expanded",
+      "doc": "Its controlled content is shown (a disclosure, a combo box, a tree item)."
+    },
+    {
+      "name": "collapsible",
+      "doc": "Can be expanded or collapsed; `expanded` tells which."
+    },
+    {
+      "name": "busy",
+      "doc": "Being updated; its content may change soon."
+    },
+    {
+      "name": "hidden",
+      "doc": "Not shown (kept in the tree for virtualised or off-screen content)."
+    },
+    {
+      "name": "offscreen",
+      "doc": "Outside the visible area of its scroll container."
+    },
+    {
+      "name": "invalid",
+      "doc": "Its value fails validation."
+    },
+    {
+      "name": "required",
+      "doc": "Must have a value before the form it belongs to is submitted."
+    },
+    {
+      "name": "readonly",
+      "doc": "Its value can be read and selected but not changed."
+    },
+    {
+      "name": "editable",
+      "doc": "Its text can be edited."
+    },
+    {
+      "name": "multiline",
+      "doc": "A text field that accepts line breaks."
+    },
+    {
+      "name": "multiselectable",
+      "doc": "A container in which several items can be selected."
+    },
+    {
+      "name": "modal",
+      "doc": "A dialog that blocks the rest of the application."
+    },
+    {
+      "name": "default",
+      "doc": "The default button of its dialog or form."
+    },
+    {
+      "name": "visited",
+      "doc": "A link that has been followed."
+    },
+    {
+      "name": "animating",
+      "doc": "Moving; bounds and values given are those of the target state."
+    },
+    {
+      "name": "removing",
+      "doc": "Leaving the tree (exit animation); accepts no actions (S-4)."
+    }
+  ]
+}

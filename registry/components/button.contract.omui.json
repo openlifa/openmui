@@ -1,0 +1,64 @@
+{
+  "contract": {
+    "button": {
+      "role": "button",
+      "spec": "0.1",
+      "doc": "Performs an action when activated.",
+      "props": {
+        "text": {
+          "type": "string",
+          "default": "",
+          "bindable": true,
+          "doc": "The label, also the accessible name."
+        },
+        "icon": {
+          "type": "string",
+          "default": "",
+          "doc": "An icon token shown before the label."
+        },
+        "variant": {
+          "type": "enum",
+          "values": [
+            "primary",
+            "secondary",
+            "ghost",
+            "danger"
+          ],
+          "default": "secondary"
+        },
+        "disabled": {
+          "type": "bool",
+          "default": false
+        },
+        "verb": {
+          "type": "string",
+          "default": "",
+          "doc": "The verb activation invokes; its effect classifies `activate`."
+        }
+      },
+      "events": {
+        "activated": {
+          "args": {}
+        }
+      },
+      "actions": {
+        "activate": {
+          "effect": "reversible"
+        }
+      },
+      "keys": {
+        "Enter|Space": "activate"
+      },
+      "parts": {
+        "background": {},
+        "label": {},
+        "icon": {},
+        "focus_ring": {}
+      },
+      "motion": {
+        "background": "motion.fast",
+        "press": "motion.spring.snappy"
+      }
+    }
+  }
+}

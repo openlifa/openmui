@@ -1,0 +1,49 @@
+{
+  "contract": {
+    "dialog": {
+      "children": "any",
+      "role": "dialog",
+      "spec": "0.1",
+      "doc": "A window over the application; modal by default.",
+      "props": {
+        "title": {
+          "type": "string",
+          "default": ""
+        },
+        "open": {
+          "type": "bool",
+          "default": false,
+          "bindable": true
+        },
+        "modal": {
+          "type": "bool",
+          "default": true
+        }
+      },
+      "events": {
+        "closed": {
+          "args": {
+            "result": "string"
+          }
+        }
+      },
+      "actions": {
+        "dismiss": {
+          "effect": "reversible"
+        }
+      },
+      "keys": {
+        "Escape": "dismiss"
+      },
+      "parts": {
+        "scrim": {},
+        "surface": {},
+        "title": {}
+      },
+      "motion": {
+        "surface": "motion.spring.gentle",
+        "scrim": "motion.normal"
+      }
+    }
+  }
+}
