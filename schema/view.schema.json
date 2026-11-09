@@ -732,6 +732,103 @@
       "additionalProperties": false,
       "description": "A surface holding one thing: a title, a subtitle and its content; activated as a whole when it is interactive."
     },
+    "component.carousel": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "carousel"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "built_at": {"type": "string", "pattern": "^.+:[0-9]+:[0-9]+$"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "index": {
+              "anyOf": [{"type": "integer"}, {"$ref": "#/$defs/binding"}],
+              "description": "The slide shown, from 0. — default 0 (bindable)"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Its name. — default \"\""
+            },
+            "wrap": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "After the last, the first again. — default false"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [{"enum": ["index", "label", "wrap"]}, {"$ref": "#/$defs/runtime_property_name"}]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "One of several slides at a time; arrows, dots, keys, a swipe or an agent move between them."
+    },
+    "component.chart": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "chart"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "built_at": {"type": "string", "pattern": "^.+:[0-9]+:[0-9]+$"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "anyOf": [{"enum": ["line", "bar", "area"]}, {"$ref": "#/$defs/oneway"}],
+              "description": "default \"line\""
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Its name; also what its description summarises. — default \"\""
+            },
+            "labels": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/binding"}],
+              "description": "The steps (\"Jan\", \"Feb\" …). — default [] (bindable)"
+            },
+            "series": {
+              "anyOf": [{}, {"$ref": "#/$defs/binding"}],
+              "description": "[{ name, values: number[], color? }]: each series a value a step. — default [] (bindable)"
+            },
+            "unit": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Said after each number (\"ms\", \"%\"). — default \"\""
+            },
+            "zero": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The scale starts at zero; else at the smallest value. — default true"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["kind", "label", "labels", "series", "unit", "zero"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "Numbers over labelled steps as lines, bars or areas; each point an item of its own an agent reads exactly."
+    },
     "component.checkbox": {
       "type": "object",
       "properties": {
@@ -3512,6 +3609,8 @@
         {"$ref": "#/$defs/component.breadcrumb"},
         {"$ref": "#/$defs/component.button"},
         {"$ref": "#/$defs/component.card"},
+        {"$ref": "#/$defs/component.carousel"},
+        {"$ref": "#/$defs/component.chart"},
         {"$ref": "#/$defs/component.checkbox"},
         {"$ref": "#/$defs/component.chip"},
         {"$ref": "#/$defs/component.code_editor"},
