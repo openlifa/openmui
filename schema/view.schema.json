@@ -1857,6 +1857,10 @@
               "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
               "description": "`gfm`, `commonmark`, or extensions by name: tables, strikethrough, tasklists, autolinks, math, wikilinks, underline … — default []"
             },
+            "format": {
+              "anyOf": [{"enum": ["markdown", "html"]}, {"$ref": "#/$defs/oneway"}],
+              "description": "What `source` is: Markdown, or HTML (a subset, D-141: the blocks and spans Markdown has; scripts, styles and other tags dropped, their text kept). — default \"markdown\""
+            },
             "label": {
               "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
               "description": "The accessible name of the document (otherwise its first heading). — default \"\""
@@ -1872,7 +1876,7 @@
           },
           "propertyNames": {
             "anyOf": [
-              {"enum": ["base_url", "extensions", "label", "origin", "source"]},
+              {"enum": ["base_url", "extensions", "format", "label", "origin", "source"]},
               {"$ref": "#/$defs/runtime_property_name"}
             ]
           },
