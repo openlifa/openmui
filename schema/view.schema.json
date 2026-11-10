@@ -110,6 +110,9 @@
         "activate",
         "blur",
         "close_request",
+        "file_drop",
+        "file_leave",
+        "file_over",
         "focus",
         "gamepad_axis",
         "gamepad_connect",
@@ -1472,6 +1475,54 @@
       "required": ["type"],
       "additionalProperties": false,
       "description": "A sheet along the window's edge over the page, closed by Escape, a press outside or its ×."
+    },
+    "component.file_drop": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "file_drop"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "built_at": {"type": "string", "pattern": "^.+:[0-9]+:[0-9]+$"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "accept": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "The extensions it takes (\"png\", \"jpg\"); none: any file. — default []"
+            },
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "What it says; also its name. — default \"Drop files here, or choose\""
+            },
+            "multiple": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Several files at once; else the first. — default true"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["accept", "disabled", "label", "multiple"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["dropped", "requested"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "Files given to the application: dropped on it, or chosen (pressing it asks for the chooser)."
     },
     "component.form_field": {
       "type": "object",
@@ -3624,6 +3675,7 @@
         {"$ref": "#/$defs/component.description_list"},
         {"$ref": "#/$defs/component.dialog"},
         {"$ref": "#/$defs/component.drawer"},
+        {"$ref": "#/$defs/component.file_drop"},
         {"$ref": "#/$defs/component.form_field"},
         {"$ref": "#/$defs/component.grid"},
         {"$ref": "#/$defs/component.hover_card"},
