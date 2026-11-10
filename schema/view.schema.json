@@ -110,6 +110,7 @@
         "activate",
         "blur",
         "close_request",
+        "context",
         "file_drop",
         "file_leave",
         "file_over",
