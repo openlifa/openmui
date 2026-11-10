@@ -3624,6 +3624,41 @@
       "additionalProperties": false,
       "description": "A hierarchy from a model's rows, each a tree item opened, closed and chosen."
     },
+    "component.web_view": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "web_view"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "built_at": {"type": "string", "pattern": "^.+:[0-9]+:[0-9]+$"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Its name while the page has no title. — default \"\""
+            },
+            "url": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "The page's address (http, https); it follows the page as the page navigates. — default \"\" (bindable)"
+            }
+          },
+          "propertyNames": {"anyOf": [{"enum": ["label", "url"]}, {"$ref": "#/$defs/runtime_property_name"}]},
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["loaded", "navigated"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A web page drawn by the system's own web view, placed over this node; its address, title and loading said in the tree."
+    },
     "if": {
       "type": "object",
       "properties": {
@@ -3729,6 +3764,7 @@
         {"$ref": "#/$defs/component.toolbar"},
         {"$ref": "#/$defs/component.tooltip"},
         {"$ref": "#/$defs/component.tree_view"},
+        {"$ref": "#/$defs/component.web_view"},
         {"$ref": "#/$defs/if"},
         {"$ref": "#/$defs/for"},
         {"$ref": "#/$defs/slot"}
