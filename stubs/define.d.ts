@@ -1,0 +1,104 @@
+// openmui/define — the specification's data formats written as TypeScript
+// data modules (D-139, D-157): a component's contract, a native module's
+// contract, a view document. Written by hand and normative; a module's
+// default export is one define call, evaluated to the JSON the tools read:
+//
+//     import { defineContract } from "openmui/define";
+//     export default defineContract({ rating: { role: "slider", doc: "…", props: { value: { type: "f64", default: 0 } } } });
+//
+// One component (or native module) a file, named as the file.
+
+export type Json = null | boolean | number | string | Json[] | { [key: string]: Json };
+
+/** What a define call makes: the document of one kind, evaluated to JSON. */
+export interface Defined<Kind extends string> {
+    readonly kind: Kind;
+}
+
+// ── a component's contract (spec §11; component-binding §2) ─────────────
+
+/** A property's type: `bool`, `i32`, `i64`, `f64`, `string`, `color`, `enum` (with `values`), `list<string>`, `any`, or alternatives (`f64 | min | max`). */
+export type PropType = "bool" | "i32" | "i64" | "f64" | "string" | "color" | "enum" | "list<string>" | "any" | (string & {});
+/** An argument's type, written alone (`text: "string"`) or with its doc. */
+export type ArgType = PropType | { type: PropType; doc?: string };
+/** How much an action changes (openas §2.4). */
+export type Effect = "read" | "reversible" | "irreversible" | "external";
+
+export interface PropContract {
+    type: PropType;
+    default?: Json;
+    /** An enum's values. */
+    values?: string[];
+    /** A signal given to it is written back (two-way). */
+    bindable?: boolean;
+    doc?: string;
+}
+export interface EventContract {
+    args?: { [name: string]: ArgType };
+    /** Several in one frame arrive as the last (`frame`). */
+    coalesce?: "frame";
+    doc?: string;
+}
+export interface ActionContract {
+    effect?: Effect;
+    args?: { [name: string]: ArgType };
+    /** What a person's confirmation is answered with (`true` for the usual "yes"). */
+    answer?: boolean | string;
+    doc?: string;
+}
+
+export interface Contract {
+    /** Its role (spec registry/roles.json): what assistive technology and agents take it for. */
+    role: string;
+    doc: string;
+    /** The spec version it is written against. */
+    spec?: string;
+    props?: { [name: string]: PropContract };
+    events?: { [name: string]: EventContract };
+    actions?: { [name: string]: ActionContract };
+    // ── less often ──
+    /** What it contains: `none` (the default), `any`, or a contract's name. */
+    children?: string;
+    /** Named commands keys can reach besides its actions. */
+    commands?: { [name: string]: { doc?: string } };
+    /** Key chords and the action or command each runs (`"Enter": "activate"`). */
+    keys?: { [chord: string]: string };
+    /** Its parts by name: what a style and a motion rule address. */
+    parts?: { [name: string]: {} };
+    /** A part's motion token (spec registry/motion.json): `{ thumb: "standard" }`. */
+    motion?: { [part: string]: string };
+}
+
+/** Components' contracts, by name: `defineContract({ rating: { … } })`. */
+export declare function defineContract(contracts: { [name: string]: Contract }): Defined<"contract">;
+
+// ── a native module's contract (component-binding §8) ───────────────────
+
+/** A native type: `bool`, `i32`, `u32`, `i64`, `f64`, `string`, `any`, a record of the module, `T[]`, `T?`. */
+export type NativeType = string;
+/** A field or an argument, written alone (`text: "string"`) or with its doc. */
+export type NativeField = NativeType | { type: NativeType; doc?: string };
+
+export interface NativeFunction {
+    doc: string;
+    args?: { [name: string]: NativeField };
+    returns?: NativeType;
+    effect?: Effect;
+    /** Runs on a worker: a promise in scripts, and a `…Sync` form beside it. */
+    async?: boolean;
+}
+export interface NativeModule {
+    doc: string;
+    spec?: string;
+    functions: { [name: string]: NativeFunction };
+    /** The records its functions take and give. */
+    types?: { [name: string]: { doc?: string; fields: { [name: string]: NativeField } } };
+}
+
+/** A native module's contract, by name: `defineNative({ fuzzy: { … } })`. */
+export declare function defineNative(modules: { [name: string]: NativeModule }): Defined<"native">;
+
+// ── a view document (the view schema, schema/view.schema.json) ──────────
+
+/** A view document: an element tree with its signals, models and handlers, as JSON. */
+export declare function defineView(document: { [field: string]: Json }): Defined<"view">;

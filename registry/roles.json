@@ -1,0 +1,475 @@
+{
+  "doc": "roles — what a semantic node is. The set aligns with ARIA and AccessKit (`aria`, `accesskit` give the mapping a platform accessibility layer uses). `interactive` roles must have a name (S-6) and should have an explicit id. Append-only: the generated enum keeps this order.",
+  "spec": "0.3",
+  "role": [
+    {
+      "name": "none",
+      "aria": "none",
+      "accesskit": "GenericContainer",
+      "interactive": false,
+      "doc": "Not exposed: presentation only."
+    },
+    {
+      "name": "generic",
+      "aria": "generic",
+      "accesskit": "GenericContainer",
+      "interactive": false,
+      "doc": "A container with no meaning of its own."
+    },
+    {
+      "name": "application",
+      "aria": "application",
+      "accesskit": "Application",
+      "interactive": false,
+      "doc": "The root of an application's interface."
+    },
+    {
+      "name": "window",
+      "aria": "none",
+      "accesskit": "Window",
+      "interactive": false,
+      "doc": "A top-level window."
+    },
+    {
+      "name": "dialog",
+      "aria": "dialog",
+      "accesskit": "Dialog",
+      "interactive": false,
+      "doc": "A dialog window."
+    },
+    {
+      "name": "alert_dialog",
+      "aria": "alertdialog",
+      "accesskit": "AlertDialog",
+      "interactive": false,
+      "doc": "A dialog that interrupts to report something urgent."
+    },
+    {
+      "name": "group",
+      "aria": "group",
+      "accesskit": "Group",
+      "interactive": false,
+      "doc": "A set of related elements."
+    },
+    {
+      "name": "region",
+      "aria": "region",
+      "accesskit": "Region",
+      "interactive": false,
+      "doc": "A significant section the user may want to jump to."
+    },
+    {
+      "name": "toolbar",
+      "aria": "toolbar",
+      "accesskit": "Toolbar",
+      "interactive": false,
+      "doc": "A row of controls."
+    },
+    {
+      "name": "separator",
+      "aria": "separator",
+      "accesskit": "Splitter",
+      "interactive": false,
+      "doc": "A divider between groups of content."
+    },
+    {
+      "name": "text",
+      "aria": "none",
+      "accesskit": "Label",
+      "interactive": false,
+      "doc": "A run of static text."
+    },
+    {
+      "name": "heading",
+      "aria": "heading",
+      "accesskit": "Heading",
+      "interactive": false,
+      "doc": "A heading; `value` holds the level."
+    },
+    {
+      "name": "paragraph",
+      "aria": "paragraph",
+      "accesskit": "Paragraph",
+      "interactive": false,
+      "doc": "A paragraph of text."
+    },
+    {
+      "name": "label",
+      "aria": "none",
+      "accesskit": "Label",
+      "interactive": false,
+      "doc": "The label of another element."
+    },
+    {
+      "name": "link",
+      "aria": "link",
+      "accesskit": "Link",
+      "interactive": true,
+      "doc": "A reference to another resource; activating it has the `external` effect unless it stays in the application."
+    },
+    {
+      "name": "image",
+      "aria": "img",
+      "accesskit": "Image",
+      "interactive": false,
+      "doc": "An image; `name` is its text alternative."
+    },
+    {
+      "name": "figure",
+      "aria": "figure",
+      "accesskit": "Figure",
+      "interactive": false,
+      "doc": "A self-contained illustration with a caption."
+    },
+    {
+      "name": "button",
+      "aria": "button",
+      "accesskit": "Button",
+      "interactive": true,
+      "doc": "Performs an action when activated."
+    },
+    {
+      "name": "toggle_button",
+      "aria": "button",
+      "accesskit": "Button",
+      "interactive": true,
+      "doc": "A button with an on/off state."
+    },
+    {
+      "name": "checkbox",
+      "aria": "checkbox",
+      "accesskit": "CheckBox",
+      "interactive": true,
+      "doc": "A checkable option."
+    },
+    {
+      "name": "radio",
+      "aria": "radio",
+      "accesskit": "RadioButton",
+      "interactive": true,
+      "doc": "One option of a radio group."
+    },
+    {
+      "name": "radio_group",
+      "aria": "radiogroup",
+      "accesskit": "RadioGroup",
+      "interactive": false,
+      "doc": "A set of mutually exclusive options."
+    },
+    {
+      "name": "switch",
+      "aria": "switch",
+      "accesskit": "Switch",
+      "interactive": true,
+      "doc": "An on/off switch."
+    },
+    {
+      "name": "slider",
+      "aria": "slider",
+      "accesskit": "Slider",
+      "interactive": true,
+      "doc": "Chooses a value in a range by moving a thumb."
+    },
+    {
+      "name": "spin_button",
+      "aria": "spinbutton",
+      "accesskit": "SpinButton",
+      "interactive": true,
+      "doc": "Chooses a value by stepping it."
+    },
+    {
+      "name": "progress",
+      "aria": "progressbar",
+      "accesskit": "ProgressIndicator",
+      "interactive": false,
+      "doc": "Shows the progress of a task."
+    },
+    {
+      "name": "meter",
+      "aria": "meter",
+      "accesskit": "Meter",
+      "interactive": false,
+      "doc": "Shows a measurement within a known range."
+    },
+    {
+      "name": "text_box",
+      "aria": "textbox",
+      "accesskit": "TextInput",
+      "interactive": true,
+      "doc": "A text field."
+    },
+    {
+      "name": "search_box",
+      "aria": "searchbox",
+      "accesskit": "SearchInput",
+      "interactive": true,
+      "doc": "A text field for a search query."
+    },
+    {
+      "name": "combo_box",
+      "aria": "combobox",
+      "accesskit": "ComboBox",
+      "interactive": true,
+      "doc": "A text field or button with a popup of choices."
+    },
+    {
+      "name": "list_box",
+      "aria": "listbox",
+      "accesskit": "ListBox",
+      "interactive": true,
+      "doc": "A list of selectable options."
+    },
+    {
+      "name": "option",
+      "aria": "option",
+      "accesskit": "ListBoxOption",
+      "interactive": true,
+      "doc": "An option of a list box or combo box."
+    },
+    {
+      "name": "list",
+      "aria": "list",
+      "accesskit": "List",
+      "interactive": false,
+      "doc": "A list of items."
+    },
+    {
+      "name": "list_item",
+      "aria": "listitem",
+      "accesskit": "ListItem",
+      "interactive": false,
+      "doc": "An item of a list."
+    },
+    {
+      "name": "menu",
+      "aria": "menu",
+      "accesskit": "Menu",
+      "interactive": false,
+      "doc": "A list of commands."
+    },
+    {
+      "name": "menu_bar",
+      "aria": "menubar",
+      "accesskit": "MenuBar",
+      "interactive": false,
+      "doc": "A horizontal menu at the top of a window."
+    },
+    {
+      "name": "menu_item",
+      "aria": "menuitem",
+      "accesskit": "MenuItem",
+      "interactive": true,
+      "doc": "A command of a menu."
+    },
+    {
+      "name": "menu_item_checkbox",
+      "aria": "menuitemcheckbox",
+      "accesskit": "MenuItemCheckBox",
+      "interactive": true,
+      "doc": "A checkable command of a menu."
+    },
+    {
+      "name": "menu_item_radio",
+      "aria": "menuitemradio",
+      "accesskit": "MenuItemRadio",
+      "interactive": true,
+      "doc": "One of exclusive commands of a menu."
+    },
+    {
+      "name": "tab_list",
+      "aria": "tablist",
+      "accesskit": "TabList",
+      "interactive": false,
+      "doc": "The tabs of a tabbed view."
+    },
+    {
+      "name": "tab",
+      "aria": "tab",
+      "accesskit": "Tab",
+      "interactive": true,
+      "doc": "A tab; selecting it shows its panel."
+    },
+    {
+      "name": "tab_panel",
+      "aria": "tabpanel",
+      "accesskit": "TabPanel",
+      "interactive": false,
+      "doc": "The content of a tab."
+    },
+    {
+      "name": "tooltip",
+      "aria": "tooltip",
+      "accesskit": "Tooltip",
+      "interactive": false,
+      "doc": "A popup describing an element."
+    },
+    {
+      "name": "tree",
+      "aria": "tree",
+      "accesskit": "Tree",
+      "interactive": true,
+      "doc": "A hierarchical list."
+    },
+    {
+      "name": "tree_item",
+      "aria": "treeitem",
+      "accesskit": "TreeItem",
+      "interactive": true,
+      "doc": "An item of a tree."
+    },
+    {
+      "name": "grid",
+      "aria": "grid",
+      "accesskit": "Grid",
+      "interactive": true,
+      "doc": "A table of interactive cells."
+    },
+    {
+      "name": "table",
+      "aria": "table",
+      "accesskit": "Table",
+      "interactive": false,
+      "doc": "A table of data."
+    },
+    {
+      "name": "row",
+      "aria": "row",
+      "accesskit": "Row",
+      "interactive": false,
+      "doc": "A row of a grid or table."
+    },
+    {
+      "name": "cell",
+      "aria": "cell",
+      "accesskit": "Cell",
+      "interactive": false,
+      "doc": "A cell of a grid or table."
+    },
+    {
+      "name": "column_header",
+      "aria": "columnheader",
+      "accesskit": "ColumnHeader",
+      "interactive": false,
+      "doc": "The header of a column."
+    },
+    {
+      "name": "row_header",
+      "aria": "rowheader",
+      "accesskit": "RowHeader",
+      "interactive": false,
+      "doc": "The header of a row."
+    },
+    {
+      "name": "scroll_view",
+      "aria": "none",
+      "accesskit": "ScrollView",
+      "interactive": false,
+      "doc": "A scrollable viewport onto larger content."
+    },
+    {
+      "name": "scroll_bar",
+      "aria": "scrollbar",
+      "accesskit": "ScrollBar",
+      "interactive": true,
+      "doc": "Controls the position of a scroll view."
+    },
+    {
+      "name": "canvas",
+      "aria": "none",
+      "accesskit": "Canvas",
+      "interactive": false,
+      "doc": "A two-dimensional surface of positioned items (OMUI_EXT_canvas)."
+    },
+    {
+      "name": "document",
+      "aria": "document",
+      "accesskit": "Document",
+      "interactive": false,
+      "doc": "A document: content to read rather than an application to operate."
+    },
+    {
+      "name": "article",
+      "aria": "article",
+      "accesskit": "Article",
+      "interactive": false,
+      "doc": "A self-contained composition within a document."
+    },
+    {
+      "name": "code",
+      "aria": "code",
+      "accesskit": "Code",
+      "interactive": false,
+      "doc": "Source code or other computer text."
+    },
+    {
+      "name": "status",
+      "aria": "status",
+      "accesskit": "Status",
+      "interactive": false,
+      "doc": "A live region reporting status."
+    },
+    {
+      "name": "timer",
+      "aria": "timer",
+      "accesskit": "Timer",
+      "interactive": false,
+      "doc": "A live region showing elapsed or remaining time."
+    },
+    {
+      "name": "video",
+      "aria": "none",
+      "accesskit": "Video",
+      "interactive": false,
+      "doc": "A video player."
+    },
+    {
+      "name": "splitter",
+      "aria": "separator",
+      "accesskit": "Splitter",
+      "interactive": true,
+      "doc": "A movable divider between two panes."
+    },
+    {
+      "name": "disclosure",
+      "aria": "button",
+      "accesskit": "Button",
+      "interactive": true,
+      "doc": "Shows or hides a section of content."
+    },
+    {
+      "name": "timeline",
+      "aria": "slider",
+      "accesskit": "Slider",
+      "interactive": true,
+      "doc": "A time axis with a playhead (openmui-ui-timeline)."
+    },
+    {
+      "name": "blockquote",
+      "aria": "blockquote",
+      "accesskit": "Blockquote",
+      "interactive": false,
+      "doc": "A section quoted from another source."
+    },
+    {
+      "name": "navigation",
+      "aria": "navigation",
+      "accesskit": "Navigation",
+      "interactive": false,
+      "doc": "A landmark: the links or places that move around the application or document."
+    },
+    {
+      "name": "main",
+      "aria": "main",
+      "accesskit": "Main",
+      "interactive": false,
+      "doc": "A landmark: the application's or document's main content (one per view)."
+    },
+    {
+      "name": "log",
+      "aria": "log",
+      "accesskit": "Log",
+      "interactive": false,
+      "doc": "A live record of what happened, newest last (the actions another actor took, a chat): its new entries read out politely."
+    }
+  ]
+}

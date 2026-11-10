@@ -1,0 +1,78 @@
+{
+  "contract": {
+    "slider": {
+      "role": "slider",
+      "spec": "0.1",
+      "doc": "Chooses a number in a range by dragging a thumb or stepping.",
+      "props": {
+        "value": {
+          "type": "f64",
+          "default": 0,
+          "bindable": true
+        },
+        "min": {
+          "type": "f64",
+          "default": 0
+        },
+        "max": {
+          "type": "f64",
+          "default": 100
+        },
+        "step": {
+          "type": "f64",
+          "default": 1
+        },
+        "label": {
+          "type": "string",
+          "default": ""
+        },
+        "disabled": {
+          "type": "bool",
+          "default": false
+        }
+      },
+      "events": {
+        "changed": {
+          "args": {
+            "value": "f64"
+          },
+          "coalesce": "frame"
+        },
+        "committed": {
+          "args": {
+            "value": "f64"
+          }
+        }
+      },
+      "actions": {
+        "increment": {
+          "effect": "reversible"
+        },
+        "decrement": {
+          "effect": "reversible"
+        },
+        "set_value": {
+          "effect": "reversible",
+          "args": {
+            "value": "f64 | min | max"
+          }
+        }
+      },
+      "keys": {
+        "Right|Up": "increment",
+        "Left|Down": "decrement",
+        "Home": "set_value(min)",
+        "End": "set_value(max)"
+      },
+      "parts": {
+        "track": {},
+        "fill": {},
+        "thumb": {},
+        "label": {}
+      },
+      "motion": {
+        "thumb": "motion.fast"
+      }
+    }
+  }
+}

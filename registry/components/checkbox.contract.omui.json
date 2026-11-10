@@ -1,0 +1,54 @@
+{
+  "contract": {
+    "checkbox": {
+      "role": "checkbox",
+      "spec": "0.1",
+      "doc": "A checkable option; can be indeterminate.",
+      "props": {
+        "checked": {
+          "type": "bool",
+          "default": false,
+          "bindable": true
+        },
+        "indeterminate": {
+          "type": "bool",
+          "default": false
+        },
+        "label": {
+          "type": "string",
+          "default": ""
+        },
+        "disabled": {
+          "type": "bool",
+          "default": false
+        }
+      },
+      "events": {
+        "changed": {
+          "args": {
+            "checked": "bool"
+          }
+        }
+      },
+      "actions": {
+        "toggle": {
+          "effect": "reversible"
+        },
+        "activate": {
+          "effect": "reversible"
+        }
+      },
+      "keys": {
+        "Space": "toggle"
+      },
+      "parts": {
+        "box": {},
+        "mark": {},
+        "label": {}
+      },
+      "motion": {
+        "mark": "motion.fast"
+      }
+    }
+  }
+}

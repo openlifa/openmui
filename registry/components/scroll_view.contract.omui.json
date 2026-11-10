@@ -1,0 +1,70 @@
+{
+  "contract": {
+    "scroll_view": {
+      "role": "scroll_view",
+      "spec": "0.1",
+      "doc": "A viewport onto content larger than itself.",
+      "props": {
+        "x": {
+          "type": "f64",
+          "default": 0,
+          "bindable": true,
+          "doc": "Horizontal content offset."
+        },
+        "y": {
+          "type": "f64",
+          "default": 0,
+          "bindable": true,
+          "doc": "Vertical content offset."
+        },
+        "horizontal": {
+          "type": "bool",
+          "default": false
+        },
+        "vertical": {
+          "type": "bool",
+          "default": true
+        }
+      },
+      "events": {
+        "scrolled": {
+          "args": {
+            "x": "f64",
+            "y": "f64"
+          },
+          "coalesce": "frame"
+        }
+      },
+      "actions": {
+        "scroll_to": {
+          "effect": "read",
+          "args": {
+            "x": "f64 | end | page | -page",
+            "y": "f64 | end | page | -page"
+          }
+        },
+        "scroll_by": {
+          "effect": "read",
+          "args": {
+            "dx": "f64 | page | -page",
+            "dy": "f64 | page | -page"
+          }
+        }
+      },
+      "keys": {
+        "PageDown": "scroll_by(0, page)",
+        "PageUp": "scroll_by(0, -page)",
+        "Home": "scroll_to(0, 0)",
+        "End": "scroll_to(0, end)"
+      },
+      "parts": {
+        "viewport": {},
+        "scrollbar": {},
+        "thumb": {}
+      },
+      "motion": {
+        "glide": "decay"
+      }
+    }
+  }
+}

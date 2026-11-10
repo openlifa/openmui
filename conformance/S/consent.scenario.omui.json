@@ -1,0 +1,24 @@
+{
+  "omui": "0.1",
+  "scenario": {
+    "doc": "The person's own (S-10): a verb registered as `person` marks the button that invokes it, the same in every language's tree; the program's own act and invoke still do it (only the bus is refused, which the agent tests cover).",
+    "signals": {"allowed": 0},
+    "verbs": {
+      "consent.allow": {"effect": "reversible", "person": true, "summary": "Allow what the agent asked", "do": [{"add": "allowed", "by": 1}], "result": true}
+    },
+    "view": {
+      "type": "row", "props": {"gap": 4}, "children": [
+        {"type": "text", "id": "count", "props": {"text": {"fmt": "{} allowed", "args": [{"signal": "allowed"}]}}},
+        {"type": "button", "id": "allow", "props": {"text": "Allow", "verb": "consent.allow"}}
+      ]
+    },
+    "steps": [
+      {"tree": "main"},
+      {"act": "main/allow", "action": "activate", "expect": "ok"},
+      {"get": "allowed", "expect": 1},
+      {"invoke": "consent.allow", "expect": true},
+      {"get": "allowed", "expect": 2},
+      {"tree": "main"}
+    ]
+  }
+}

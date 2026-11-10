@@ -1,0 +1,51 @@
+{
+  "contract": {
+    "toggle": {
+      "role": "switch",
+      "spec": "0.1",
+      "doc": "An on/off switch.",
+      "props": {
+        "checked": {
+          "type": "bool",
+          "default": false,
+          "bindable": true
+        },
+        "label": {
+          "type": "string",
+          "default": ""
+        },
+        "disabled": {
+          "type": "bool",
+          "default": false
+        }
+      },
+      "events": {
+        "changed": {
+          "args": {
+            "checked": "bool"
+          }
+        }
+      },
+      "actions": {
+        "toggle": {
+          "effect": "reversible"
+        },
+        "activate": {
+          "effect": "reversible"
+        }
+      },
+      "keys": {
+        "Space|Enter": "toggle"
+      },
+      "parts": {
+        "track": {},
+        "thumb": {},
+        "label": {}
+      },
+      "motion": {
+        "thumb": "motion.spring.snappy",
+        "track": "motion.fast"
+      }
+    }
+  }
+}

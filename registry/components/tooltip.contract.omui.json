@@ -1,0 +1,31 @@
+{
+  "contract": {
+    "tooltip": {
+      "role": "tooltip",
+      "spec": "0.1",
+      "doc": "A short description shown while hovering or focusing an element.",
+      "props": {
+        "text": {
+          "type": "string",
+          "default": ""
+        },
+        "delay": {
+          "type": "f64",
+          "default": 0.5,
+          "doc": "Seconds before showing."
+        }
+      },
+      "actions": {
+        "dismiss": {
+          "effect": "reversible"
+        }
+      },
+      "parts": {
+        "surface": {}
+      },
+      "motion": {
+        "surface": "motion.fast"
+      }
+    }
+  }
+}

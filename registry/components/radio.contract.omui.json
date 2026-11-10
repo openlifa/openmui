@@ -1,0 +1,53 @@
+{
+  "contract": {
+    "radio": {
+      "role": "radio",
+      "spec": "0.1",
+      "doc": "One of a set of mutually exclusive options; the group is the radio_group role.",
+      "props": {
+        "value": {
+          "type": "string",
+          "default": "",
+          "doc": "The value the group takes when this option is selected."
+        },
+        "group": {
+          "type": "string",
+          "default": "",
+          "bindable": true,
+          "doc": "The group's current value (bound to a signal)."
+        },
+        "label": {
+          "type": "string",
+          "default": ""
+        },
+        "disabled": {
+          "type": "bool",
+          "default": false
+        }
+      },
+      "events": {
+        "selected": {
+          "args": {
+            "value": "string"
+          }
+        }
+      },
+      "actions": {
+        "select": {
+          "effect": "reversible"
+        },
+        "activate": {
+          "effect": "reversible"
+        }
+      },
+      "keys": {
+        "Space": "select"
+      },
+      "parts": {
+        "circle": {},
+        "dot": {},
+        "label": {}
+      }
+    }
+  }
+}
