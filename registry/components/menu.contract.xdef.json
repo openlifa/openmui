@@ -1,4 +1,4 @@
-{
+{"$format": "contract@1",
   "contract": {
     "menu": {
       "children": "menu_item",

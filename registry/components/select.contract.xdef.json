@@ -1,4 +1,4 @@
-{
+{"$format": "contract@1",
   "contract": {
     "select": {
       "role": "combo_box",

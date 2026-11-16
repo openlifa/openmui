@@ -1,4 +1,4 @@
-{
+{"$format": "contract@1",
   "contract": {
     "scroll_view": {
       "role": "scroll_view",
