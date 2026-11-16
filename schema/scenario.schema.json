@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://openmui.dev/schema/scenario.schema.json",
-  "$comment": "CTS level S: a scenario (*.scenario.omui.json) and the trace pinned beside it (*.trace.omui.json); conformance/S/README.md.",
+  "$comment": "CTS level S: a scenario (*.scenario.xdef.json) and the trace pinned beside it (*.trace.xdef.json); conformance/S/README.md.",
   "oneOf": [
     {
       "type": "object",

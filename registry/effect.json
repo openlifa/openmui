@@ -44,6 +44,6 @@
       "int",
       "bool"
     ],
-    "types_doc": "Parameters of the effect function's uniform struct become typed properties of the node, animatable like any other: float → f64, float2..4 → vec, float4 with [color] → color. Ranges and descriptions come from `<name>.effect.omui.json` when present, otherwise from Slang reflection."
+    "types_doc": "Parameters of the effect function's uniform struct become typed properties of the node, animatable like any other: float → f64, float2..4 → vec, float4 with [color] → color. Ranges and descriptions come from `<name>.effect.xdef.json` when present, otherwise from Slang reflection."
   }
 }

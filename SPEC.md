@@ -207,7 +207,7 @@ and typed arguments.
 - **V-1** The view IR is a tree of component types, ids, properties,
   bindings, event handlers, conditionals, loops over models, slots and
   transitions. It is the only required form; builders in code and view
-  documents (`*.view.omui.json`, schema/) are equivalent sources of it.
+  documents (`*.view.xdef.json`, schema/) are equivalent sources of it.
 - **V-2** Layout follows a subset of CSS flexbox and grid. Coordinates round to
   physical pixels by `floor(v·scale + 0.5)` computed in double precision;
   rectangles snap their edges, not their sizes (A-level).
@@ -369,7 +369,7 @@ fields and error codes of openas §6. An actor is written in openas's text form
 
 ## 11. Component contracts
 
-A component contract (`*.contract.omui.json`: its JSON snapshot is the normative form, which an implementation may write as a TypeScript data module, `*.contract.omui.ts`) declares a component's role,
+A component contract (`*.contract.xdef.json`: its JSON snapshot is the normative form, which an implementation may write as a TypeScript data module, `*.contract.xdef.ts`) declares a component's role,
 typed properties (with defaults and bindability), events, actions (with
 effects), key bindings, commands, parts and motion. The Core contracts are in
 registry/components and use the same format as any third-party contract.
@@ -443,7 +443,7 @@ An implementation that reports an extension (§12) MUST meet its clauses.
   a press no behaviour claims moves the camera. What a behaviour makes
   possible is stated as actions on the items (`select`, `move_to`, `resize`,
   `connect`, …; `delete` is `irreversible` and states its answer, S-1).
-- **K-6** A declarative behaviour (`*.behavior.omui.json`) is a statechart:
+- **K-6** A declarative behaviour (`*.behavior.xdef.json`) is a statechart:
   states, transitions on `pointer_down`, `pointer_move`, `pointer_up`,
   `pointer_cancel`, `tap` and `key` with an optional `when` expression (§4,
   V-3), operations the canvas defines, and actions it adds to items. It MUST be
@@ -476,7 +476,7 @@ An implementation that reports an extension (§12) MUST meet its clauses.
 
 ### 16.3 `OMUI_EXT_style_pack`
 
-- **ST-1** A style pack (`*.style.omui.json`) is a theme to start from, the
+- **ST-1** A style pack (`*.style.xdef.json`) is a theme to start from, the
   tokens it changes, and the effects it puts on the window, on component types
   and on roles (`role:<role>`). It changes pixels only: the semantic tree of
   any interface is identical under every style (S-level).

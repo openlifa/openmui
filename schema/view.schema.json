@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:openmui:view-document:0.1",
-  "title": "openmui view document (*.view.omui.json)",
+  "title": "openmui view document (*.view.xdef.json)",
   "description": "A view as data (view-data-files §3). Generated from the registered components by `omui schema`; `omui check` applies the same rules and more (names in expressions, ids, types of constants).",
   "type": "object",
   "properties": {

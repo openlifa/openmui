@@ -1,6 +1,6 @@
 # CTS level S: scenarios every language runs alike
 
-A scenario (`<name>.scenario.omui.json`) is a view, its state and a sequence of steps, written in no language. Each language binding has a **runner** that builds the view with **its own** builders, operators and closures, then performs the steps through its own API: `act`, `invoke`, `snapshot`, signals and models. What a runner records is the scenario's **trace**. Every language must record the same trace as `<name>.trace.omui.json` beside it (plan §10, M3 acceptance ③).
+A scenario (`<name>.scenario.xdef.json`) is a view, its state and a sequence of steps, written in no language. Each language binding has a **runner** that builds the view with **its own** builders, operators and closures, then performs the steps through its own API: `act`, `invoke`, `snapshot`, signals and models. What a runner records is the scenario's **trace**. Every language must record the same trace as `<name>.trace.xdef.json` beside it (plan §10, M3 acceptance ③).
 
 | language | runner | run by |
 |---|---|---|
