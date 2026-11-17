@@ -534,7 +534,7 @@ inline constexpr std::array<MotionRecipe, 26> motion_recipes{{
     {"travel.noise", "match_drawing match_glyphs fade noise", "motion.spring.gentle", "", "A moving piece wanders a little on its way, exact where it leaves and arrives."},
     {"text.reshape", "match_drawing match_glyphs fade reshape", "motion.spring.gentle", "", "Replaced text: a letter's outline becomes the new letter's, holes opening and closing, rather than fading through."},
     {"press.squash", "match_drawing match_glyphs fade press", "tween(450)", "", "Pressed: the control pressed in about the finger and ringing back like rubber; let go, a little spring outwards."},
-    {"default.rows", "match_drawing match_glyphs fade", "motion.spring.gentle", "", "Rows opened under a row arrive one after another in document order (staggered arrivals only, a part's pieces as one); what was there moves at once."},
+    {"default.rows", "match_drawing match_glyphs fade arrivals", "motion.spring.gentle", "", "Rows opened under a row arrive one after another in document order (staggered arrivals only, a part's pieces as one); what was there moves at once."},
 }};
 
 [[nodiscard]] constexpr const MotionRecipe* find_motion_recipe(std::string_view name) noexcept {

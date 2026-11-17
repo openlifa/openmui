@@ -400,7 +400,8 @@
       "primitives": [
         "match_drawing",
         "match_glyphs",
-        "fade"
+        "fade",
+        "arrivals"
       ],
       "timing": "motion.spring.gentle",
       "doc": "Rows opened under a row arrive one after another in document order (staggered arrivals only, a part's pieces as one); what was there moves at once."
