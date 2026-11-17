@@ -327,10 +327,11 @@
         "match_drawing",
         "match_glyphs",
         "fade",
-        "stretch"
+        "stretch",
+        "write"
       ],
       "timing": "motion.spring.snappy",
-      "doc": "Progress through steps."
+      "doc": "Progress through steps: a step done writes its check in."
     },
     {
       "name": "trace.focus",
@@ -393,6 +394,16 @@
       ],
       "timing": "tween(450)",
       "doc": "Pressed: the control pressed in about the finger and ringing back like rubber; let go, a little spring outwards."
+    },
+    {
+      "name": "default.rows",
+      "primitives": [
+        "match_drawing",
+        "match_glyphs",
+        "fade"
+      ],
+      "timing": "motion.spring.gentle",
+      "doc": "Rows opened under a row arrive one after another in document order (staggered arrivals only, a part's pieces as one); what was there moves at once."
     }
   ],
   "presence": [

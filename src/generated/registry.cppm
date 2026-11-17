@@ -508,7 +508,7 @@ struct MotionRecipe {
     std::string_view doc;
 };
 
-inline constexpr std::array<MotionRecipe, 25> motion_recipes{{
+inline constexpr std::array<MotionRecipe, 26> motion_recipes{{
     {"none", "", "", "", "No motion: the new drawing at once."},
     {"morph", "match_drawing match_glyphs fade", "spring(170, 26)", "", "The node's two drawings matched (by node, meaning and glyph) and drawn between."},
     {"simple", "match_drawing match_glyphs fade", "tween(160)", "", "A morph on a short tween."},
@@ -527,13 +527,14 @@ inline constexpr std::array<MotionRecipe, 25> motion_recipes{{
     {"default.reveal", "match_drawing match_glyphs fade grow", "motion.spring.snappy", "", "Appearing or going in place."},
     {"default.panel", "match_drawing match_glyphs fade panel_lift grow", "motion.spring.gentle", "", "A panel (dialog, menu, popover) rising into place."},
     {"default.notice", "match_drawing match_glyphs fade lift grow", "motion.spring.snappy", "", "A notice (toast, tooltip, alert) lifting in."},
-    {"default.steps", "match_drawing match_glyphs fade stretch", "motion.spring.snappy", "", "Progress through steps."},
+    {"default.steps", "match_drawing match_glyphs fade stretch write", "motion.spring.snappy", "", "Progress through steps: a step done writes its check in."},
     {"trace.focus", "match_drawing fade write", "tween(320)", "", "Focus: the ring traced round as it appears, untraced as it goes."},
     {"write.check", "match_drawing match_glyphs write", "tween(260)", "", "A mark drawn along its stroke as it appears."},
     {"enter.drop", "match_drawing drop", "tween(700)", "", "What appears drops in, lands, flattens a little, bounces and settles."},
     {"travel.noise", "match_drawing match_glyphs fade noise", "motion.spring.gentle", "", "A moving piece wanders a little on its way, exact where it leaves and arrives."},
     {"text.reshape", "match_drawing match_glyphs fade reshape", "motion.spring.gentle", "", "Replaced text: a letter's outline becomes the new letter's, holes opening and closing, rather than fading through."},
     {"press.squash", "match_drawing match_glyphs fade press", "tween(450)", "", "Pressed: the control pressed in about the finger and ringing back like rubber; let go, a little spring outwards."},
+    {"default.rows", "match_drawing match_glyphs fade", "motion.spring.gentle", "", "Rows opened under a row arrive one after another in document order (staggered arrivals only, a part's pieces as one); what was there moves at once."},
 }};
 
 [[nodiscard]] constexpr const MotionRecipe* find_motion_recipe(std::string_view name) noexcept {
