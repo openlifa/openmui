@@ -508,7 +508,7 @@ struct MotionRecipe {
     std::string_view doc;
 };
 
-inline constexpr std::array<MotionRecipe, 26> motion_recipes{{
+inline constexpr std::array<MotionRecipe, 27> motion_recipes{{
     {"none", "", "", "", "No motion: the new drawing at once."},
     {"morph", "match_drawing match_glyphs fade", "spring(170, 26)", "", "The node's two drawings matched (by node, meaning and glyph) and drawn between."},
     {"simple", "match_drawing match_glyphs fade", "tween(160)", "", "A morph on a short tween."},
@@ -535,6 +535,7 @@ inline constexpr std::array<MotionRecipe, 26> motion_recipes{{
     {"text.reshape", "match_drawing match_glyphs fade reshape", "motion.spring.gentle", "", "Replaced text: a letter's outline becomes the new letter's, holes opening and closing, rather than fading through."},
     {"press.squash", "match_drawing match_glyphs fade press", "tween(450)", "", "Pressed: the control pressed in about the finger and ringing back like rubber; let go, a little spring outwards."},
     {"default.rows", "match_drawing match_glyphs fade arrivals", "motion.spring.gentle", "", "Rows opened under a row arrive one after another in document order (staggered arrivals only, a part's pieces as one); what was there moves at once."},
+    {"default.press", "match_drawing match_glyphs fade press", "tween(100)", "", "A button's states: hovered and focused quickly; pressed, in about the finger and ringing back out over a course of its own (450 ms), springing a little on release."},
 }};
 
 [[nodiscard]] constexpr const MotionRecipe* find_motion_recipe(std::string_view name) noexcept {
