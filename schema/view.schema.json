@@ -1249,8 +1249,8 @@
               "description": "The column sorted by: a field, ascending; -field, descending; empty: the model's order. — default \"\" (bindable)"
             },
             "widths": {
-              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
-              "description": "Each column's width in pixels; empty or * shares what is left. — default []"
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/binding"}],
+              "description": "Each column's width in pixels; empty or * shares what is left. A header's edge dragged sets its column's. — default [] (bindable)"
             }
           },
           "propertyNames": {
