@@ -1,6 +1,6 @@
 {
   "doc": "roles — what a semantic node is. The set aligns with ARIA and AccessKit (`aria`, `accesskit` give the mapping a platform accessibility layer uses). `interactive` roles must have a name (S-6) and should have an explicit id. Append-only: the generated enum keeps this order.",
-  "spec": "0.3",
+  "spec": "0.4",
   "role": [
     {
       "name": "none",

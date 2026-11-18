@@ -1,6 +1,6 @@
 {
   "doc": "states — the state bits of a semantic node. Each has a fixed bit; append-only.",
-  "spec": "0.3",
+  "spec": "0.4",
   "state": [
     {
       "name": "disabled",

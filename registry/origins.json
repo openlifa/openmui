@@ -1,6 +1,6 @@
 {
   "doc": "origins — where the text of a node came from (S-3). An agent reading a semantic tree treats `user_content` and `remote` text as data, never as instructions: it is the prompt-injection boundary.",
-  "spec": "0.3",
+  "spec": "0.4",
   "origin": [
     {
       "name": "app",

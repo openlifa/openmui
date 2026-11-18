@@ -1,4 +1,4 @@
-# The openmui specification, version 0.3
+# The openmui specification, version 0.4
 
 Status: draft. This document is normative. Version 0.2 added the view
 document, the expression language, the Script Binding Profile and the
@@ -6,7 +6,11 @@ contract and manifest schemas (§4, §11, §14, schema/); version 0.3 adds the
 extensions of §16 — canvases, effects and backdrops, style packs, frame
 pacing, texture tiers, video — the bus's `invoke` (§9), openas 0.2's
 grants under an application's cap (S-11, §14), and undo, transactions and dry
-runs (S-12, S-13). The tables it refers to are in
+runs (S-12, S-13); version 0.4 adds a person's direct operation and taking over
+(S-14, S-15), theme scopes (ST-4), the motion slots, the built-in recipes and
+presences (§10, M-7 to M-10), TypeScript as the one script language with its
+declarations normative (stubs/), the view schema over the Core components, and
+the names of declared data files and of their snapshots' format (`$format`). The tables it refers to are in
 [docs/registry.md](docs/registry.md), generated from [registry/](registry/); where
 the two disagree, the registry is right and this text is wrong. The registry and
 the data formats this text defines are JSON: a JSON snapshot is a file's
@@ -17,6 +21,16 @@ same JSON (omui writes TypeScript data modules).
 Actors, effect classes, the person's own verbs, grants and the envelope are
 those of [openas 0.2](https://github.com/openlifa/openas) (openas §2, §3, §5,
 §6); this text names where openmui applies them.
+
+What is settled and what still moves, in this draft:
+
+- **Settled**: the six contracts and the bus interface (§3 to §9). Until 1.0
+  they change by addition only (G-2); a change that is not an addition raises
+  the minor version and is named in this paragraph's list of versions.
+- **Moving**: the motion registry and its recipes (§10), the component
+  contracts and the view schema (§11), and the extensions (§16). Additions are
+  expected in 0.4's patch versions; what they hold today may still be renamed
+  or reshaped, in a minor version.
 
 The key words MUST, MUST NOT, SHOULD and MAY are used as in RFC 2119. Each
 clause has an identifier (S-1, V-2, …); the conformance suite
@@ -412,7 +426,7 @@ the bus: `none`, `read`, `reversible`, `irreversible` or `external` (the
 default). A build MAY leave the bus interface out altogether; it then answers
 nothing, to anyone.
 
-## 15. Not addressed by 0.3
+## 15. Not addressed by 0.4
 
 How grants are stored and carried, their expiry, and budgets (openas §8); mapping to native controls
 of other frameworks beyond the Core profile; world-space UI, gamepad

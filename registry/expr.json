@@ -1,6 +1,6 @@
 {
   "doc": "expr — the expression language of bindings (view-data-files §4). One AST, two notations: combinator functions in code, CEL-compatible strings in data files. Expressions have no side effects, always terminate, are typed, and are evaluated synchronously by native code; an error yields the type's default value and a diagnostic, never an exception.",
-  "spec": "0.3",
+  "spec": "0.4",
   "types": [
     "null",
     "bool",

@@ -10,9 +10,9 @@ import :types;
 
 export namespace omui::spec {
 
-inline constexpr std::string_view version = "0.3";
+inline constexpr std::string_view version = "0.4";
 inline constexpr int version_major = 0;
-inline constexpr int version_minor = 3;
+inline constexpr int version_minor = 4;
 
 struct RoleInfo {
     std::string_view name;

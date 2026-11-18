@@ -1,6 +1,6 @@
 {
   "doc": "profiles — what a distribution of openmui provides.",
-  "spec": "0.3",
+  "spec": "0.4",
   "profile": [
     {
       "name": "full",

@@ -1,6 +1,6 @@
 {
   "doc": "actions — the common verbs of semantic nodes. Keyboard, pointer, agents and scripts all reach a component through these (and the component's own, declared in its contract). `effect` is the default classification; a component or an application may declare a stronger one for a particular node (a delete button's `activate` is `irreversible`), never a weaker one. Argument types: bool, i64, f64, string, point, rect, size.",
-  "spec": "0.3",
+  "spec": "0.4",
   "action": [
     {
       "name": "activate",

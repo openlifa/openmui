@@ -5,8 +5,8 @@ each thing is, what it can do and what doing it means — of which pixels,
 accessibility, agents and tests are renderings.
 
 [![CI](https://github.com/openlifa/openmui/actions/workflows/ci.yml/badge.svg?event=pull_request)](https://github.com/openlifa/openmui/actions/workflows/ci.yml)
-[![spec](https://img.shields.io/badge/spec-0.3%20draft-blue)](SPEC.md)
-[![mcpp-index](https://img.shields.io/badge/mcpp--index-openlifa.openmui%200.3.0-orange)](https://github.com/mcpplibs/mcpp-index)
+[![spec](https://img.shields.io/badge/spec-0.4%20draft-blue)](SPEC.md)
+[![mcpp-index](https://img.shields.io/badge/mcpp--index-openlifa.openmui%200.4.1-orange)](https://github.com/mcpplibs/mcpp-index)
 [![code](https://img.shields.io/badge/code-Apache--2.0-green)](LICENSE)
 [![text](https://img.shields.io/badge/text-CC%20BY--SA%204.0-lightgrey)](LICENSE-SPEC)
 
@@ -25,7 +25,7 @@ are generated from `registry/`; edit the registry, not them.
 
 ```toml
 [dependencies]
-openlifa.openmui = "0.3.0"
+openlifa.openmui = "0.4.1"
 ```
 
 ```cpp

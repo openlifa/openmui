@@ -1,6 +1,6 @@
 {
   "doc": "abi — the C ABI, openmui.h (spec §8): the one boundary every language binding uses. Rules (normative): - only handles and values cross it; no C++ type, no exception; - every function returns OmuiResult; results that are text or structured data are delivered to a caller-supplied sink, so no memory changes hands; - structured values (views, queries, actions, envelopes) travel as JSON text whose shapes are the spec's (view.schema.json, the bus interface); - append-only: a struct that can grow starts with `type` and `next`. The generator writes the C declarations from this file; runtime/abi implements them; lang/* bind to them.",
-  "spec": "0.3",
+  "spec": "0.4",
   "prefix": "omui",
   "handle": [
     {

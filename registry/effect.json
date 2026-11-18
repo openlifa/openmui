@@ -1,6 +1,6 @@
 {
   "doc": "effect — the interface of effect shaders (OMUI_EXT_shader_effect, spec §7). Only the interface is normative. The source language is Slang and the interchange format SPIR-V; an implementation compiles to its own backend. A CPU reference backend draws the node without the effect and reports it.",
-  "spec": "0.3",
+  "spec": "0.4",
   "entry": "effect",
   "output": "float4 premultiplied, linear-light alpha, the node's colour space",
   "input": [
