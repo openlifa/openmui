@@ -1,0 +1,752 @@
+{
+ "omui": "0.1",
+ "trace": [
+  {
+   "step": 0,
+   "tree": [
+    {
+     "actions": [
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "args": {
+        "text": "string"
+       },
+       "effect": "reversible",
+       "name": "replace_selection"
+      },
+      {
+       "args": {
+        "anchor": "i64",
+        "focus": "i64"
+       },
+       "effect": "read",
+       "name": "set_selection"
+      },
+      {
+       "args": {
+        "value": "string"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/name",
+     "name": "Name",
+     "origin": "user_content",
+     "role": "text_box",
+     "state": [
+      "focusable",
+      "editable"
+     ],
+     "value": ""
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "reversible",
+       "name": "toggle"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/loud",
+     "name": "Loud",
+     "role": "switch",
+     "state": [
+      "focusable"
+     ],
+     "value": false
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "reversible",
+       "name": "toggle"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/subscribed",
+     "name": "Subscribe",
+     "role": "checkbox",
+     "state": [
+      "focusable",
+      "checked"
+     ],
+     "value": true
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "collapse"
+      },
+      {
+       "effect": "reversible",
+       "name": "expand"
+      },
+      {
+       "args": {
+        "value": "string"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/size",
+     "name": "Size",
+     "role": "combo_box",
+     "state": [
+      "focusable",
+      "collapsible"
+     ],
+     "value": {
+      "options": [
+       "s",
+       "m",
+       "l"
+      ],
+      "value": "m"
+     }
+    },
+    {
+     "id": "main/greeting",
+     "name": "Who are you?",
+     "role": "text"
+    },
+    {
+     "id": "main/summary",
+     "name": "m · subscribed · 0",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      }
+     ],
+     "id": "main/send",
+     "name": "Send",
+     "role": "button",
+     "state": [
+      "disabled"
+     ]
+    }
+   ]
+  },
+  {
+   "error": "invalid-argument",
+   "step": 1
+  },
+  {
+   "act": "ok",
+   "step": 2
+  },
+  {
+   "get": "Ada",
+   "step": 3
+  },
+  {
+   "step": 4,
+   "tree": [
+    {
+     "actions": [
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "args": {
+        "text": "string"
+       },
+       "effect": "reversible",
+       "name": "replace_selection"
+      },
+      {
+       "args": {
+        "anchor": "i64",
+        "focus": "i64"
+       },
+       "effect": "read",
+       "name": "set_selection"
+      },
+      {
+       "args": {
+        "value": "string"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/name",
+     "name": "Name",
+     "origin": "user_content",
+     "role": "text_box",
+     "state": [
+      "focusable",
+      "editable"
+     ],
+     "value": "Ada"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "reversible",
+       "name": "toggle"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/loud",
+     "name": "Loud",
+     "role": "switch",
+     "state": [
+      "focusable"
+     ],
+     "value": false
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "reversible",
+       "name": "toggle"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/subscribed",
+     "name": "Subscribe",
+     "role": "checkbox",
+     "state": [
+      "focusable",
+      "checked"
+     ],
+     "value": true
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "collapse"
+      },
+      {
+       "effect": "reversible",
+       "name": "expand"
+      },
+      {
+       "args": {
+        "value": "string"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/size",
+     "name": "Size",
+     "role": "combo_box",
+     "state": [
+      "focusable",
+      "collapsible"
+     ],
+     "value": {
+      "options": [
+       "s",
+       "m",
+       "l"
+      ],
+      "value": "m"
+     }
+    },
+    {
+     "id": "main/greeting",
+     "name": "Hello, Ada!",
+     "role": "text"
+    },
+    {
+     "id": "main/summary",
+     "name": "m · subscribed · 3",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/send",
+     "name": "Send",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    }
+   ]
+  },
+  {
+   "act": "ok",
+   "step": 5
+  },
+  {
+   "get": true,
+   "step": 6
+  },
+  {
+   "act": "ok",
+   "step": 7
+  },
+  {
+   "get": "l",
+   "step": 8
+  },
+  {
+   "step": 9,
+   "tree": [
+    {
+     "actions": [
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "args": {
+        "text": "string"
+       },
+       "effect": "reversible",
+       "name": "replace_selection"
+      },
+      {
+       "args": {
+        "anchor": "i64",
+        "focus": "i64"
+       },
+       "effect": "read",
+       "name": "set_selection"
+      },
+      {
+       "args": {
+        "value": "string"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/name",
+     "name": "Name",
+     "origin": "user_content",
+     "role": "text_box",
+     "state": [
+      "focusable",
+      "editable"
+     ],
+     "value": "Ada"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "reversible",
+       "name": "toggle"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/loud",
+     "name": "Loud",
+     "role": "switch",
+     "state": [
+      "focusable",
+      "checked"
+     ],
+     "value": true
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "reversible",
+       "name": "toggle"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/subscribed",
+     "name": "Subscribe",
+     "role": "checkbox",
+     "state": [
+      "focusable",
+      "checked"
+     ],
+     "value": true
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "collapse"
+      },
+      {
+       "effect": "reversible",
+       "name": "expand"
+      },
+      {
+       "args": {
+        "value": "string"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/size",
+     "name": "Size",
+     "role": "combo_box",
+     "state": [
+      "focusable",
+      "focused",
+      "collapsible"
+     ],
+     "value": {
+      "options": [
+       "s",
+       "m",
+       "l"
+      ],
+      "value": "l"
+     }
+    },
+    {
+     "id": "main/greeting",
+     "name": "HELLO, ADA!",
+     "role": "text"
+    },
+    {
+     "id": "main/summary",
+     "name": "l · subscribed · 3",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/send",
+     "name": "Send",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    }
+   ]
+  },
+  {
+   "act": "ok",
+   "step": 10
+  },
+  {
+   "get": "Ada",
+   "step": 11
+  },
+  {
+   "act": "ok",
+   "step": 12
+  },
+  {
+   "get": false,
+   "step": 13
+  },
+  {
+   "error": "refused",
+   "step": 14
+  },
+  {
+   "step": 16,
+   "tree": [
+    {
+     "actions": [
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "args": {
+        "text": "string"
+       },
+       "effect": "reversible",
+       "name": "replace_selection"
+      },
+      {
+       "args": {
+        "anchor": "i64",
+        "focus": "i64"
+       },
+       "effect": "read",
+       "name": "set_selection"
+      },
+      {
+       "args": {
+        "value": "string"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/name",
+     "name": "Name",
+     "origin": "user_content",
+     "role": "text_box",
+     "state": [
+      "focusable",
+      "editable"
+     ],
+     "value": "Grace"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "reversible",
+       "name": "toggle"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/loud",
+     "name": "Loud",
+     "role": "switch",
+     "state": [
+      "focusable",
+      "checked"
+     ],
+     "value": true
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "reversible",
+       "name": "toggle"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/subscribed",
+     "name": "Subscribe",
+     "role": "checkbox",
+     "state": [
+      "focusable"
+     ],
+     "value": false
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "collapse"
+      },
+      {
+       "effect": "reversible",
+       "name": "expand"
+      },
+      {
+       "args": {
+        "value": "string"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/size",
+     "name": "Size",
+     "role": "combo_box",
+     "state": [
+      "focusable",
+      "focused",
+      "collapsible"
+     ],
+     "value": {
+      "options": [
+       "s",
+       "m",
+       "l"
+      ],
+      "value": "l"
+     }
+    },
+    {
+     "id": "main/greeting",
+     "name": "HELLO, GRACE!",
+     "role": "text"
+    },
+    {
+     "id": "main/summary",
+     "name": "l · not subscribed · 5",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      }
+     ],
+     "id": "main/send",
+     "name": "Send",
+     "role": "button",
+     "state": [
+      "disabled"
+     ]
+    }
+   ]
+  },
+  {
+   "get": 1,
+   "step": 17
+  }
+ ]
+}

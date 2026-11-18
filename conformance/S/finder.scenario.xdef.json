@@ -1,0 +1,27 @@
+{
+  "omui": "0.1",
+  "scenario": {
+    "doc": "A finder: a native module (the official fuzzy) called through each language's generated binding, from a handler as a person types and from the steps; its records, its null, its contract's refusals.",
+    "signals": {"best": [], "query": ""},
+    "view": {
+      "type": "column", "props": {"gap": 6}, "children": [
+        {"type": "text_box", "id": "query", "props": {"label": "Find", "text": {"signal": "query"}},
+         "on": {"changed": [{"native": "fuzzy.rank", "args": [{"event": "text"}, {"const": ["src/main.cpp", "my_config.toml", "docs/mcfg.md", "Makefile", "src/mcpp/config.cppm", "README.md"]}, 3], "into": "best"}]}},
+        {"type": "text", "id": "found", "props": {"text": {"fmt": "{} found", "args": [{"call": "size", "args": [{"signal": "best"}]}]}}}
+      ]
+    },
+    "steps": [
+      {"tree": "main", "expect": {"main/found": {"name": "0 found"}}},
+      {"act": "main/query", "action": "set_value", "args": {"value": "mcfg"}},
+      {"tree": "main", "expect": {"main/found": {"name": "3 found"}}},
+      {"get": "best"},
+      {"act": "main/query", "action": "set_value", "args": {"value": "readme"}},
+      {"get": "best"},
+      {"native": "fuzzy.match", "args": ["fb", "foo_bar"]},
+      {"native": "fuzzy.match", "args": ["zz", "foo_bar"], "expect": null},
+      {"native": "fuzzy.rank", "args": ["cfg", ["config.toml", "c.f.g", "cfg"], 2]},
+      {"native": "fuzzy.rank", "args": ["cfg", ["config.toml", 7]], "expect": "invalid-argument"},
+      {"native": "fuzzy.sort", "args": [], "expect": "not-found"}
+    ]
+  }
+}

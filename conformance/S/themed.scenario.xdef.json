@@ -1,0 +1,26 @@
+{
+  "omui": "0.1",
+  "scenario": {
+    "doc": "Themes from every language (openmui.theme): a theme, then overlays; the semantic tree the same under each (S2's promise: tokens, not meaning); what cannot be composed, refused.",
+    "signals": {"name": "Ada"},
+    "view": {
+      "type": "column", "props": {"gap": 8}, "children": [
+        {"type": "text", "id": "greeting", "props": {"text": {"fmt": "Hello, {}", "args": [{"signal": "name"}]}, "style": "heading"}},
+        {"type": "text_box", "id": "name", "props": {"label": "Name", "text": {"signal": "name"}}},
+        {"type": "button", "id": "go", "props": {"text": "Go", "variant": "primary"}}
+      ]
+    },
+    "steps": [
+      {"tree": "main"},
+      {"theme": ["dark"], "expect": "ok"},
+      {"tree": "main"},
+      {"themes": true},
+      {"theme": ["light", "compact", "reduced_motion"]},
+      {"tree": "main"},
+      {"themes": true},
+      {"theme": ["sepia"], "expect": "not-found"},
+      {"theme": ["compact"], "expect": "invalid-argument"},
+      {"themes": true}
+    ]
+  }
+}

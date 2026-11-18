@@ -1,0 +1,48 @@
+{
+  "omui": "0.1",
+  "scenario": {
+    "doc": "A form: text, a checkbox, a toggle and a choice bound both ways; events with arguments; a submitted value kept by a handler; text functions in expressions.",
+    "signals": {"loud": false, "name": "", "size": "m", "subscribed": true, "submitted": "", "changes": 0},
+    "view": {
+      "type": "column", "props": {"gap": 6}, "children": [
+        {"type": "text_box", "id": "name", "props": {"label": "Name", "placeholder": "Your name", "text": {"signal": "name"}},
+         "on": {"submitted": [{"set": "submitted", "to": {"event": "text"}}], "changed": [{"add": "changes", "by": 1}]}},
+        {"type": "toggle", "id": "loud", "props": {"label": "Loud", "checked": {"signal": "loud"}}},
+        {"type": "checkbox", "id": "subscribed", "props": {"label": "Subscribe", "checked": {"signal": "subscribed"}}},
+        {"type": "select", "id": "size", "props": {"label": "Size", "options": {"const": ["s", "m", "l"]}, "labels": {"const": ["Small", "Medium", "Large"]}, "value": {"signal": "size"}}},
+        {"type": "text", "id": "greeting", "props": {"text": {"select": [
+          {"op": "==", "args": [{"signal": "name"}, ""]},
+          "Who are you?",
+          {"select": [{"signal": "loud"}, {"call": "upper", "args": [{"fmt": "Hello, {}!", "args": [{"signal": "name"}]}]}, {"fmt": "Hello, {}!", "args": [{"signal": "name"}]}]}
+        ]}}},
+        {"type": "text", "id": "summary", "props": {"text": {"fmt": "{} · {} · {}", "args": [
+          {"signal": "size"},
+          {"select": [{"signal": "subscribed"}, "subscribed", "not subscribed"]},
+          {"call": "size", "args": [{"signal": "name"}]}
+        ]}}},
+        {"type": "button", "id": "send", "props": {"text": "Send", "disabled": {"op": "or", "args": [{"op": "==", "args": [{"signal": "name"}, ""]}, {"op": "not", "args": [{"signal": "subscribed"}]}]}},
+         "on": {"activated": [{"set": "submitted", "to": {"get": "name"}}]}}
+      ]
+    },
+    "steps": [
+      {"tree": "main", "expect": {"main/greeting": {"name": "Who are you?"}}},
+      {"act": "main/name", "action": "set_value", "args": {"text": "Ada"}, "expect": "invalid-argument"},
+      {"act": "main/name", "action": "set_value", "args": {"value": "Ada"}},
+      {"get": "name", "expect": "Ada"},
+      {"tree": "main", "expect": {"main/greeting": {"name": "Hello, Ada!"}}},
+      {"act": "main/loud", "action": "toggle"},
+      {"get": "loud", "expect": true},
+      {"act": "main/size", "action": "set_value", "args": {"value": "l"}},
+      {"get": "size", "expect": "l"},
+      {"tree": "main", "expect": {"main/greeting": {"name": "HELLO, ADA!"}}},
+      {"act": "main/send", "action": "activate"},
+      {"get": "submitted", "expect": "Ada"},
+      {"act": "main/subscribed", "action": "toggle"},
+      {"get": "subscribed", "expect": false},
+      {"act": "main/send", "action": "activate"},
+      {"set": "name", "to": "Grace"},
+      {"tree": "main"},
+      {"get": "changes"}
+    ]
+  }
+}

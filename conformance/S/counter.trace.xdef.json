@@ -1,0 +1,709 @@
+{
+ "omui": "0.1",
+ "trace": [
+  {
+   "step": 0,
+   "tree": [
+    {
+     "id": "main/count",
+     "name": "0",
+     "role": "text"
+    },
+    {
+     "id": "main/status",
+     "name": "3 to go",
+     "role": "text"
+    },
+    {
+     "id": "main/progress",
+     "name": "Towards the goal",
+     "role": "progress",
+     "value": 0
+    },
+    {
+     "id": "main/parity",
+     "name": "ODD OR NONE",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      }
+     ],
+     "id": "main/controls/minus",
+     "name": "−1",
+     "role": "button",
+     "state": [
+      "disabled"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/controls/plus",
+     "name": "+1",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      }
+     ],
+     "id": "main/controls/reset",
+     "name": "Reset",
+     "role": "button",
+     "state": [
+      "disabled"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "decrement"
+      },
+      {
+       "effect": "reversible",
+       "name": "increment"
+      },
+      {
+       "args": {
+        "value": "f64 | min | max"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/goal",
+     "name": "Goal",
+     "role": "slider",
+     "state": [
+      "focusable"
+     ],
+     "value": {
+      "max": 10,
+      "min": 1,
+      "step": 1,
+      "value": 3
+     }
+    },
+    {
+     "id": "main/negative",
+     "name": "0",
+     "role": "text"
+    }
+   ]
+  },
+  {
+   "act": "ok",
+   "step": 1
+  },
+  {
+   "act": "ok",
+   "step": 2
+  },
+  {
+   "step": 3,
+   "tree": [
+    {
+     "id": "main/count",
+     "name": "2",
+     "role": "text"
+    },
+    {
+     "id": "main/status",
+     "name": "1 to go",
+     "role": "text"
+    },
+    {
+     "id": "main/progress",
+     "name": "Towards the goal",
+     "role": "progress",
+     "value": 0.6666666666666666
+    },
+    {
+     "id": "main/parity",
+     "name": "even",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/controls/minus",
+     "name": "−1",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/controls/plus",
+     "name": "+1",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/controls/reset",
+     "name": "Reset",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "decrement"
+      },
+      {
+       "effect": "reversible",
+       "name": "increment"
+      },
+      {
+       "args": {
+        "value": "f64 | min | max"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/goal",
+     "name": "Goal",
+     "role": "slider",
+     "state": [
+      "focusable"
+     ],
+     "value": {
+      "max": 10,
+      "min": 1,
+      "step": 1,
+      "value": 3
+     }
+    },
+    {
+     "id": "main/negative",
+     "name": "-4",
+     "role": "text"
+    }
+   ]
+  },
+  {
+   "act": "ok",
+   "step": 4
+  },
+  {
+   "get": 1,
+   "step": 5
+  },
+  {
+   "act": "ok",
+   "step": 6
+  },
+  {
+   "get": 1,
+   "step": 7
+  },
+  {
+   "get": 1,
+   "step": 8
+  },
+  {
+   "step": 9,
+   "tree": [
+    {
+     "id": "main/count",
+     "name": "1",
+     "role": "text"
+    },
+    {
+     "id": "main/status",
+     "name": "Goal of 1 reached",
+     "role": "text"
+    },
+    {
+     "id": "main/progress",
+     "name": "Towards the goal",
+     "role": "progress",
+     "value": 1
+    },
+    {
+     "id": "main/parity",
+     "name": "ODD OR NONE",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/controls/minus",
+     "name": "−1",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/controls/plus",
+     "name": "+1",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/controls/reset",
+     "name": "Reset",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "decrement"
+      },
+      {
+       "effect": "reversible",
+       "name": "increment"
+      },
+      {
+       "args": {
+        "value": "f64 | min | max"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/goal",
+     "name": "Goal",
+     "role": "slider",
+     "state": [
+      "focusable"
+     ],
+     "value": {
+      "max": 10,
+      "min": 1,
+      "step": 1,
+      "value": 1
+     }
+    },
+    {
+     "id": "main/negative",
+     "name": "-2",
+     "role": "text"
+    }
+   ]
+  },
+  {
+   "act": "ok",
+   "step": 11
+  },
+  {
+   "get": 9,
+   "step": 12
+  },
+  {
+   "step": 13,
+   "tree": [
+    {
+     "id": "main/count",
+     "name": "9",
+     "role": "text"
+    },
+    {
+     "id": "main/status",
+     "name": "Goal of 1 reached",
+     "role": "text"
+    },
+    {
+     "id": "main/progress",
+     "name": "Towards the goal",
+     "role": "progress",
+     "value": 1
+    },
+    {
+     "id": "main/parity",
+     "name": "ODD OR NONE",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/controls/minus",
+     "name": "−1",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/controls/plus",
+     "name": "+1",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/controls/reset",
+     "name": "Reset",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "decrement"
+      },
+      {
+       "effect": "reversible",
+       "name": "increment"
+      },
+      {
+       "args": {
+        "value": "f64 | min | max"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/goal",
+     "name": "Goal",
+     "role": "slider",
+     "state": [
+      "focusable"
+     ],
+     "value": {
+      "max": 10,
+      "min": 1,
+      "step": 1,
+      "value": 1
+     }
+    },
+    {
+     "id": "main/negative",
+     "name": "-18",
+     "role": "text"
+    }
+   ]
+  },
+  {
+   "act": "ok",
+   "step": 14
+  },
+  {
+   "get": 0,
+   "step": 15
+  },
+  {
+   "error": "refused",
+   "step": 16
+  },
+  {
+   "get": 0,
+   "step": 17
+  },
+  {
+   "error": "not-found",
+   "step": 18
+  },
+  {
+   "step": 19,
+   "tree": [
+    {
+     "id": "main/count",
+     "name": "0",
+     "role": "text"
+    },
+    {
+     "id": "main/status",
+     "name": "1 to go",
+     "role": "text"
+    },
+    {
+     "id": "main/progress",
+     "name": "Towards the goal",
+     "role": "progress",
+     "value": 0
+    },
+    {
+     "id": "main/parity",
+     "name": "ODD OR NONE",
+     "role": "text"
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      }
+     ],
+     "id": "main/controls/minus",
+     "name": "−1",
+     "role": "button",
+     "state": [
+      "disabled"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/controls/plus",
+     "name": "+1",
+     "role": "button",
+     "state": [
+      "focusable"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "activate"
+      }
+     ],
+     "id": "main/controls/reset",
+     "name": "Reset",
+     "role": "button",
+     "state": [
+      "disabled"
+     ]
+    },
+    {
+     "actions": [
+      {
+       "effect": "reversible",
+       "name": "decrement"
+      },
+      {
+       "effect": "reversible",
+       "name": "increment"
+      },
+      {
+       "args": {
+        "value": "f64 | min | max"
+       },
+       "effect": "reversible",
+       "name": "set_value"
+      },
+      {
+       "effect": "read",
+       "name": "focus"
+      },
+      {
+       "effect": "read",
+       "name": "blur"
+      }
+     ],
+     "id": "main/goal",
+     "name": "Goal",
+     "role": "slider",
+     "state": [
+      "focusable"
+     ],
+     "value": {
+      "max": 10,
+      "min": 1,
+      "step": 1,
+      "value": 1
+     }
+    },
+    {
+     "id": "main/negative",
+     "name": "0",
+     "role": "text"
+    }
+   ]
+  }
+ ]
+}
