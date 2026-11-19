@@ -169,6 +169,8 @@ export interface NodeProps {
     justifySelf?: Operand<string>;
     label?: Operand<string>;
     left?: Operand<number | string>;
+    /** A heading's level, 1 to 6: its value in the semantic tree when its role is heading. */
+    level?: Operand<number>;
     margin?: Operand;
     maxHeight?: Operand<number | string>;
     maxWidth?: Operand<number | string>;
