@@ -2162,6 +2162,66 @@
       "required": ["type"],
       "additionalProperties": false
     },
+    "component.path": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "path"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "built_at": {"type": "string", "pattern": "^.+:[0-9]+:[0-9]+$"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "d": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "SVG path data: M L H V C S Q T A Z, absolute or relative. — default \"\""
+            },
+            "fill": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The fill's colour: a theme token or #rrggbb; empty: none. — default \"\""
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "What it shows, for a reader; empty: decoration, not in the tree's words. — default \"\""
+            },
+            "stroke": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The stroke's colour: a theme token (accent, text) or #rrggbb; empty: none. — default \"\""
+            },
+            "stroke_width": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The stroke's width, in the data's units. — default 2"
+            },
+            "trim": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/oneway"}],
+              "description": "How much of the stroke is drawn, 0 to 1, from its start. — default 1"
+            },
+            "view_box": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The data's box (x y width height), scaled into the node's, its ratio kept. — default \"0 0 100 100\""
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["d", "fill", "label", "stroke", "stroke_width", "trim", "view_box"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": []}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "A vector shape from SVG path data, stroked or filled in the theme's colours, scaled into its box with its ratio kept."
+    },
     "component.popover": {
       "type": "object",
       "properties": {
@@ -3788,6 +3848,7 @@
         {"$ref": "#/$defs/component.otp_input"},
         {"$ref": "#/$defs/component.pagination"},
         {"$ref": "#/$defs/component.paint"},
+        {"$ref": "#/$defs/component.path"},
         {"$ref": "#/$defs/component.popover"},
         {"$ref": "#/$defs/component.progress"},
         {"$ref": "#/$defs/component.radio"},
