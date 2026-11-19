@@ -83,7 +83,8 @@ A node has an `id`, a `role`, a `name`, a `description`, a `value`, an
 `origin`, a set of `state` bits, a list of `actions`, optional `bounds` and the
 ids of its `children` (docs/registry.md lists roles and states). Its wire form
 is a JSON object with those keys; enumerations are written by name; absent
-fields are omitted.
+fields are omitted. A heading's `value` is its level, 1 to 6: a view makes any
+node a heading with the properties `role` and `level`.
 
 `bounds` are in logical pixels. While a node animates, its bounds and values
 are those of the **target** state (state `animating`).
