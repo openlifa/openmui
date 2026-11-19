@@ -3355,6 +3355,62 @@
       "additionalProperties": false,
       "description": "A time of day, its hours and minutes each stepped or typed."
     },
+    "component.timeline": {
+      "type": "object",
+      "properties": {
+        "type": {"const": "timeline"},
+        "id": {"$ref": "#/$defs/id"},
+        "notes": {"type": "string"},
+        "built_at": {"type": "string", "pattern": "^.+:[0-9]+:[0-9]+$"},
+        "props": {
+          "type": "object",
+          "properties": {
+            "captions": {
+              "anyOf": [{"type": "array", "items": {"type": "string"}}, {"$ref": "#/$defs/oneway"}],
+              "description": "Each step's words, said when it is at that step (none: step n of m). — default []"
+            },
+            "disabled": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "default false"
+            },
+            "label": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The accessible name. — default \"Timeline\""
+            },
+            "shape": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "line, ring (from the top, clockwise), or SVG path data in a 1×1 box (M0 0.5 L1 0.5), scaled to its own. — default \"line\""
+            },
+            "steps": {
+              "anyOf": [{"type": "integer"}, {"$ref": "#/$defs/oneway"}],
+              "description": "How many steps (two at least). — default 2"
+            },
+            "value": {
+              "anyOf": [{"type": "number"}, {"$ref": "#/$defs/binding"}],
+              "description": "The step it is at: 1 (the first) to steps. — default 1 (bindable)"
+            }
+          },
+          "propertyNames": {
+            "anyOf": [
+              {"enum": ["captions", "disabled", "label", "shape", "steps", "value"]},
+              {"$ref": "#/$defs/runtime_property_name"}
+            ]
+          },
+          "additionalProperties": {"$ref": "#/$defs/runtime_property"}
+        },
+        "on": {
+          "type": "object",
+          "propertyNames": {"anyOf": [{"enum": ["changed"]}, {"$ref": "#/$defs/runtime_event"}]},
+          "additionalProperties": {"$ref": "#/$defs/operations"}
+        },
+        "animate": {"type": "object", "additionalProperties": {"$ref": "#/$defs/transition"}},
+        "children": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "$comment": {"type": "string"}
+      },
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "Where one is along a course of steps, on a shape of its own (a line, a ring, any path): pressed, dragged, keyed or set by an agent."
+    },
     "component.toast": {
       "type": "object",
       "properties": {
@@ -3759,6 +3815,7 @@
         {"$ref": "#/$defs/component.text"},
         {"$ref": "#/$defs/component.text_box"},
         {"$ref": "#/$defs/component.time_picker"},
+        {"$ref": "#/$defs/component.timeline"},
         {"$ref": "#/$defs/component.toast"},
         {"$ref": "#/$defs/component.toggle"},
         {"$ref": "#/$defs/component.toggle_group"},
