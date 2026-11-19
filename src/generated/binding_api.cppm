@@ -259,6 +259,16 @@ export declare function verb(name: string, options: VerbOptions, run: (args: any
 export declare function verb(name: string, run: (args: any) => Json | void): void;
 /** Runs a verb as the script; its answer, or an OmuiError. */
 export declare function invoke(name: string, args?: { [name: string]: Json }): any;
+/** One step of a task: a verb the application registered, or a node's action (`node` its path, `action` one of its actions), with its arguments; `dryRun`: only what it would do. */
+export interface TaskStep {
+    verb?: string;
+    node?: string;
+    action?: string;
+    args?: { [name: string]: Json };
+    dryRun?: boolean;
+}
+/** A task to begin with: something an agent new to the application can get done here, and the steps that do it, run as written. An OmuiError says why when it is refused: a name not lower-case words joined by hyphens, or taken; no summary or no step; a step neither a verb nor a node's action; a verb not registered or the person's alone; a step that needs an answer and is not a dry run. */
+export declare function task(name: string, options: { summary: string; steps: TaskStep[] }): void;
 
 /** A model of the runtime: rows a view shows with `each`. */
 export interface Model<T = any> {

@@ -1103,6 +1103,28 @@
         }
       ],
       "doc": "The program's themes and overlays and the runtime's composition, as JSON: {\"themes\": [\"dark\", \"light\"], \"overlays\": [\"compact\"], \"current\": \"dark+compact\", \"dark\": true}."
+    },
+    {
+      "name": "omuiAddTask",
+      "params": [
+        {
+          "name": "rt",
+          "type": "OmuiRuntime"
+        },
+        {
+          "name": "task_json",
+          "type": "OmuiString"
+        },
+        {
+          "name": "sink",
+          "type": "PFN_omuiSink"
+        },
+        {
+          "name": "user",
+          "type": "void*"
+        }
+      ],
+      "doc": "Adds a task to begin with (§5): {\"name\": \"export-the-settings\", \"summary\": \"…\", \"steps\": [{\"verb\": \"settings.export\", \"args\": {…}}, {\"node\": \"main/dark\", \"action\": \"toggle\", \"dry_run\": true}]}. Agents find it beside the interface's own tasks and run it as written. Refused, with the sink receiving why: a name that is not lower-case words joined by hyphens or is taken, no summary, no step, a step neither a verb nor a node's action, a verb not registered or the person's alone, a step that needs an answer and is not a dry run."
     }
   ]
 }

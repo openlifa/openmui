@@ -562,6 +562,9 @@ OMUI_API OmuiResult omuiTheme(OmuiRuntime rt, OmuiString layers_json, PFN_omuiSi
 /* The program's themes and overlays and the runtime's composition, as JSON: {"themes": ["dark", "light"], "overlays": ["compact"], "current": "dark+compact", "dark": true}. */
 OMUI_API OmuiResult omuiThemes(OmuiRuntime rt, PFN_omuiSink sink, void* user);
 
+/* Adds a task to begin with (§5): {"name": "export-the-settings", "summary": "…", "steps": [{"verb": "settings.export", "args": {…}}, {"node": "main/dark", "action": "toggle", "dry_run": true}]}. Agents find it beside the interface's own tasks and run it as written. Refused, with the sink receiving why: a name that is not lower-case words joined by hyphens or is taken, no summary, no step, a step neither a verb nor a node's action, a verb not registered or the person's alone, a step that needs an answer and is not a dry run. */
+OMUI_API OmuiResult omuiAddTask(OmuiRuntime rt, OmuiString task_json, PFN_omuiSink sink, void* user);
+
 #ifdef __cplusplus
 }
 #endif

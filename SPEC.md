@@ -243,6 +243,14 @@ and typed arguments.
 - A **verb** is a named operation of the application: lower-case words joined by
   dots (`note.delete`), with a summary, an effect, typed arguments and, for
   `irreversible` and `external` verbs, an answer (S-1 applies to verbs).
+- A **task** is something to begin with that an agent new to the application
+  can get done there: a name (lower-case words joined by hyphens), a summary of
+  what it gets done, and steps in order, each a registered verb or a node's
+  action with its arguments, optionally a dry run. A runtime lists an
+  application's tasks to agents before its own and runs them as written; it
+  refuses one whose step names neither, a verb not registered or the person's
+  alone (S-10), or a step that needs an answer and is not a dry run (a task to
+  begin with waits for no one). Scripts declare one with `task()`.
 - An **event** belongs to a component contract; an event marked
   `coalesce = "frame"` is delivered at most once per frame with its last
   arguments.
