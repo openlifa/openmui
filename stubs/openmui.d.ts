@@ -167,6 +167,9 @@ export interface NodeProps {
     maxWidth?: Operand<number | string>;
     minHeight?: Operand<number | string>;
     minWidth?: Operand<number | string>;
+    /** Its own motion (spec M-8): a recipe for its update slot (`"liquid"`), or a recipe a slot
+     *  (`{ enter: "enter.drop", ambient: "breathe" }`); a recipe is a name, `{ use, curve, … }` or candidates. */
+    motion?: string | { [slot: string]: Json };
     opacity?: Operand<number>;
     origin?: Operand;
     overflow?: Operand<string>;
