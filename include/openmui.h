@@ -568,6 +568,12 @@ OMUI_API OmuiResult omuiAddTask(OmuiRuntime rt, OmuiString task_json, PFN_omuiSi
 /* Puts UTF-8 text on the person's clipboard (§6), where the host has one and allows it now (a browser: while it handles the person's input); a host without one keeps it for the runtime's own reads. Nothing is read back: a script cannot see the clipboard. */
 OMUI_API OmuiResult omuiCopyText(OmuiRuntime rt, OmuiString text);
 
+/* Starts looking for the person's own agent through a bridge on their machine (§6); the sink receives the pairing code the person gives their agent, the same while it still looks, or nothing where the host cannot link one. A host MAY start only while it handles the person's input. */
+OMUI_API OmuiResult omuiLinkAgent(OmuiRuntime rt, PFN_omuiSink sink, void* user);
+
+/* The signal the runtime keeps of how the link to the person's own agent stands (§6): {state: unavailable, idle, waiting, paired, lost, expired or stopped; code; agent, who paired; version and platform, of the omui it paired through; error, the last thing the bridge refused}. A script reads and watches it; the runtime writes it. */
+OMUI_API OmuiResult omuiAgentLink(OmuiRuntime rt, OmuiSignal* out);
+
 #ifdef __cplusplus
 }
 #endif

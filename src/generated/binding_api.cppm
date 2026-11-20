@@ -288,6 +288,22 @@ export declare function theme(layers: readonly string[]): void;
 export declare function log(...values: unknown[]): void;
 /** Puts text on the person's clipboard, where the host has one and allows it now (a browser: in a handler of the person's input, as a press). Nothing is read back. */
 export declare function copy(text: string): void;
+/** How the link to the person's own agent stands: `state` unavailable (the host cannot), idle, waiting (for a bridge
+ *  with `code`), paired (with `agent`, through omui `version` on `platform`), lost, expired or stopped; `error` the
+ *  last thing the bridge refused. */
+export interface AgentLink {
+    readonly state: "unavailable" | "idle" | "waiting" | "paired" | "lost" | "expired" | "stopped";
+    readonly code: string;
+    readonly agent: string;
+    readonly version: string;
+    readonly platform: string;
+    readonly error: string;
+}
+/** Starts looking for the person's own agent through a bridge on their machine and answers the pairing code to give it:
+ *  the same code while it still looks, "" where the host cannot link one (a browser: in a handler of the person's input). */
+export declare function linkAgent(): string;
+/** How the link to the person's own agent stands: a signal the runtime keeps; read it, watch it, bind to its fields. */
+export declare function agentLink(): Signal<AgentLink>;
 /** What a call into the runtime refused, with its code. */
 export declare class OmuiError extends Error {}
 

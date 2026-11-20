@@ -1139,6 +1139,38 @@
         }
       ],
       "doc": "Puts UTF-8 text on the person's clipboard (§6), where the host has one and allows it now (a browser: while it handles the person's input); a host without one keeps it for the runtime's own reads. Nothing is read back: a script cannot see the clipboard."
+    },
+    {
+      "name": "omuiLinkAgent",
+      "params": [
+        {
+          "name": "rt",
+          "type": "OmuiRuntime"
+        },
+        {
+          "name": "sink",
+          "type": "PFN_omuiSink"
+        },
+        {
+          "name": "user",
+          "type": "void*"
+        }
+      ],
+      "doc": "Starts looking for the person's own agent through a bridge on their machine (§6); the sink receives the pairing code the person gives their agent, the same while it still looks, or nothing where the host cannot link one. A host MAY start only while it handles the person's input."
+    },
+    {
+      "name": "omuiAgentLink",
+      "params": [
+        {
+          "name": "rt",
+          "type": "OmuiRuntime"
+        },
+        {
+          "name": "out",
+          "type": "OmuiSignal*"
+        }
+      ],
+      "doc": "The signal the runtime keeps of how the link to the person's own agent stands (§6): {state: unavailable, idle, waiting, paired, lost, expired or stopped; code; agent, who paired; version and platform, of the omui it paired through; error, the last thing the bridge refused}. A script reads and watches it; the runtime writes it."
     }
   ]
 }
