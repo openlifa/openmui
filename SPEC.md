@@ -269,6 +269,17 @@ on it with `copy()` (`omuiCopyText`), and nothing is read back. A host MAY
 allow it only while it handles the person's input (a browser does); a host
 without a clipboard keeps the text for the runtime's own reads.
 
+Where it can, a host links the person's own agent through a bridge on their
+machine: a script starts looking for one with `linkAgent()`
+(`omuiLinkAgent`), which answers the pairing code the person gives their
+agent — the same code while it still looks, empty where the host cannot link
+one — and reads how the link stands in `agentLink()` (`omuiAgentLink`), a
+signal the runtime keeps: its `state` (`unavailable`, `idle`, `waiting`,
+`paired`, `lost`, `expired`, `stopped`), the `code`, the `agent` that paired,
+the `version` and `platform` of the omui it paired through, and the last
+`error` the bridge said. A host MAY start looking only while it handles the
+person's input.
+
 ### 6.1 Input events
 
 An event's wire form (C-3; a frame's `events_json`, a recorded session) is an
