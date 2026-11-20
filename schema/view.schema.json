@@ -3437,6 +3437,10 @@
               "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
               "description": "The accessible name. — default \"Timeline\""
             },
+            "line": {
+              "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
+              "description": "Its track and the part played drawn; false: only the marks and the playhead, on a shape its owner draws itself (the site's O). — default true"
+            },
             "shape": {
               "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
               "description": "line, ring (from the top, clockwise), or SVG path data in a 1×1 box (M0 0.5 L1 0.5), scaled to its own. — default \"line\""
@@ -3452,7 +3456,7 @@
           },
           "propertyNames": {
             "anyOf": [
-              {"enum": ["captions", "disabled", "label", "shape", "steps", "value"]},
+              {"enum": ["captions", "disabled", "label", "line", "shape", "steps", "value"]},
               {"$ref": "#/$defs/runtime_property_name"}
             ]
           },
