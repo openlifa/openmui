@@ -3441,6 +3441,10 @@
               "anyOf": [{"type": "boolean"}, {"$ref": "#/$defs/oneway"}],
               "description": "Its track and the part played drawn; false: only the marks and the playhead, on a shape its owner draws itself (the site's O). — default true"
             },
+            "over": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "A node (its path) whose box the course lies in, not its own: the steps on that node's shape where it is (a replay's course on the site's O); only a press near the course is its. — default \"\""
+            },
             "shape": {
               "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
               "description": "line, ring (from the top, clockwise), or SVG path data in a 1×1 box (M0 0.5 L1 0.5), scaled to its own. — default \"line\""
@@ -3452,11 +3456,27 @@
             "value": {
               "anyOf": [{"type": "number"}, {"$ref": "#/$defs/binding"}],
               "description": "The step it is at: 1 (the first) to steps. — default 1 (bindable)"
+            },
+            "view_box": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/oneway"}],
+              "description": "The shape's own box (x y width height), laid as a path lays it: its ratio kept, centred. Empty: a 1×1 box stretched to its own. — default \"\""
             }
           },
           "propertyNames": {
             "anyOf": [
-              {"enum": ["captions", "disabled", "label", "line", "shape", "steps", "value"]},
+              {
+                "enum": [
+                  "captions",
+                  "disabled",
+                  "label",
+                  "line",
+                  "over",
+                  "shape",
+                  "steps",
+                  "value",
+                  "view_box"
+                ]
+              },
               {"$ref": "#/$defs/runtime_property_name"}
             ]
           },
