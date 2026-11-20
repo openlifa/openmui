@@ -264,6 +264,11 @@ frame presented, visibility); the model is opensal's. A host MAY drive frames:
 `frame(time, events) → (semantic delta, display list, damage)` — the form of
 headless operation and game-engine embedding.
 
+Where it has one, a host also keeps the person's clipboard: a script puts text
+on it with `copy()` (`omuiCopyText`), and nothing is read back. A host MAY
+allow it only while it handles the person's input (a browser does); a host
+without a clipboard keeps the text for the runtime's own reads.
+
 ### 6.1 Input events
 
 An event's wire form (C-3; a frame's `events_json`, a recorded session) is an

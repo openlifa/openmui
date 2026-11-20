@@ -1125,6 +1125,20 @@
         }
       ],
       "doc": "Adds a task to begin with (§5): {\"name\": \"export-the-settings\", \"summary\": \"…\", \"steps\": [{\"verb\": \"settings.export\", \"args\": {…}}, {\"node\": \"main/dark\", \"action\": \"toggle\", \"dry_run\": true}]}. Agents find it beside the interface's own tasks and run it as written. Refused, with the sink receiving why: a name that is not lower-case words joined by hyphens or is taken, no summary, no step, a step neither a verb nor a node's action, a verb not registered or the person's alone, a step that needs an answer and is not a dry run."
+    },
+    {
+      "name": "omuiCopyText",
+      "params": [
+        {
+          "name": "rt",
+          "type": "OmuiRuntime"
+        },
+        {
+          "name": "text",
+          "type": "OmuiString"
+        }
+      ],
+      "doc": "Puts UTF-8 text on the person's clipboard (§6), where the host has one and allows it now (a browser: while it handles the person's input); a host without one keeps it for the runtime's own reads. Nothing is read back: a script cannot see the clipboard."
     }
   ]
 }
