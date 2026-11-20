@@ -274,6 +274,8 @@ export declare function model<T = any>(name: string): Model<T>;
 export declare function theme(...layers: string[]): void;
 export declare function theme(layers: readonly string[]): void;
 export declare function log(...values: unknown[]): void;
+/** Puts text on the person's clipboard, where the host has one and allows it now (a browser: in a handler of the person's input, as a press). Nothing is read back. */
+export declare function copy(text: string): void;
 /** What a call into the runtime refused, with its code. */
 export declare class OmuiError extends Error {}
 
