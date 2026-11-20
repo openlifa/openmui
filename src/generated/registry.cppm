@@ -489,13 +489,14 @@ struct MotionSlot {
     std::string_view doc;
 };
 
-inline constexpr std::array<MotionSlot, 6> motion_slots{{
+inline constexpr std::array<MotionSlot, 7> motion_slots{{
     {"update", "the node's drawing changed while it stayed (a value, a label, a colour)"},
     {"enter", "the node appeared (mounted, shown, revealed)"},
     {"exit", "the node is going (unmounted, hidden); it is drawn until its motion ends"},
     {"state", "an interaction state changed (hovered, pressed, focused, checked …)"},
     {"reorder", "the node kept its drawing but moved among its siblings"},
     {"replace", "the node's content was replaced by other content under the same key"},
+    {"ambient", "nothing changed: the node moves by itself while it is shown (a breath, a pulse), at rest under reduced motion and while none of it is seen"},
 }};
 
 // The built-in motion recipes (motion.json `recipe`, spec M-8): primitives
@@ -508,7 +509,7 @@ struct MotionRecipe {
     std::string_view doc;
 };
 
-inline constexpr std::array<MotionRecipe, 27> motion_recipes{{
+inline constexpr std::array<MotionRecipe, 28> motion_recipes{{
     {"none", "", "", "", "No motion: the new drawing at once."},
     {"morph", "match_drawing match_glyphs fade", "spring(170, 26)", "", "The node's two drawings matched (by node, meaning and glyph) and drawn between."},
     {"simple", "match_drawing match_glyphs fade", "tween(160)", "", "A morph on a short tween."},
@@ -536,6 +537,7 @@ inline constexpr std::array<MotionRecipe, 27> motion_recipes{{
     {"press.squash", "match_drawing match_glyphs fade press", "tween(450)", "", "Pressed: the control pressed in about the finger and ringing back like rubber; let go, a little spring outwards."},
     {"default.rows", "match_drawing match_glyphs fade arrivals", "motion.spring.gentle", "", "Rows opened under a row arrive one after another in document order (staggered arrivals only, a part's pieces as one); what was there moves at once."},
     {"default.press", "match_drawing match_glyphs fade press", "tween(100)", "", "A button's states: hovered and focused quickly; pressed, in about the finger and ringing back out over a course of its own (450 ms), springing a little on release."},
+    {"breathe", "breathe", "tween(3200)", "", "An ambient slot's: the drawing swells a little about its centre and fades with it, and back, once each timing's length, for as long as it is shown."},
 }};
 
 [[nodiscard]] constexpr const MotionRecipe* find_motion_recipe(std::string_view name) noexcept {

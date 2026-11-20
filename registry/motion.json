@@ -132,6 +132,10 @@
     {
       "name": "replace",
       "doc": "the node's content was replaced by other content under the same key"
+    },
+    {
+      "name": "ambient",
+      "doc": "nothing changed: the node moves by itself while it is shown (a breath, a pulse), at rest under reduced motion and while none of it is seen"
     }
   ],
   "recipe": [
@@ -416,6 +420,12 @@
       ],
       "timing": "tween(100)",
       "doc": "A button's states: hovered and focused quickly; pressed, in about the finger and ringing back out over a course of its own (450 ms), springing a little on release."
+    },
+    {
+      "name": "breathe",
+      "primitives": ["breathe"],
+      "timing": "tween(3200)",
+      "doc": "An ambient slot's: the drawing swells a little about its centre and fades with it, and back, once each timing's length, for as long as it is shown."
     }
   ],
   "presence": [
@@ -643,6 +653,6 @@
   ],
   "token_doc": "Motion tokens: the names components and themes use. A theme may re-map them.",
   "slot_doc": "Motion slots (spec §10, M-7), in order: when a node's drawing changes, which slot the change is decides the motion. A node's `motion` property and a style pack's motion rules fill slots with recipes; components only draw their state.",
-  "recipe_doc": "Built-in recipes (M-8): ids a slot can name. A recipe composes primitives over a timing (a motion token's name, \"tween(ms)\" or \"spring(k, c[, m])\"), and may carry an effect that rises and falls while the change moves. Ids are append-only; a style pack may define more under its own prefix. primitives  match_drawing match_glyphs fade lift panel_lift grow check_grow stretch stagger distance readable_text write (strokes that appear are drawn along their length, those that go undrawn), drop (what appears falls in along fall(0.45, 2) and flattens about its bottom on landing), noise (a moving piece wanders on its way, exact at both ends), reshape (a glyph replaced in a matched run morphs its outline into its replacement's, contour by contour), press (a state change under the pointer presses the drawing in about the finger, or springs it out on release, ringing to rest), arrivals (staggered in document order over what arrives only, a declared part's pieces as one)",
+  "recipe_doc": "Built-in recipes (M-8): ids a slot can name. A recipe composes primitives over a timing (a motion token's name, \"tween(ms)\" or \"spring(k, c[, m])\"), and may carry an effect that rises and falls while the change moves. Ids are append-only; a style pack may define more under its own prefix. primitives  match_drawing match_glyphs fade lift panel_lift grow check_grow stretch stagger distance readable_text write (strokes that appear are drawn along their length, those that go undrawn), drop (what appears falls in along fall(0.45, 2) and flattens about its bottom on landing), noise (a moving piece wanders on its way, exact at both ends), reshape (a glyph replaced in a matched run morphs its outline into its replacement's, contour by contour), press (a state change under the pointer presses the drawing in about the finger, or springs it out on release, ringing to rest), arrivals (staggered in document order over what arrives only, a declared part's pieces as one), breathe (an ambient slot's: with w = (1 − cos(2π t / T)) / 2, t the time since the node was first drawn and T the timing's length, the drawing is scaled by 1 + 0.04 w about its centre and its opacity by 1 − 0.4 w)",
   "presence_doc": "Presences (M-10): how something comes in or goes out, defined once — hanim.core's presences (`hanim::presence`), which hanim's entrance and exit recipes play on objects and a UI transition plays on the pieces of a drawing that appear or vanish. A slot's enter or exit may name one, with `options` over its defaults: distance, offset, scale, radians, height; fade (the window's inner bound: an entrance turns opaque over [fade, 1] of its progress, an exit transparent over [0, fade]); duration, ease. The defaults are in each one's doc. Names are append-only."
 }

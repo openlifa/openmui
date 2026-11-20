@@ -66,6 +66,7 @@
         "max_width",
         "min_height",
         "min_width",
+        "motion",
         "opacity",
         "origin",
         "overflow",
