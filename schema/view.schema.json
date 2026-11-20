@@ -1739,6 +1739,10 @@
               "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
               "description": "The address (http, https, mailto) the system opens. — default \"\" (bindable)"
             },
+            "icon": {
+              "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
+              "description": "An icon before its text, or alone where it has none (its name then its `label`): SVG path data in a 24-unit square, as icon sets draw them, filled in the link's colour. — default \"\" (bindable)"
+            },
             "text": {
               "anyOf": [{"type": "string"}, {"$ref": "#/$defs/binding"}],
               "description": "What it says, also its name. — default \"\" (bindable)"
@@ -1750,7 +1754,7 @@
           },
           "propertyNames": {
             "anyOf": [
-              {"enum": ["disabled", "href", "text", "verb"]},
+              {"enum": ["disabled", "href", "icon", "text", "verb"]},
               {"$ref": "#/$defs/runtime_property_name"}
             ]
           },
