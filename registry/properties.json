@@ -75,6 +75,12 @@
       "type": "string",
       "roles": ["none"],
       "doc": "A comment's text: no rendering shows it; a rendering that writes the document's source keeps it."
+    },
+    {
+      "name": "output",
+      "type": "bool",
+      "roles": [],
+      "doc": "What the node holds is what a block of the document gives when it runs (a live example of a block of code): a rendering shows it; a rendering that writes the document's source leaves it out — the block says it."
     }
   ]
 }

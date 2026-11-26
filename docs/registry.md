@@ -138,6 +138,7 @@ The machine-readable tables of the specification. Enumerators are append-only; t
 | `align` | enum: `left`, `center`, `right` | `cell`, `column_header`, `row_header` | How a table's cell is aligned. |
 | `raw` | enum: `html` | `code` | The text is markup embedded in the document, in this language. A rendering writes it out as markup only where the node's origin is `app` (S-3). |
 | `comment` | string | `none` | A comment's text: no rendering shows it; a rendering that writes the document's source keeps it. |
+| `output` | bool | any | What the node holds is what a block of the document gives when it runs (a live example of a block of code): a rendering shows it; a rendering that writes the document's source leaves it out — the block says it. |
 
 ## Marks
 
