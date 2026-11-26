@@ -93,7 +93,9 @@ object of named, typed values (registry/properties.json): a heading's `level`
 and `anchor`, a link's `href`, a block of code's `language`, a list's `start`.
 Every rendering of the tree reads them from there — the pixels, an HTML or a
 Markdown writing of the document, an accessibility tree, an agent — so a
-writing of the document loses nothing the tree holds.
+writing of the document loses nothing the tree holds. What a block of the
+document gives when it runs (a live example of a block of code) is marked
+`output`: it is shown, and is no part of the document's source — the block is.
 
 - **S-16** A property's name MUST be one the registry lists, or a vendor's
   (`vendor.name`: it holds a `.`). A listed property's value MUST be of its

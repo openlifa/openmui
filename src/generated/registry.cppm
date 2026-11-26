@@ -361,9 +361,10 @@ enum class NodeProperty : std::uint8_t {
     align,
     raw,
     comment,
+    output,
 };
 
-inline constexpr std::array<NodePropertyInfo, 12> node_properties{{
+inline constexpr std::array<NodePropertyInfo, 13> node_properties{{
     {"level", PropType::i64, node_property_roles_level, {}, "A heading's level, 1 to 6 (also its `value`)."},
     {"anchor", PropType::string, {}, {}, "The fragment that names the node in its document (`#anchor`)."},
     {"href", PropType::string, node_property_roles_href, {}, "A link's address as written; not resolved."},
@@ -376,6 +377,7 @@ inline constexpr std::array<NodePropertyInfo, 12> node_properties{{
     {"align", PropType::choice, node_property_roles_align, node_property_values_align, "How a table's cell is aligned."},
     {"raw", PropType::choice, node_property_roles_raw, node_property_values_raw, "The text is markup embedded in the document, in this language. A rendering writes it out as markup only where the node's origin is `app` (S-3)."},
     {"comment", PropType::string, node_property_roles_comment, {}, "A comment's text: no rendering shows it; a rendering that writes the document's source keeps it."},
+    {"output", PropType::boolean, {}, {}, "What the node holds is what a block of the document gives when it runs (a live example of a block of code): a rendering shows it; a rendering that writes the document's source leaves it out — the block says it."},
 }};
 
 [[nodiscard]] constexpr std::string_view name(NodeProperty v) noexcept {
