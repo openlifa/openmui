@@ -1,0 +1,80 @@
+{
+  "doc": "properties — what a node of a document is beyond its text (S-16): a heading's level and anchor, a link's address, a code block's language. Each has a type (`bool`, `i64`, `string`, or `enum` with its `values`) and the roles it is stated on (none listed: any role). Append-only.",
+  "spec": "0.4",
+  "property": [
+    {
+      "name": "level",
+      "type": "i64",
+      "roles": ["heading"],
+      "doc": "A heading's level, 1 to 6 (also its `value`)."
+    },
+    {
+      "name": "anchor",
+      "type": "string",
+      "roles": [],
+      "doc": "The fragment that names the node in its document (`#anchor`)."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "roles": ["link"],
+      "doc": "A link's address as written; not resolved."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "roles": ["link", "image"],
+      "doc": "A link's or an image's title."
+    },
+    {
+      "name": "source",
+      "type": "string",
+      "roles": ["image"],
+      "doc": "An image's source as written; not resolved."
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "roles": ["code"],
+      "doc": "The language of a block of code (`cpp`, `ts`)."
+    },
+    {
+      "name": "ordered",
+      "type": "bool",
+      "roles": ["list"],
+      "doc": "The list's items are numbered."
+    },
+    {
+      "name": "start",
+      "type": "i64",
+      "roles": ["list"],
+      "doc": "The number of an ordered list's first item."
+    },
+    {
+      "name": "tight",
+      "type": "bool",
+      "roles": ["list"],
+      "doc": "The list's items are set close: their paragraphs are not set apart."
+    },
+    {
+      "name": "align",
+      "type": "enum",
+      "values": ["left", "center", "right"],
+      "roles": ["cell", "column_header", "row_header"],
+      "doc": "How a table's cell is aligned."
+    },
+    {
+      "name": "raw",
+      "type": "enum",
+      "values": ["html"],
+      "roles": ["code"],
+      "doc": "The text is markup embedded in the document, in this language. A rendering writes it out as markup only where the node's origin is `app` (S-3)."
+    },
+    {
+      "name": "comment",
+      "type": "string",
+      "roles": ["none"],
+      "doc": "A comment's text: no rendering shows it; a rendering that writes the document's source keeps it."
+    }
+  ]
+}

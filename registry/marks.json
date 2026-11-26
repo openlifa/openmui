@@ -1,0 +1,20 @@
+{
+  "doc": "marks — what a range of a node's text is (S-17): emphasis, a run of code, the place of a link. A mark states a meaning, not a look; where ARIA has a role of the same meaning it is named. Append-only: the order is the enumerator's value.",
+  "spec": "0.4",
+  "mark": [
+    { "name": "emphasis", "aria": "emphasis", "doc": "Stressed text." },
+    { "name": "strong", "aria": "strong", "doc": "Text of strong importance." },
+    { "name": "code", "aria": "code", "doc": "A run of code." },
+    { "name": "deletion", "aria": "deletion", "doc": "Text struck out." },
+    { "name": "insertion", "aria": "insertion", "doc": "Text added." },
+    { "name": "underline", "aria": "", "doc": "Text set apart by a line under it, with no further meaning." },
+    { "name": "mark", "aria": "mark", "doc": "Text marked for reference (highlighted)." },
+    { "name": "subscript", "aria": "subscript", "doc": "Text set below the line." },
+    { "name": "superscript", "aria": "superscript", "doc": "Text set above the line." },
+    { "name": "math", "aria": "math", "doc": "A formula in the line, in its source notation." },
+    { "name": "math_display", "aria": "math", "doc": "A formula set on its own, in its source notation." },
+    { "name": "raw", "aria": "", "doc": "Markup embedded in the text, verbatim; written out as markup only where the node's origin is `app` (S-3)." },
+    { "name": "link", "aria": "link", "node": true, "doc": "The place of a link: the child node it names holds the address." },
+    { "name": "image", "aria": "image", "node": true, "doc": "The place of an image: the range is its text alternative, the child node it names holds the source." }
+  ]
+}

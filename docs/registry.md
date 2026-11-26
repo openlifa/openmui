@@ -122,6 +122,42 @@ The machine-readable tables of the specification. Enumerators are append-only; t
 | `user_content` | Entered by a user (a note, a message being written). |
 | `remote` | Received from elsewhere (a web page, an e-mail, a model's output). |
 
+## Node properties
+
+| Property | Type | Roles | Meaning |
+|---|---|---|---|
+| `level` | i64 | `heading` | A heading's level, 1 to 6 (also its `value`). |
+| `anchor` | string | any | The fragment that names the node in its document (`#anchor`). |
+| `href` | string | `link` | A link's address as written; not resolved. |
+| `title` | string | `link`, `image` | A link's or an image's title. |
+| `source` | string | `image` | An image's source as written; not resolved. |
+| `language` | string | `code` | The language of a block of code (`cpp`, `ts`). |
+| `ordered` | bool | `list` | The list's items are numbered. |
+| `start` | i64 | `list` | The number of an ordered list's first item. |
+| `tight` | bool | `list` | The list's items are set close: their paragraphs are not set apart. |
+| `align` | enum: `left`, `center`, `right` | `cell`, `column_header`, `row_header` | How a table's cell is aligned. |
+| `raw` | enum: `html` | `code` | The text is markup embedded in the document, in this language. A rendering writes it out as markup only where the node's origin is `app` (S-3). |
+| `comment` | string | `none` | A comment's text: no rendering shows it; a rendering that writes the document's source keeps it. |
+
+## Marks
+
+| # | Mark | ARIA | A child node's place | Meaning |
+|---|---|---|---|---|
+| 0 | `emphasis` | emphasis |  | Stressed text. |
+| 1 | `strong` | strong |  | Text of strong importance. |
+| 2 | `code` | code |  | A run of code. |
+| 3 | `deletion` | deletion |  | Text struck out. |
+| 4 | `insertion` | insertion |  | Text added. |
+| 5 | `underline` |  |  | Text set apart by a line under it, with no further meaning. |
+| 6 | `mark` | mark |  | Text marked for reference (highlighted). |
+| 7 | `subscript` | subscript |  | Text set below the line. |
+| 8 | `superscript` | superscript |  | Text set above the line. |
+| 9 | `math` | math |  | A formula in the line, in its source notation. |
+| 10 | `math_display` | math |  | A formula set on its own, in its source notation. |
+| 11 | `raw` |  |  | Markup embedded in the text, verbatim; written out as markup only where the node's origin is `app` (S-3). |
+| 12 | `link` | link | yes | The place of a link: the child node it names holds the address. |
+| 13 | `image` | image | yes | The place of an image: the range is its text alternative, the child node it names holds the source. |
+
 ## Actions
 
 | Action | Default effect | Arguments | Meaning |

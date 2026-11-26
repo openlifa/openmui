@@ -325,6 +325,123 @@ inline constexpr std::array<OriginInfo, 3> origins{{
     return std::nullopt;
 }
 
+struct NodePropertyInfo {
+    std::string_view                  name;
+    PropType                          type;
+    std::span<const Role>             roles;   // none: any role
+    std::span<const std::string_view> values;  // an enum's
+    std::string_view                  doc;
+};
+
+inline constexpr Role node_property_roles_level[] = {Role::heading};
+inline constexpr Role node_property_roles_href[] = {Role::link};
+inline constexpr Role node_property_roles_title[] = {Role::link, Role::image};
+inline constexpr Role node_property_roles_source[] = {Role::image};
+inline constexpr Role node_property_roles_language[] = {Role::code};
+inline constexpr Role node_property_roles_ordered[] = {Role::list};
+inline constexpr Role node_property_roles_start[] = {Role::list};
+inline constexpr Role node_property_roles_tight[] = {Role::list};
+inline constexpr Role node_property_roles_align[] = {Role::cell, Role::column_header, Role::row_header};
+inline constexpr std::string_view node_property_values_align[] = {"left", "center", "right"};
+inline constexpr Role node_property_roles_raw[] = {Role::code};
+inline constexpr std::string_view node_property_values_raw[] = {"html"};
+inline constexpr Role node_property_roles_comment[] = {Role::none};
+
+// What a node of a document is beyond its text (properties.json; S-16).
+enum class NodeProperty : std::uint8_t {
+    level,
+    anchor,
+    href,
+    title,
+    source,
+    language,
+    ordered,
+    start,
+    tight,
+    align,
+    raw,
+    comment,
+};
+
+inline constexpr std::array<NodePropertyInfo, 12> node_properties{{
+    {"level", PropType::i64, node_property_roles_level, {}, "A heading's level, 1 to 6 (also its `value`)."},
+    {"anchor", PropType::string, {}, {}, "The fragment that names the node in its document (`#anchor`)."},
+    {"href", PropType::string, node_property_roles_href, {}, "A link's address as written; not resolved."},
+    {"title", PropType::string, node_property_roles_title, {}, "A link's or an image's title."},
+    {"source", PropType::string, node_property_roles_source, {}, "An image's source as written; not resolved."},
+    {"language", PropType::string, node_property_roles_language, {}, "The language of a block of code (`cpp`, `ts`)."},
+    {"ordered", PropType::boolean, node_property_roles_ordered, {}, "The list's items are numbered."},
+    {"start", PropType::i64, node_property_roles_start, {}, "The number of an ordered list's first item."},
+    {"tight", PropType::boolean, node_property_roles_tight, {}, "The list's items are set close: their paragraphs are not set apart."},
+    {"align", PropType::choice, node_property_roles_align, node_property_values_align, "How a table's cell is aligned."},
+    {"raw", PropType::choice, node_property_roles_raw, node_property_values_raw, "The text is markup embedded in the document, in this language. A rendering writes it out as markup only where the node's origin is `app` (S-3)."},
+    {"comment", PropType::string, node_property_roles_comment, {}, "A comment's text: no rendering shows it; a rendering that writes the document's source keeps it."},
+}};
+
+[[nodiscard]] constexpr std::string_view name(NodeProperty v) noexcept {
+    auto i = static_cast<std::size_t>(v);
+    return i < node_properties.size() ? node_properties[i].name : std::string_view{};
+}
+
+[[nodiscard]] constexpr std::optional<NodeProperty> parse_node_property(std::string_view text) noexcept {
+    for (std::size_t i = 0; i < node_properties.size(); ++i)
+        if (node_properties[i].name == text) return static_cast<NodeProperty>(i);
+    return std::nullopt;
+}
+
+struct MarkInfo {
+    std::string_view name;
+    std::string_view aria;
+    bool             node;  // the range is a child node's place
+    std::string_view doc;
+};
+
+// What a range of a node's text is (marks.json; S-17).
+enum class MarkKind : std::uint8_t {
+    emphasis,
+    strong,
+    code,
+    deletion,
+    insertion,
+    underline,
+    mark,
+    subscript,
+    superscript,
+    math,
+    math_display,
+    raw,
+    link,
+    image,
+};
+
+inline constexpr std::array<MarkInfo, 14> marks{{
+    {"emphasis", "emphasis", false, "Stressed text."},
+    {"strong", "strong", false, "Text of strong importance."},
+    {"code", "code", false, "A run of code."},
+    {"deletion", "deletion", false, "Text struck out."},
+    {"insertion", "insertion", false, "Text added."},
+    {"underline", "", false, "Text set apart by a line under it, with no further meaning."},
+    {"mark", "mark", false, "Text marked for reference (highlighted)."},
+    {"subscript", "subscript", false, "Text set below the line."},
+    {"superscript", "superscript", false, "Text set above the line."},
+    {"math", "math", false, "A formula in the line, in its source notation."},
+    {"math_display", "math", false, "A formula set on its own, in its source notation."},
+    {"raw", "", false, "Markup embedded in the text, verbatim; written out as markup only where the node's origin is `app` (S-3)."},
+    {"link", "link", true, "The place of a link: the child node it names holds the address."},
+    {"image", "image", true, "The place of an image: the range is its text alternative, the child node it names holds the source."},
+}};
+
+[[nodiscard]] constexpr std::string_view name(MarkKind v) noexcept {
+    auto i = static_cast<std::size_t>(v);
+    return i < marks.size() ? marks[i].name : std::string_view{};
+}
+
+[[nodiscard]] constexpr std::optional<MarkKind> parse_mark(std::string_view text) noexcept {
+    for (std::size_t i = 0; i < marks.size(); ++i)
+        if (marks[i].name == text) return static_cast<MarkKind>(i);
+    return std::nullopt;
+}
+
 inline constexpr ArgInfo action_args_set_value[] = {{"value", "any"}};
 inline constexpr ArgInfo action_args_scroll_to[] = {{"x", "f64 | end | page | -page"}, {"y", "f64 | end | page | -page"}};
 inline constexpr ArgInfo action_args_scroll_by[] = {{"dx", "f64 | page | -page"}, {"dy", "f64 | page | -page"}};

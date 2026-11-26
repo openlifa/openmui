@@ -44,12 +44,43 @@ struct ActionDesc {
     }
 };
 
+// What a range of a node's text is (S-17): `start` and `end` count Unicode code points of the node's name, `end`
+// excluded; a link's or an image's names the child that is it.
+struct Mark {
+    MarkKind      kind = MarkKind::emphasis;
+    std::uint32_t start = 0;
+    std::uint32_t end = 0;
+    std::string   node;
+
+    friend bool operator==(const Mark& a, const Mark& b) noexcept {
+        return a.kind == b.kind && a.start == b.start && a.end == b.end && a.node == b.node;
+    }
+};
+
+// S-17's unit against UTF-8: how many code points `text` holds (a byte that continues one is not counted), and the
+// byte at which code point `index` begins (the text's size at or past its end).
+[[nodiscard]] constexpr std::uint32_t code_points(std::string_view text) noexcept {
+    std::uint32_t count = 0;
+    for (const char c : text) count += (static_cast<unsigned char>(c) & 0xC0) != 0x80;
+    return count;
+}
+[[nodiscard]] constexpr std::size_t byte_of_code_point(std::string_view text, std::uint32_t index) noexcept {
+    std::uint32_t count = 0;
+    for (std::size_t at = 0; at < text.size(); ++at)
+        if ((static_cast<unsigned char>(text[at]) & 0xC0) != 0x80 && count++ == index) return at;
+    return text.size();
+}
+
 struct SemanticNode {
     std::string             id;
     Role                    role = Role::generic;
     std::string             name;
     std::string             description;
     Value                   value;
+    // What the node is beyond its text (registry/properties.json; S-16): an object of named values, null when none.
+    Value                   properties;
+    // What the parts of `name` are (registry/marks.json; S-17), by start, the longer first.
+    std::vector<Mark>       marks;
     Origin                  origin = Origin::app;
     StateSet                states;
     std::vector<ActionDesc> actions;
@@ -64,7 +95,8 @@ struct SemanticNode {
 
     friend bool operator==(const SemanticNode& a, const SemanticNode& b) noexcept {
         return a.id == b.id && a.role == b.role && a.name == b.name && a.description == b.description &&
-               a.value == b.value && a.origin == b.origin && a.states == b.states && a.actions == b.actions &&
+               a.value == b.value && a.properties == b.properties && a.marks == b.marks && a.origin == b.origin && a.states == b.states &&
+               a.actions == b.actions &&
                a.bounds == b.bounds && a.children == b.children;
     }
 };

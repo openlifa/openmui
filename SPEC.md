@@ -9,8 +9,9 @@ grants under an application's cap (S-11, §14), and undo, transactions and dry
 runs (S-12, S-13); version 0.4 adds a person's direct operation and taking over
 (S-14, S-15), theme scopes (ST-4), the motion slots, the built-in recipes and
 presences (§10, M-7 to M-10), TypeScript as the one script language with its
-declarations normative (stubs/), the view schema over the Core components, and
-the names of declared data files and of their snapshots' format (`$format`). The tables it refers to are in
+declarations normative (stubs/), the view schema over the Core components,
+the names of declared data files and of their snapshots' format (`$format`), and
+a document's node: its typed properties and the marks over its text (S-16, S-17). The tables it refers to are in
 [docs/registry.md](docs/registry.md), generated from [registry/](registry/); where
 the two disagree, the registry is right and this text is wrong. The registry and
 the data formats this text defines are JSON: a JSON snapshot is a file's
@@ -81,10 +82,41 @@ stable across versions (G-2).
 
 A node has an `id`, a `role`, a `name`, a `description`, a `value`, an
 `origin`, a set of `state` bits, a list of `actions`, optional `bounds` and the
-ids of its `children` (docs/registry.md lists roles and states). Its wire form
+ids of its `children` (docs/registry.md lists roles and states), and, for a
+node of a document, its `properties` and `marks` (below). Its wire form
 is a JSON object with those keys; enumerations are written by name; absent
 fields are omitted. A heading's `value` is its level, 1 to 6: a view makes any
 node a heading with the properties `role` and `level`.
+
+A node of a document says what it is beyond its text in `properties`, an
+object of named, typed values (registry/properties.json): a heading's `level`
+and `anchor`, a link's `href`, a block of code's `language`, a list's `start`.
+Every rendering of the tree reads them from there — the pixels, an HTML or a
+Markdown writing of the document, an accessibility tree, an agent — so a
+writing of the document loses nothing the tree holds.
+
+- **S-16** A property's name MUST be one the registry lists, or a vendor's
+  (`vendor.name`: it holds a `.`). A listed property's value MUST be of its
+  type (an `enum`'s, one of its values), on a node whose role is one of the
+  property's roles (a property that lists none is stated on any). A reader
+  keeps a property it does not know and gives it no meaning. What a property
+  states is not also put in `description` or `value` (a heading's level
+  excepted: `value` holds it as before).
+
+A node's text (`name`) says what its parts are in `marks`: a list of ranges,
+each `{kind, start, end}` with `kind` one of registry/marks.json — `emphasis`,
+`strong`, `code`, `deletion`, the place of a `link`. A mark is a meaning, not
+a look. What a person or an agent operates is a node: a `link` or `image` mark
+names, in `node`, the child that is the link or the image, and the range is
+where it stands in the text. A hard line break is the line feed in `name`.
+
+- **S-17** A mark's `start` and `end` count Unicode code points of `name`
+  (scalar values, from 0; `end` excluded) — a unit no encoding and no version
+  of Unicode moves — with `0 ≤ start ≤ end ≤` the length. Marks are listed by
+  `start`, the longer first where two begin together; two marks nest or do not
+  meet (a writer splits formatting that crosses). A mark whose kind the
+  registry gives a node MUST name one of the node's children in `node`; no
+  other mark has one. A reader ignores a mark whose kind it does not know.
 
 `bounds` are in logical pixels. While a node animates, its bounds and values
 are those of the **target** state (state `animating`).

@@ -9,7 +9,7 @@
 [package]
 namespace   = "openlifa"
 name        = "openmui"
-version     = "0.4.12"
+version     = "0.4.13"
 description = "openmui: the semantic tree, view IR, state and verbs, host, render and C ABI contracts — the specification and its C++ module"
 license     = "Apache-2.0"
 authors     = ["OpenLifa", "Sunrisepeak"]
